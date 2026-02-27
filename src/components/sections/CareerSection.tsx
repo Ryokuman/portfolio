@@ -1,6 +1,6 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import TimelineItem from "@/components/ui/TimelineItem";
-import { workExperience, education, certifications } from "@/data/career";
+import { workExperience, education, awards } from "@/data/career";
 
 export default function CareerSection() {
   return (
@@ -8,7 +8,7 @@ export default function CareerSection() {
       <div className="mx-auto max-w-3xl">
         <SectionHeading
           title="Career"
-          subtitle="경력, 학력, 자격증을 소개합니다"
+          subtitle="경력, 학력, 수상을 소개합니다"
         />
 
         {workExperience.length > 0 && (
@@ -37,13 +37,13 @@ export default function CareerSection() {
           </div>
         )}
 
-        {certifications.length > 0 && (
+        {awards.length > 0 && (
           <div>
             <h3 className="mb-6 text-lg font-semibold text-gray-300">
-              Certifications
+              Awards
             </h3>
             <div>
-              {certifications.map((entry) => (
+              {awards.map((entry) => (
                 <TimelineItem key={entry.id} entry={entry} />
               ))}
             </div>

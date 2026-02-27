@@ -2,42 +2,37 @@ import type { CareerEntry } from "@/types";
 
 export const career: CareerEntry[] = [
   {
-    id: "work-1",
+    id: "poul",
     type: "work",
-    title: "Senior Developer",
-    organization: "Company Name",
-    period: "2023 - Present",
+    title: "풀스택 개발자",
+    organization: "POUL",
+    period: "2024.07 ~ 2025.08",
     description: [
-      "내부 도구 개발 리드",
-      "배포 파이프라인 개선",
-      "팀 생산성 향상 주도",
+      "CGV-ASSISTANT: CGV 협업 SI 프로젝트 — 영화 감정 분석 서비스 풀스택 개발",
+      "LLAMI: AI 통합 플랫폼 — 모델스토어, 라미앱, 봇스토어 풀스택 개발",
+      "LLM-WORKER: 17개 LLM API 추상화 SaaS 서버 개발",
+      "LLAMI-APP: Expo 기반 앱 프론트엔드 — Bridge/ReverseBridge 시스템 설계",
     ],
-    techStack: ["React", "TypeScript", "AWS"],
-  },
-  {
-    id: "work-2",
-    type: "work",
-    title: "Frontend Developer",
-    organization: "Previous Company",
-    period: "2021 - 2023",
-    description: [
-      "웹 애플리케이션 프론트엔드 개발",
-      "UI/UX 개선 및 성능 최적화",
-    ],
-    techStack: ["React", "Next.js", "Tailwind CSS"],
+    techStack: ["Next.js", "TypeScript", "ElysiaJS", "Expo", "Supabase"],
   },
   {
     id: "edu-1",
     type: "education",
-    title: "컴퓨터공학 학사",
-    organization: "University Name",
-    period: "2017 - 2021",
-    description: ["관련 교과 이수", "졸업 프로젝트 수행"],
+    title: "컴퓨터공학과 학사 (중퇴)",
+    organization: "성결대학교",
+    period: "2017.02 ~ 2023.08",
+    description: [],
+  },
+  {
+    id: "award-1",
+    type: "award",
+    title: "Silicon Valley Boot Camp 최우수",
+    organization: "한국 공학대학교",
+    period: "2022",
+    description: ["reBike 프로젝트로 최우수상 수상"],
   },
 ];
 
 export const workExperience = career.filter((e) => e.type === "work");
 export const education = career.filter((e) => e.type === "education");
-export const certifications = career.filter(
-  (e) => e.type === "certification"
-);
+export const awards = career.filter((e) => e.type === "award");

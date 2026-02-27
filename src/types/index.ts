@@ -16,21 +16,33 @@ export interface SocialLink {
   url: string;
 }
 
+export interface ProjectDetailSection {
+  title: string;
+  period?: string;
+  content: string[];
+  techStack?: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
+  role?: string;
   featured: boolean;
   achievements?: string[];
   techStack: string[];
-  liveUrl?: string;
+  primaryTech: string;
+  thumbnail?: string;
+  video?: string;
+  gradient: string;
   githubUrl?: string;
   period?: string;
+  details?: ProjectDetailSection[];
 }
 
 export interface CareerEntry {
   id: string;
-  type: "work" | "education" | "certification";
+  type: "work" | "education" | "award";
   title: string;
   organization: string;
   period: string;

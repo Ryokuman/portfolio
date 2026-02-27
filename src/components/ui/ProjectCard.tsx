@@ -1,75 +1,99 @@
 "use client";
 
+import { useRef } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { scaleIn } from "@/lib/animations";
 import type { Project } from "@/types";
-import TechBadge from "./TechBadge";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const hasMedia = project.video || project.thumbnail;
+
   return (
-    <motion.div
-      variants={scaleIn}
-      whileHover={{ y: -3 }}
-      className="group rounded-lg border border-gray-800 bg-gray-900/50 p-5 transition-colors hover:border-gray-700"
-    >
-      <h3 className="font-semibold text-gray-100">{project.title}</h3>
-      <p className="mt-2 text-sm text-gray-400 leading-relaxed">
-        {project.description}
-      </p>
+    <Link href={`/projects/${project.id}`}>
+      <motion.div
+        variants={scaleIn}
+        whileHover={{ y: -6, scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="group relative cursor-pointer overflow-hidden rounded-2xl"
+        onMouseEnter={() => videoRef.current?.play()}
+        onMouseLeave={() => {
+          if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+          }
+        }}
+      >
+        {/* Hero image / gradient background */}
+        <div
+          data-hero-key={`project-${project.id}`}
+          className={`relative aspect-[4/3] w-full bg-gradient-to-br ${project.gradient}`}
+        >
+          {/* Video thumbnail */}
+          {project.video && (
+            <video
+              ref={videoRef}
+              src={project.video}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
 
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {project.techStack.map((tech) => (
-          <span
-            key={tech}
-            className="rounded bg-gray-800 px-2 py-0.5 text-xs text-gray-400"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
+          {/* Image thumbnail (fallback if no video) */}
+          {!project.video && project.thumbnail && (
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
 
-      <div className="mt-4 flex gap-3">
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-blue-400"
-          >
-            <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
-            Code
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-blue-400"
-          >
-            <svg
-              className="h-3.5 w-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-              />
-            </svg>
-            Live
-          </a>
-        )}
-      </div>
-    </motion.div>
+          {/* Decorative pattern (fallback if no media) */}
+          {!hasMedia && (
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute right-6 top-6 h-32 w-32 rounded-full border-2 border-white/30" />
+              <div className="absolute right-12 top-12 h-20 w-20 rounded-full border-2 border-white/20" />
+              <div className="absolute bottom-8 left-8 h-16 w-16 rounded-lg border-2 border-white/20 rotate-12" />
+            </div>
+          )}
+
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+          {/* Tags floating on image */}
+          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+            <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+              {project.primaryTech}
+            </span>
+          </div>
+
+          {/* Play indicator for video */}
+          {project.video && (
+            <div className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                <div className="ml-0.5 h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-white" />
+              </div>
+            </div>
+          )}
+
+          {/* Bottom content */}
+          <div className="absolute inset-x-0 bottom-0 p-5">
+            <h3 className="text-xl font-bold text-white drop-shadow-lg">
+              {project.title}
+            </h3>
+            <p className="mt-1 text-sm text-white/70">{project.period}</p>
+          </div>
+        </div>
+      </motion.div>
+    </Link>
   );
 }

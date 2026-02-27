@@ -11,13 +11,13 @@ interface TimelineItemProps {
 const typeLabels: Record<CareerEntry["type"], string> = {
   work: "Work",
   education: "Education",
-  certification: "Certification",
+  award: "Award",
 };
 
 const typeColors: Record<CareerEntry["type"], string> = {
   work: "bg-blue-500",
   education: "bg-emerald-500",
-  certification: "bg-amber-500",
+  award: "bg-amber-500",
 };
 
 export default function TimelineItem({ entry }: TimelineItemProps) {

@@ -1,29 +1,28 @@
 import type { Profile } from "@/types";
 
 export const profile: Profile = {
-  name: "Your Name",
-  tagline: "Full-Stack Developer",
+  name: "김용민",
+  tagline: "Full Stack Developer",
   bio: [
-    "안녕하세요! 다양한 웹 기술을 활용하여 사용자 경험을 개선하는 데 관심이 많은 개발자입니다.",
-    "효율적인 시스템 설계와 생산성 향상에 집중하며, 팀과 함께 성장하는 것을 좋아합니다.",
+    "4개의 개인, 협업 프로젝트 개발 경험이 있습니다.",
+    "팀 상황에 따라 여러가지 포지션을 능동적으로 맡아 처리하며, 소셜네트워크부터 AI 기술까지 다양한 도메인에서 새로운 기술 스택에 빠르게 적응하고 프로젝트 전체를 완주한 경험이 있습니다.",
   ],
   techStack: [
     {
       category: "Frontend",
-      items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Expo"],
     },
     {
       category: "Backend",
-      items: ["Node.js", "Python", "PostgreSQL"],
+      items: ["ElysiaJS", "Django", "Python", "Node.js"],
     },
     {
-      category: "DevOps",
-      items: ["Docker", "AWS", "GitHub Actions"],
+      category: "Infra / DB",
+      items: ["Docker", "AWS", "PostgreSQL", "Supabase", "GitHub Actions"],
     },
   ],
   social: [
-    { platform: "GitHub", url: "https://github.com/ryokuman" },
-    { platform: "LinkedIn", url: "https://linkedin.com/in/" },
-    { platform: "Email", url: "mailto:your@email.com" },
+    { platform: "GitHub", url: "https://github.com/Ryokuman" },
+    { platform: "Email", url: "mailto:ryokuman21@gmail.com" },
   ],
 };

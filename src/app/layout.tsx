@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SsgoiProvider from "@/components/layout/SsgoiProvider";
 import { profile } from "@/data/profile";
 
 const inter = Inter({
@@ -26,12 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="ko" className="scroll-smooth">
       <body
         className={`${inter.variable} ${jetbrains.variable} font-sans bg-gray-950 text-gray-100 antialiased`}
       >
         <Header />
-        <main>{children}</main>
+        <SsgoiProvider>{children}</SsgoiProvider>
         <Footer />
       </body>
     </html>
