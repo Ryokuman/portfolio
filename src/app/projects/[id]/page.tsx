@@ -1,3 +1,4 @@
+import { SsgoiTransition } from "@ssgoi/react";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import ProjectDetailClient from "./ProjectDetailClient";
@@ -20,5 +21,9 @@ export default async function ProjectDetailPage({ params }: Props) {
     notFound();
   }
 
-  return <ProjectDetailClient project={project} />;
+  return (
+    <SsgoiTransition id={`/projects/${id}`}>
+      <ProjectDetailClient project={project} />
+    </SsgoiTransition>
+  );
 }

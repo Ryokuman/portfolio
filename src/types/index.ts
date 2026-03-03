@@ -21,6 +21,7 @@ export interface ProjectDetailSection {
   period?: string;
   content: string[];
   techStack?: string[];
+  image?: string;
 }
 
 export interface Project {

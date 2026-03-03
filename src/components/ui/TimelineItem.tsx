@@ -30,7 +30,7 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
       className="relative pl-8 pb-8 last:pb-0"
     >
       {/* Timeline line */}
-      <div className="absolute left-[11px] top-2 bottom-0 w-px bg-gray-800 last:hidden" />
+      <div className="absolute left-[11px] top-2 bottom-0 w-px bg-gray-200 last:hidden" />
 
       {/* Timeline dot */}
       <div
@@ -39,24 +39,24 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
         <div className="h-2 w-2 rounded-full bg-white" />
       </div>
 
-      <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-5">
+      <div className="rounded-lg border border-gray-200 bg-gray-50 p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded bg-gray-800 px-2 py-0.5 text-xs text-gray-400">
+          <span className="rounded bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
             {typeLabels[entry.type]}
           </span>
-          <span className="text-sm text-gray-500">{entry.period}</span>
+          <span className="text-sm text-gray-400">{entry.period}</span>
         </div>
 
-        <h3 className="mt-2 font-semibold text-gray-100">{entry.title}</h3>
-        <p className="text-sm text-gray-400">{entry.organization}</p>
+        <h3 className="mt-2 font-semibold text-gray-900">{entry.title}</h3>
+        <p className="text-sm text-gray-500">{entry.organization}</p>
 
         <ul className="mt-3 space-y-1">
           {entry.description.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-2 text-sm text-gray-400"
+              className="flex items-start gap-2 text-sm text-gray-500"
             >
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gray-600" />
+              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gray-300" />
               {item}
             </li>
           ))}
@@ -67,7 +67,7 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
             {entry.techStack.map((tech) => (
               <span
                 key={tech}
-                className="rounded bg-gray-800 px-2 py-0.5 text-xs text-gray-400"
+                className="rounded bg-gray-200 px-2 py-0.5 text-xs text-gray-500"
               >
                 {tech}
               </span>

@@ -13,7 +13,7 @@ export default function CareerSection() {
 
         {workExperience.length > 0 && (
           <div className="mb-12">
-            <h3 className="mb-6 text-lg font-semibold text-gray-300">
+            <h3 className="mb-6 text-lg font-semibold text-gray-700">
               Experience
             </h3>
             <div>
@@ -26,7 +26,7 @@ export default function CareerSection() {
 
         {education.length > 0 && (
           <div className="mb-12">
-            <h3 className="mb-6 text-lg font-semibold text-gray-300">
+            <h3 className="mb-6 text-lg font-semibold text-gray-700">
               Education
             </h3>
             <div>
@@ -39,7 +39,7 @@ export default function CareerSection() {
 
         {awards.length > 0 && (
           <div>
-            <h3 className="mb-6 text-lg font-semibold text-gray-300">
+            <h3 className="mb-6 text-lg font-semibold text-gray-700">
               Awards
             </h3>
             <div>

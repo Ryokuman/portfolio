@@ -64,7 +64,7 @@ export default function SocialLink({ platform, url }: SocialLinkProps) {
       rel={url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
       whileHover={{ scale: 1.05, y: -2 }}
       whileTap={{ scale: 0.95 }}
-      className="inline-flex items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-5 py-3 text-gray-300 transition-colors hover:border-blue-500/50 hover:text-blue-400"
+      className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-600 transition-colors hover:border-blue-300 hover:text-blue-600"
     >
       <SocialIcon platform={platform} />
       <span className="text-sm font-medium">{platform}</span>

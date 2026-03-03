@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${jetbrains.variable} font-sans bg-gray-950 text-gray-100 antialiased`}
+        className={`${inter.variable} ${jetbrains.variable} font-sans bg-white text-gray-900 antialiased`}
       >
         <Header />
         <SsgoiProvider>{children}</SsgoiProvider>
