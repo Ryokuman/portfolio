@@ -8,13 +8,17 @@ import type { Project } from "@/types";
 import TechBadge from "@/components/ui/TechBadge";
 import Card from "@/components/ui/Card";
 import basePath from "@/lib/basePath";
+import { useT } from "@/i18n/useT";
+import { useProject } from "@/i18n/useData";
 
 interface Props {
   project: Project;
 }
 
-export default function ProjectDetailClient({ project }: Props) {
+export default function ProjectDetailClient({ project: serverProject }: Props) {
   const [leaving, setLeaving] = useState(false);
+  const t = useT();
+  const project = useProject(serverProject.id) ?? serverProject;
 
   useEffect(() => {
     const onPopState = () => setLeaving(true);
@@ -109,7 +113,7 @@ export default function ProjectDetailClient({ project }: Props) {
             {project.achievements && project.achievements.length > 0 && (
               <motion.div variants={fadeInUp} className="mt-10">
                 <h2 className="text-lg font-semibold text-gray-800">
-                  주요 성과
+                  {t("projects.achievements")}
                 </h2>
                 <div className="mt-4 space-y-3">
                   {project.achievements.map((achievement) => (
@@ -142,7 +146,7 @@ export default function ProjectDetailClient({ project }: Props) {
           {project.details && project.details.length > 0 && (
             <div className="mt-14">
               <h2 className="text-lg font-semibold text-gray-800 mb-5">
-                상세 내용
+                {t("projects.details")}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.details.map((section, idx) => (
@@ -190,7 +194,7 @@ export default function ProjectDetailClient({ project }: Props) {
                   d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
                 />
               </svg>
-              프로젝트 목록으로
+              {t("projects.back")}
             </Link>
           </motion.div>
         </div>
