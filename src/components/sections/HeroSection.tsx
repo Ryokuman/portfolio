@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { profile } from "@/data/profile";
 import TechBadge from "@/components/ui/TechBadge";
+import basePath from "@/lib/basePath";
 
 export default function HeroSection() {
   return (
@@ -23,6 +24,14 @@ export default function HeroSection() {
         animate="visible"
         className="relative mx-auto max-w-3xl text-center"
       >
+        <motion.div variants={fadeInUp} className="mb-6">
+          <img
+            src={`${basePath}/images/profile.jpg`}
+            alt={profile.name}
+            className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-white shadow-lg"
+          />
+        </motion.div>
+
         <motion.p
           variants={fadeInUp}
           className="text-sm font-medium tracking-widest text-blue-600 uppercase"
