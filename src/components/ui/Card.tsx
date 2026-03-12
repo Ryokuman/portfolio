@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import basePath from "@/lib/basePath";
 
 interface CardProps {
   link: string;
@@ -39,7 +40,7 @@ export default function Card({
       {image && (
         <div className="aspect-video w-full overflow-hidden">
           <img
-            src={image}
+            src={`${basePath}${image}`}
             alt={title}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
           />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { scaleIn } from "@/lib/animations";
 import type { Project } from "@/types";
+import basePath from "@/lib/basePath";
 
 interface ProjectCardProps {
   project: Project;
@@ -37,7 +38,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.video && (
             <video
               ref={videoRef}
-              src={project.video}
+              src={`${basePath}${project.video}`}
               muted
               loop
               playsInline
@@ -48,7 +49,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           {!project.video && project.thumbnail && (
             <img
-              src={project.thumbnail}
+              src={`${basePath}${project.thumbnail}`}
               alt={project.title}
               className="absolute inset-0 h-full w-full object-cover"
             />

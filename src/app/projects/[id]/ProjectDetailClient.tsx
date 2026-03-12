@@ -7,6 +7,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 import type { Project } from "@/types";
 import TechBadge from "@/components/ui/TechBadge";
 import Card from "@/components/ui/Card";
+import basePath from "@/lib/basePath";
 
 interface Props {
   project: Project;
@@ -30,7 +31,7 @@ export default function ProjectDetailClient({ project }: Props) {
       >
         {project.video && (
           <video
-            src={project.video}
+            src={`${basePath}${project.video}`}
             autoPlay
             muted
             loop
@@ -40,7 +41,7 @@ export default function ProjectDetailClient({ project }: Props) {
         )}
         {!project.video && project.thumbnail && (
           <img
-            src={project.thumbnail}
+            src={`${basePath}${project.thumbnail}`}
             alt={project.title}
             className="absolute inset-0 h-full w-full object-cover"
           />

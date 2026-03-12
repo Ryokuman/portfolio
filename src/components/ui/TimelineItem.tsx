@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { fadeInLeft } from "@/lib/animations";
 import type { CareerEntry } from "@/types";
+import basePath from "@/lib/basePath";
 
 interface TimelineItemProps {
   entry: CareerEntry;
@@ -50,7 +51,7 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
         <div className="mt-2 flex items-center gap-3">
           {entry.logo && (
             <img
-              src={entry.logo}
+              src={`${basePath}${entry.logo}`}
               alt={entry.organization}
               className="h-10 w-10 shrink-0 rounded-lg object-contain bg-white border border-gray-100 p-1"
             />

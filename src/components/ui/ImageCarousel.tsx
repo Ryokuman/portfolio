@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import basePath from "@/lib/basePath";
 
 interface ImageCarouselProps {
   images: string[];
@@ -104,7 +105,7 @@ export default function ImageCarousel({
         {images.map((src, i) => (
           <img
             key={src}
-            src={src}
+            src={`${basePath}${src}`}
             alt={`${alt} ${i + 1}`}
             className="h-full w-full shrink-0 object-contain pointer-events-none"
             draggable={false}
