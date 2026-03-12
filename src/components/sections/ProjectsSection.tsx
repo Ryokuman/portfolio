@@ -2,17 +2,21 @@
 
 import { motion } from "motion/react";
 import { staggerContainer } from "@/lib/animations";
-import { projects } from "@/data/projects";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
+import { useT } from "@/i18n/useT";
+import { useProjects } from "@/i18n/useData";
 
 export default function ProjectsSection() {
+  const t = useT();
+  const projects = useProjects();
+
   return (
     <section id="projects" className="px-6 py-24">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
-          title="Projects"
-          subtitle="클릭하여 자세한 내용을 확인하세요"
+          title={t("projects.title")}
+          subtitle={t("projects.subtitle")}
         />
 
         <motion.div

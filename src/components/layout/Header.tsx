@@ -3,26 +3,58 @@
 import { useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { navigation } from "@/data/navigation";
-import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import basePath from "@/lib/basePath";
+import { useLocale, localeLabels, type Locale } from "@/i18n/context";
+import { useT } from "@/i18n/useT";
+import { useProfile } from "@/i18n/useData";
+
+const navItems = [
+  { key: "nav.about" as const, hash: "#hero" },
+  { key: "nav.projects" as const, hash: "#projects" },
+  { key: "nav.career" as const, hash: "#career" },
+  { key: "nav.contact" as const, hash: "#contact" },
+];
 
 function useBackLink() {
   const pathname = usePathname();
+  const t = useT();
 
   const detailMatch = pathname.match(/^\/projects\/([^/]+)\/details\/\d+\/?$/);
   if (detailMatch) {
     const project = projects.find((p) => p.id === detailMatch[1]);
-    return { href: `/projects/${detailMatch[1]}/`, label: project?.title ?? "돌아가기" };
+    return { href: `/projects/${detailMatch[1]}/`, label: project?.title ?? "Back" };
   }
 
   const projectMatch = pathname.match(/^\/projects\/([^/]+)\/?$/);
   if (projectMatch) {
-    return { href: "/#projects", label: "프로젝트 목록" };
+    return { href: "/#projects", label: t("detail.backToList") };
   }
 
   return null;
+}
+
+function LanguageSwitcher() {
+  const { locale, setLocale } = useLocale();
+  const locales: Locale[] = ["ko", "en", "tr"];
+
+  return (
+    <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-white/60 px-1 py-0.5 backdrop-blur-sm">
+      {locales.map((l) => (
+        <button
+          key={l}
+          onClick={() => setLocale(l)}
+          className={`rounded-full px-2 py-0.5 text-xs font-medium transition-colors ${
+            locale === l
+              ? "bg-gray-900 text-white"
+              : "text-gray-400 hover:text-gray-700"
+          }`}
+        >
+          {localeLabels[l]}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default function Header() {
@@ -30,6 +62,8 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const backLink = useBackLink();
   const router = useRouter();
+  const t = useT();
+  const profile = useProfile();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -108,37 +142,41 @@ export default function Header() {
           )}
         </div>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {navigation.map((item) => (
+        <div className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.hash}
+              href={`${basePath}/${item.hash}`}
               className="text-sm text-gray-500 transition-colors hover:text-gray-900"
             >
-              {item.label}
+              {t(item.key)}
             </a>
           ))}
+          <LanguageSwitcher />
         </div>
 
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex h-8 w-8 items-center justify-center text-gray-500 md:hidden"
-          aria-label="Toggle menu"
-        >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex h-8 w-8 items-center justify-center text-gray-500"
+            aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
-            )}
-          </svg>
-        </button>
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+              )}
+            </svg>
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -150,14 +188,14 @@ export default function Header() {
             className="overflow-hidden border-b border-gray-200 bg-white/95 backdrop-blur-md md:hidden"
           >
             <div className="space-y-1 px-6 py-4">
-              {navigation.map((item) => (
+              {navItems.map((item) => (
                 <a
-                  key={item.href}
-                  href={item.href}
+                  key={item.hash}
+                  href={`${basePath}/${item.hash}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block rounded-lg px-3 py-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
                 >
-                  {item.label}
+                  {t(item.key)}
                 </a>
               ))}
             </div>

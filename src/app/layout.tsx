@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SsgoiProvider from "@/components/layout/SsgoiProvider";
+import { I18nProvider } from "@/i18n/context";
 import { profile } from "@/data/profile";
 
 const inter = Inter({
@@ -31,9 +32,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrains.variable} font-sans bg-white text-gray-900 antialiased`}
       >
-        <Header />
-        <SsgoiProvider>{children}</SsgoiProvider>
-        <Footer />
+        <I18nProvider>
+          <Header />
+          <SsgoiProvider>{children}</SsgoiProvider>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

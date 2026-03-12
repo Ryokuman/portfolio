@@ -2,11 +2,15 @@
 
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { profile } from "@/data/profile";
 import TechBadge from "@/components/ui/TechBadge";
 import basePath from "@/lib/basePath";
+import { useT } from "@/i18n/useT";
+import { useProfile } from "@/i18n/useData";
 
 export default function HeroSection() {
+  const t = useT();
+  const profile = useProfile();
+
   return (
     <section
       id="hero"
@@ -36,7 +40,7 @@ export default function HeroSection() {
           variants={fadeInUp}
           className="text-sm font-medium tracking-widest text-blue-600 uppercase"
         >
-          Portfolio
+          {t("hero.portfolio")}
         </motion.p>
 
         <motion.h1

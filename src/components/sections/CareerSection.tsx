@@ -1,20 +1,26 @@
+"use client";
+
 import SectionHeading from "@/components/ui/SectionHeading";
 import TimelineItem from "@/components/ui/TimelineItem";
-import { workExperience, education, awards } from "@/data/career";
+import { useT } from "@/i18n/useT";
+import { useCareer } from "@/i18n/useData";
 
 export default function CareerSection() {
+  const t = useT();
+  const { workExperience, awards, education } = useCareer();
+
   return (
     <section id="career" className="px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <SectionHeading
-          title="Career"
-          subtitle="경력, 학력, 수상을 소개합니다"
+          title={t("career.title")}
+          subtitle={t("career.subtitle")}
         />
 
         {workExperience.length > 0 && (
           <div className="mb-12">
             <h3 className="mb-6 text-lg font-semibold text-gray-700">
-              Experience
+              {t("career.experience")}
             </h3>
             <div>
               {workExperience.map((entry) => (
@@ -27,7 +33,7 @@ export default function CareerSection() {
         {awards.length > 0 && (
           <div className="mb-12">
             <h3 className="mb-6 text-lg font-semibold text-gray-700">
-              Awards
+              {t("career.awards")}
             </h3>
             <div>
               {awards.map((entry) => (
@@ -40,7 +46,7 @@ export default function CareerSection() {
         {education.length > 0 && (
           <div>
             <h3 className="mb-6 text-lg font-semibold text-gray-700">
-              Education
+              {t("career.education")}
             </h3>
             <div>
               {education.map((entry) => (

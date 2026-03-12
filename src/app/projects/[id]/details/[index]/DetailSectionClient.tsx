@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import type { Project, ProjectDetailSection } from "@/types";
 import ImageCarousel from "@/components/ui/ImageCarousel";
+import { useT } from "@/i18n/useT";
+import { useProject } from "@/i18n/useData";
 
 interface Props {
   project: Project;
@@ -16,12 +18,12 @@ function extractContribution(content: string[]): {
   percentage: number | null;
   cleaned: string[];
 } {
-  const regex = /\(기여도\s*(\d+(?:\.\d+)?)%\)/;
+  const regex = /\((기여도|Contribution|Katkı)\s*[%]?(\d+(?:\.\d+)?)%\)/;
   let percentage: number | null = null;
   const cleaned = content.map((item) => {
     const match = item.match(regex);
     if (match && percentage === null) {
-      percentage = parseFloat(match[1]);
+      percentage = parseFloat(match[2]);
     }
     return item.replace(regex, "").replace(/\s{2,}/g, " ").trim();
   });
@@ -35,6 +37,7 @@ function ContentPanel({
   section: ProjectDetailSection;
   leaving: boolean;
 }) {
+  const t = useT();
   const { percentage, cleaned } = extractContribution(section.content);
 
   return (
@@ -64,7 +67,7 @@ function ContentPanel({
       {percentage !== null && (
         <div className="mt-4">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-medium text-gray-500">기여도</span>
+            <span className="text-xs font-medium text-gray-500">{t("detail.contribution")}</span>
             <span className="text-xs font-semibold text-gray-700">{percentage}%</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
@@ -116,10 +119,13 @@ function ContentPanel({
 }
 
 export default function DetailSectionClient({
-  project,
-  section,
+  project: serverProject,
+  section: serverSection,
   sectionIndex,
 }: Props) {
+  const t = useT();
+  const project = useProject(serverProject.id) ?? serverProject;
+  const section = project.details?.[sectionIndex] ?? serverSection;
   const router = useRouter();
   const [leaving, setLeaving] = useState(false);
   const [showContent, setShowContent] = useState(false);
@@ -206,7 +212,7 @@ export default function DetailSectionClient({
                   d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
                 />
               </svg>
-              상세 보기
+              {t("detail.viewDetail")}
             </motion.button>
           )}
         </AnimatePresence>
