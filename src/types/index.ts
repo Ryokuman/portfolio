@@ -21,7 +21,8 @@ export interface ProjectDetailSection {
   period?: string;
   content: string[];
   techStack?: string[];
-  image?: string;
+  images?: string[];
+  links?: { label: string; url: string }[];
 }
 
 export interface Project {
@@ -49,6 +50,7 @@ export interface CareerEntry {
   period: string;
   description: string[];
   techStack?: string[];
+  logo?: string;
 }
 
 export interface NavItem {

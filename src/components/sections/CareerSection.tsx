@@ -24,26 +24,26 @@ export default function CareerSection() {
           </div>
         )}
 
-        {education.length > 0 && (
+        {awards.length > 0 && (
           <div className="mb-12">
             <h3 className="mb-6 text-lg font-semibold text-gray-700">
-              Education
+              Awards
             </h3>
             <div>
-              {education.map((entry) => (
+              {awards.map((entry) => (
                 <TimelineItem key={entry.id} entry={entry} />
               ))}
             </div>
           </div>
         )}
 
-        {awards.length > 0 && (
+        {education.length > 0 && (
           <div>
             <h3 className="mb-6 text-lg font-semibold text-gray-700">
-              Awards
+              Education
             </h3>
             <div>
-              {awards.map((entry) => (
+              {education.map((entry) => (
                 <TimelineItem key={entry.id} entry={entry} />
               ))}
             </div>

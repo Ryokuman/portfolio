@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
@@ -12,6 +13,14 @@ interface Props {
 }
 
 export default function ProjectDetailClient({ project }: Props) {
+  const [leaving, setLeaving] = useState(false);
+
+  useEffect(() => {
+    const onPopState = () => setLeaving(true);
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   return (
     <div>
       {/* Hero banner */}
@@ -45,7 +54,9 @@ export default function ProjectDetailClient({ project }: Props) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
 
-        <div className="absolute inset-x-0 bottom-0 px-6 pb-6 md:px-8">
+        <div
+          className={`absolute inset-x-0 bottom-0 px-6 pb-6 md:px-8 transition-opacity duration-200 ${leaving ? "opacity-0" : "opacity-100"}`}
+        >
           <div className="mx-auto max-w-3xl">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-gray-700 backdrop-blur-sm">
@@ -68,7 +79,9 @@ export default function ProjectDetailClient({ project }: Props) {
       </div>
 
       {/* Content */}
-      <div className="px-6 py-12 md:px-8">
+      <div
+        className={`px-6 py-12 md:px-8 transition-opacity duration-200 ${leaving ? "opacity-0" : "opacity-100"}`}
+      >
         <div className="mx-auto max-w-3xl">
           <motion.div
             variants={staggerContainer}
@@ -144,7 +157,7 @@ export default function ProjectDetailClient({ project }: Props) {
                       title={section.title}
                       period={section.period}
                       badge={section.techStack?.[0]}
-                      image={section.image}
+                      image={section.images?.[0]}
                     />
                   </motion.div>
                 ))}

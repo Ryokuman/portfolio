@@ -47,8 +47,19 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
           <span className="text-sm text-gray-400">{entry.period}</span>
         </div>
 
-        <h3 className="mt-2 font-semibold text-gray-900">{entry.title}</h3>
-        <p className="text-sm text-gray-500">{entry.organization}</p>
+        <div className="mt-2 flex items-center gap-3">
+          {entry.logo && (
+            <img
+              src={entry.logo}
+              alt={entry.organization}
+              className="h-10 w-10 shrink-0 rounded-lg object-contain bg-white border border-gray-100 p-1"
+            />
+          )}
+          <div>
+            <h3 className="font-semibold text-gray-900">{entry.title}</h3>
+            <p className="text-sm text-gray-500">{entry.organization}</p>
+          </div>
+        </div>
 
         <ul className="mt-3 space-y-1">
           {entry.description.map((item) => (
