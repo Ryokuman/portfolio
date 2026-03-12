@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { navigation } from "@/data/navigation";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
+import basePath from "@/lib/basePath";
 
 function useBackLink() {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ function useBackLink() {
 
   const projectMatch = pathname.match(/^\/projects\/([^/]+)\/?$/);
   if (projectMatch) {
-    return { href: "/#projects", label: "프로젝트 목록" };
+    return { href: `${basePath}/#projects`, label: "프로젝트 목록" };
   }
 
   return null;
@@ -99,7 +100,7 @@ export default function Header() {
           )}
           {!backLink && (
             <a
-              href="/#hero"
+              href={`${basePath}/#hero`}
               className="text-lg font-bold text-gray-900 transition-colors hover:text-blue-600"
             >
               {profile.name}

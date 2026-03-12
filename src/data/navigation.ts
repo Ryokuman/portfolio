@@ -1,8 +1,9 @@
 import type { NavItem } from "@/types";
+import basePath from "@/lib/basePath";
 
 export const navigation: NavItem[] = [
-  { label: "About", href: "/#hero" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Career", href: "/#career" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About", href: `${basePath}/#hero` },
+  { label: "Projects", href: `${basePath}/#projects` },
+  { label: "Career", href: `${basePath}/#career` },
+  { label: "Contact", href: `${basePath}/#contact` },
 ];
