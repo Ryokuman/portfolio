@@ -19,7 +19,7 @@ function useBackLink() {
 
   const projectMatch = pathname.match(/^\/projects\/([^/]+)\/?$/);
   if (projectMatch) {
-    return { href: `${basePath}/#projects`, label: "프로젝트 목록" };
+    return { href: "/#projects", label: "프로젝트 목록" };
   }
 
   return null;
@@ -78,7 +78,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           {backLink && (
             <a
-              href={backLink.href}
+              href={`${basePath}${backLink.href}`}
               onClick={handleBackClick}
               className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
             >

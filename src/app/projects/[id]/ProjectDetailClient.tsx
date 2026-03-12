@@ -174,7 +174,7 @@ export default function ProjectDetailClient({ project }: Props) {
             className="mt-16 text-center"
           >
             <Link
-              href={`${basePath}/#projects`}
+              href="/#projects"
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm text-gray-600 transition-colors hover:border-blue-300 hover:text-blue-600"
             >
               <svg
