@@ -4,11 +4,16 @@ import { motion } from "motion/react";
 import { fadeInLeft } from "@/lib/animations";
 import type { CareerEntry } from "@/types";
 import basePath from "@/lib/basePath";
-import { useT } from "@/i18n/useT";
 
 interface TimelineItemProps {
   entry: CareerEntry;
 }
+
+const typeLabels: Record<CareerEntry["type"], string> = {
+  work: "Work",
+  education: "Education",
+  award: "Award",
+};
 
 const typeColors: Record<CareerEntry["type"], string> = {
   work: "bg-blue-500",
@@ -16,14 +21,7 @@ const typeColors: Record<CareerEntry["type"], string> = {
   award: "bg-amber-500",
 };
 
-const typeLabelKeys = {
-  work: "career.type.work",
-  education: "career.type.education",
-  award: "career.type.award",
-} as const;
-
 export default function TimelineItem({ entry }: TimelineItemProps) {
-  const t = useT();
   return (
     <motion.div
       variants={fadeInLeft}
@@ -45,7 +43,7 @@ export default function TimelineItem({ entry }: TimelineItemProps) {
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-5">
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
-            {t(typeLabelKeys[entry.type])}
+            {typeLabels[entry.type]}
           </span>
           <span className="text-sm text-gray-400">{entry.period}</span>
         </div>
