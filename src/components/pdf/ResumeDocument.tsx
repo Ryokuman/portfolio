@@ -62,12 +62,14 @@ const s = StyleSheet.create({
     fontSize: 22,
     fontWeight: 700,
     color: colors.text,
-    marginBottom: 4,
+    lineHeight: 1.2,
+    marginBottom: 6,
   },
   tagline: {
     fontSize: 11,
     color: colors.primary,
     fontWeight: 500,
+    lineHeight: 1.2,
     marginBottom: 8,
   },
   bio: {
