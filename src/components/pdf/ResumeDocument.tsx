@@ -32,6 +32,22 @@ Font.register({
   ],
 });
 
+export const defaultSpacing: SectionSpacing = {
+  skills: 14,
+  experience: 14,
+  projects: 24,
+  awards: 14,
+  education: 14,
+};
+
+export interface SectionSpacing {
+  skills: number;
+  experience: number;
+  projects: number;
+  awards: number;
+  education: number;
+}
+
 const colors = {
   primary: "#2563eb",
   text: "#1f2937",
@@ -216,6 +232,7 @@ interface ResumeDocumentProps {
   workExperience: CareerEntry[];
   education: CareerEntry[];
   awards: CareerEntry[];
+  spacing?: SectionSpacing;
 }
 
 function Bullet({ text }: { text: string }) {
@@ -245,7 +262,9 @@ export default function ResumeDocument({
   workExperience,
   education,
   awards,
+  spacing,
 }: ResumeDocumentProps) {
+  const sp = spacing ?? defaultSpacing;
   return (
     <Document>
       <Page size="A4" style={s.page}>
@@ -269,7 +288,7 @@ export default function ResumeDocument({
 
         {/* Tech Stack */}
         <View>
-          <Text style={s.sectionTitle}>Skills</Text>
+          <Text style={[s.sectionTitle, { marginTop: sp.skills }]}>Skills</Text>
           {profile.techStack.map((cat) => (
             <View
               key={cat.category}
@@ -284,7 +303,7 @@ export default function ResumeDocument({
         {/* Experience */}
         {workExperience.length > 0 && (
           <View>
-            <Text style={s.sectionTitle}>Experience</Text>
+            <Text style={[s.sectionTitle, { marginTop: sp.experience }]}>Experience</Text>
             {workExperience.map((entry) => (
               <View key={entry.id} style={s.careerEntry}>
                 <View style={s.careerHeader}>
@@ -307,7 +326,7 @@ export default function ResumeDocument({
 
         {/* Projects */}
         <View>
-          <Text style={s.sectionTitle}>Projects</Text>
+          <Text style={[s.sectionTitle, { marginTop: sp.projects }]}>Projects</Text>
           {projects.map((project) => (
             <View key={project.id} style={s.projectEntry}>
               <View style={s.projectHeader}>
@@ -341,7 +360,7 @@ export default function ResumeDocument({
         {/* Awards */}
         {awards.length > 0 && (
           <View>
-            <Text style={s.sectionTitle}>Awards</Text>
+            <Text style={[s.sectionTitle, { marginTop: sp.awards }]}>Awards</Text>
             {awards.map((entry) => (
               <View key={entry.id} style={s.careerEntry}>
                 <View style={s.careerHeader}>
@@ -360,7 +379,7 @@ export default function ResumeDocument({
         {/* Education */}
         {education.length > 0 && (
           <View>
-            <Text style={s.sectionTitle}>Education</Text>
+            <Text style={[s.sectionTitle, { marginTop: sp.education }]}>Education</Text>
             {education.map((entry) => (
               <View key={entry.id} style={s.careerEntry}>
                 <View style={s.careerHeader}>

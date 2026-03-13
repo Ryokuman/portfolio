@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import ResumeDocument from "@/components/pdf/ResumeDocument";
+import ResumeDocument, { defaultSpacing, type SectionSpacing } from "@/components/pdf/ResumeDocument";
 import { useLocale, localeLabels, type Locale } from "@/i18n/context";
 import { useProfile, useProjects, useCareer } from "@/i18n/useData";
 import type { Profile, Project, CareerEntry } from "@/types";
@@ -84,6 +84,8 @@ function ResumeContent() {
   const { workExperience, education, awards } = useCareer();
   const [showPreview, setShowPreview] = useState(true);
   const [variant, setVariant] = useState<ResumeVariant>("fullstack");
+  const [spacing, setSpacing] = useState<SectionSpacing>({ ...defaultSpacing });
+  const [showSpacing, setShowSpacing] = useState(false);
 
   const locales: Locale[] = ["ko", "en", "tr"];
   const variants: ResumeVariant[] = ["fullstack", "frontend"];
@@ -99,6 +101,7 @@ function ResumeContent() {
     workExperience: adjusted.workExperience,
     education,
     awards,
+    spacing,
   };
 
   const fileName = `${profile.name}_${variantLabels[variant].replace(" ", "")}_${locale.toUpperCase()}.pdf`;
@@ -147,6 +150,16 @@ function ResumeContent() {
 
         <div className="flex items-center gap-3">
           <button
+            onClick={() => setShowSpacing(!showSpacing)}
+            className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
+              showSpacing
+                ? "border-blue-300 bg-blue-50 text-blue-700"
+                : "border-gray-200 text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            Spacing
+          </button>
+          <button
             onClick={() => setShowPreview(!showPreview)}
             className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-50"
           >
@@ -162,6 +175,36 @@ function ResumeContent() {
           </PDFDownloadLink>
         </div>
       </div>
+
+      {/* Spacing Panel */}
+      {showSpacing && (
+        <div className="sticky top-[49px] z-10 border-b border-gray-200 bg-white px-6 py-3">
+          <div className="flex flex-wrap items-center gap-4">
+            {(Object.keys(spacing) as (keyof SectionSpacing)[]).map((key) => (
+              <label key={key} className="flex items-center gap-2 text-xs text-gray-600">
+                <span className="w-20 font-medium capitalize">{key}</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={60}
+                  value={spacing[key]}
+                  onChange={(e) =>
+                    setSpacing((prev) => ({ ...prev, [key]: Number(e.target.value) }))
+                  }
+                  className="h-1.5 w-24 accent-blue-600"
+                />
+                <span className="w-6 text-right tabular-nums">{spacing[key]}</span>
+              </label>
+            ))}
+            <button
+              onClick={() => setSpacing({ ...defaultSpacing })}
+              className="ml-2 text-xs text-gray-400 hover:text-gray-600"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Preview */}
       {showPreview && (
