@@ -1,110 +1,63 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import ResumeDocument, { defaultSpacing, type SectionSpacing } from "@/components/pdf/ResumeDocument";
-import { useLocale, localeLabels, type Locale } from "@/i18n/context";
-import { useProfile, useProjects, useCareer } from "@/i18n/useData";
-import type { Profile, Project, CareerEntry } from "@/types";
+import ProductivityDocument from "@/components/pdf/ProductivityDocument";
+import {
+  getPdfContent,
+  companyConfigs,
+  type PdfVariant,
+  type Company,
+} from "@/data/pdf-resume";
+import type { Locale } from "@/i18n/context";
 
-type ResumeVariant = "fullstack" | "frontend";
+const variants: { value: PdfVariant; label: string }[] = [
+  { value: "fullstack", label: "Full Stack" },
+  { value: "backend", label: "Backend" },
+  { value: "frontend", label: "Frontend" },
+];
 
-const variantLabels: Record<ResumeVariant, string> = {
-  fullstack: "Full Stack",
+const locales: { value: Locale; label: string }[] = [
+  { value: "ko", label: "한국어" },
+  { value: "en", label: "EN" },
+  { value: "tr", label: "TR" },
+];
+
+const companies: { value: Company; label: string }[] = [
+  { value: "default", label: "기본" },
+  { value: "zeta", label: "제타" },
+  { value: "planfit", label: "플랜핏" },
+];
+
+const variantFileLabels: Record<PdfVariant, string> = {
+  fullstack: "FullStack",
+  backend: "Backend",
   frontend: "Frontend",
 };
 
-// Frontend version: emphasize frontend, de-emphasize backend-only items
-function applyVariant(
-  variant: ResumeVariant,
-  profile: Profile,
-  projects: Project[],
-  workExperience: CareerEntry[],
-): {
-  profile: Profile;
-  projects: Project[];
-  workExperience: CareerEntry[];
-} {
-  if (variant === "fullstack") {
-    return { profile, projects, workExperience };
-  }
+const nameByLocale: Record<Locale, string> = {
+  ko: "김용민",
+  en: "YongminKim",
+  tr: "YongminKim",
+};
 
-  // Frontend variant
-  const feProfile: Profile = {
-    ...profile,
-    tagline: profile.tagline.replace("Full Stack", "Frontend"),
-    techStack: profile.techStack.map((cat) => {
-      if (cat.category.toLowerCase() === "backend") {
-        return { ...cat, items: cat.items.filter((t) => ["Node.js"].includes(t)) };
-      }
-      return cat;
-    }).filter((cat) => cat.items.length > 0),
-  };
-
-  const feProjects = projects.map((p) => {
-    // Adjust roles
-    const role = p.role?.replace("Full Stack Engineer", "Frontend Engineer")
-      .replace("Full Stack Developer", "Frontend Developer")
-      .replace("풀스택 개발자", "프론트엔드 개발자")
-      .replace("Full Stack Mühendisi", "Frontend Mühendisi")
-      .replace("Full Stack Geliştirici", "Frontend Geliştirici");
-
-    // Filter techStack to frontend-focused
-    const backendOnly = ["ElysiaJS", "Django", "Python", "Supabase"];
-    const techStack = p.techStack.filter((t) => !backendOnly.includes(t));
-
-    return { ...p, role, techStack: techStack.length > 0 ? techStack : p.techStack };
-  });
-
-  const feWork = workExperience.map((e) => {
-    const title = e.title
-      .replace("풀스택 개발자", "프론트엔드 개발자")
-      .replace("Full Stack Developer", "Frontend Developer")
-      .replace("Full Stack Geliştirici", "Frontend Geliştirici");
-
-    // Filter descriptions to frontend-focused (keep items that don't mention pure backend)
-    const backendKeywords = ["SaaS 서버", "SaaS server", "LLM-WORKER", "pipe 모델 아키텍처", "pipe model architecture"];
-    const description = e.description.filter(
-      (d) => !backendKeywords.some((kw) => d.includes(kw)),
-    );
-
-    const backendTech = ["ElysiaJS", "Django", "Python"];
-    const techStack = e.techStack?.filter((t) => !backendTech.includes(t));
-
-    return { ...e, title, description, techStack };
-  });
-
-  return { profile: feProfile, projects: feProjects, workExperience: feWork };
-}
-
-function ResumeContent() {
-  const { locale, setLocale } = useLocale();
-  const profile = useProfile();
-  const projects = useProjects();
-  const { workExperience, education, awards } = useCareer();
+export default function ProductivityPdfViewer() {
   const [showPreview, setShowPreview] = useState(true);
-  const [variant, setVariant] = useState<ResumeVariant>("fullstack");
-  const [spacing, setSpacing] = useState<SectionSpacing>({ ...defaultSpacing });
-  const [showSpacing, setShowSpacing] = useState(false);
+  const [variant, setVariant] = useState<PdfVariant>("fullstack");
+  const [locale, setLocale] = useState<Locale>("ko");
+  const [company, setCompany] = useState<Company>("default");
+  const [showLanguage, setShowLanguage] = useState(false);
 
-  const locales: Locale[] = ["ko", "en", "tr"];
-  const variants: ResumeVariant[] = ["fullstack", "frontend"];
+  const data = getPdfContent(variant, locale, company);
+  const config = companyConfigs[company];
 
-  const adjusted = useMemo(
-    () => applyVariant(variant, profile, projects, workExperience),
-    [variant, profile, projects, workExperience],
-  );
+  const companyLabel =
+    company === "default"
+      ? ""
+      : `_${companies.find((c) => c.value === company)?.label}`;
+  const fileName = `${nameByLocale[locale]}_${variantFileLabels[variant]}_${locale.toUpperCase()}${companyLabel}.pdf`;
 
-  const docProps = {
-    profile: adjusted.profile,
-    projects: adjusted.projects,
-    workExperience: adjusted.workExperience,
-    education,
-    awards,
-    spacing,
-  };
-
-  const fileName = `${profile.name}_${variantLabels[variant].replace(" ", "")}_${locale.toUpperCase()}.pdf`;
+  const docProps = { data, config, locale, showLanguage };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -117,48 +70,63 @@ function ResumeContent() {
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
             {variants.map((v) => (
               <button
-                key={v}
-                onClick={() => setVariant(v)}
+                key={v.value}
+                onClick={() => setVariant(v.value)}
                 className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
-                  variant === v
+                  variant === v.value
                     ? "bg-blue-600 text-white"
                     : "text-gray-400 hover:text-gray-700"
                 }`}
               >
-                {variantLabels[v]}
+                {v.label}
               </button>
             ))}
           </div>
 
-          {/* Language switcher */}
+          {/* Locale switcher */}
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
             {locales.map((l) => (
               <button
-                key={l}
-                onClick={() => setLocale(l)}
+                key={l.value}
+                onClick={() => setLocale(l.value)}
                 className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
-                  locale === l
+                  locale === l.value
                     ? "bg-gray-900 text-white"
                     : "text-gray-400 hover:text-gray-700"
                 }`}
               >
-                {localeLabels[l]}
+                {l.label}
               </button>
             ))}
           </div>
+
+          {/* Company dropdown */}
+          <select
+            value={company}
+            onChange={(e) => setCompany(e.target.value as Company)}
+            className="rounded-lg border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            {companies.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Language toggle */}
+          <button
+            onClick={() => setShowLanguage(!showLanguage)}
+            className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+              showLanguage
+                ? "bg-teal-600 text-white"
+                : "border border-gray-200 text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            언어
+          </button>
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowSpacing(!showSpacing)}
-            className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
-              showSpacing
-                ? "border-blue-300 bg-blue-50 text-blue-700"
-                : "border-gray-200 text-gray-600 hover:bg-gray-50"
-            }`}
-          >
-            Spacing
-          </button>
           <button
             onClick={() => setShowPreview(!showPreview)}
             className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-50"
@@ -167,7 +135,7 @@ function ResumeContent() {
           </button>
 
           <PDFDownloadLink
-            document={<ResumeDocument {...docProps} />}
+            document={<ProductivityDocument {...docProps} />}
             fileName={fileName}
             className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
@@ -176,50 +144,24 @@ function ResumeContent() {
         </div>
       </div>
 
-      {/* Spacing Panel */}
-      {showSpacing && (
-        <div className="sticky top-[49px] z-10 border-b border-gray-200 bg-white px-6 py-3">
-          <div className="flex flex-wrap items-center gap-4">
-            {(Object.keys(spacing) as (keyof SectionSpacing)[]).map((key) => (
-              <label key={key} className="flex items-center gap-2 text-xs text-gray-600">
-                <span className="w-20 font-medium capitalize">{key}</span>
-                <input
-                  type="range"
-                  min={0}
-                  max={60}
-                  value={spacing[key]}
-                  onChange={(e) =>
-                    setSpacing((prev) => ({ ...prev, [key]: Number(e.target.value) }))
-                  }
-                  className="h-1.5 w-24 accent-blue-600"
-                />
-                <span className="w-6 text-right tabular-nums">{spacing[key]}</span>
-              </label>
-            ))}
-            <button
-              onClick={() => setSpacing({ ...defaultSpacing })}
-              className="ml-2 text-xs text-gray-400 hover:text-gray-600"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Preview */}
       {showPreview && (
         <div className="flex justify-center p-8">
-          <div className="w-full max-w-4xl" style={{ height: "calc(100vh - 80px)" }}>
-            <PDFViewer width="100%" height="100%" className="rounded-lg shadow-lg">
-              <ResumeDocument {...docProps} />
+          <div
+            className="w-full max-w-4xl"
+            style={{ height: "calc(100vh - 80px)" }}
+          >
+            <PDFViewer
+              key={`${variant}-${locale}-${company}-${showLanguage}`}
+              width="100%"
+              height="100%"
+              className="rounded-lg shadow-lg"
+            >
+              <ProductivityDocument {...docProps} />
             </PDFViewer>
           </div>
         </div>
       )}
     </div>
   );
-}
-
-export default function PdfViewer() {
-  return <ResumeContent />;
 }
