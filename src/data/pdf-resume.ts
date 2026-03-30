@@ -529,7 +529,7 @@ export interface CompanyConfig {
 }
 
 const defaultConfig: CompanyConfig = {
-  profileImage: "http://localhost:4000/images/profile.jpg",
+  profileImage: "/images/profile.jpg",
   showFitness: false,
   projectOrder: ["dynamos", "cgv", "llami", "worktree"],
 };
@@ -541,7 +541,7 @@ export const companyConfigs: Record<Company, CompanyConfig> = {
     projectOrder: ["dynamos", "llami", "cgv", "worktree"],
   },
   planfit: {
-    profileImage: "http://localhost:4000/images/gym.jpg",
+    profileImage: "/images/gym.jpg",
     showFitness: true,
     fitness: {
       ko: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import ProductivityDocument from "@/components/pdf/ProductivityDocument";
 import {
@@ -10,6 +10,10 @@ import {
   type Company,
 } from "@/data/pdf-resume";
 import type { Locale } from "@/i18n/context";
+
+const basePath = process.env.NEXT_PUBLIC_REPO_NAME
+  ? `/${process.env.NEXT_PUBLIC_REPO_NAME}`
+  : "";
 
 const variants: { value: PdfVariant; label: string }[] = [
   { value: "fullstack", label: "Full Stack" },
@@ -51,13 +55,18 @@ export default function ProductivityPdfViewer() {
   const data = getPdfContent(variant, locale, company);
   const config = companyConfigs[company];
 
+  const imageBase = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return `${window.location.origin}${basePath}`;
+  }, []);
+
   const companyLabel =
     company === "default"
       ? ""
       : `_${companies.find((c) => c.value === company)?.label}`;
   const fileName = `${nameByLocale[locale]}_${variantFileLabels[variant]}_${locale.toUpperCase()}${companyLabel}.pdf`;
 
-  const docProps = { data, config, locale, showLanguage };
+  const docProps = { data, config, locale, showLanguage, imageBase };
 
   return (
     <div className="min-h-screen bg-gray-100">

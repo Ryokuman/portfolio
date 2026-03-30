@@ -291,6 +291,7 @@ interface ProductivityDocumentProps {
   config: CompanyConfig;
   locale: Locale;
   showLanguage?: boolean;
+  imageBase?: string;
 }
 
 export default function ProductivityDocument({
@@ -298,6 +299,7 @@ export default function ProductivityDocument({
   config,
   locale,
   showLanguage = false,
+  imageBase = "",
 }: ProductivityDocumentProps) {
   const l = labels[locale];
   const fitness = config.showFitness ? config.fitness?.[locale] : null;
@@ -330,7 +332,7 @@ export default function ProductivityDocument({
               <Text style={s.infoText}>github.com/Ryokuman</Text>
             </View>
           </View>
-          <Image style={s.profileImage} src={config.profileImage} />
+          <Image style={s.profileImage} src={`${imageBase}${config.profileImage}`} />
         </View>
 
         {/* Fitness highlight (planfit) */}
@@ -356,7 +358,7 @@ export default function ProductivityDocument({
           <View style={s.careerRow}>
             <Image
               style={s.careerLogo}
-              src="http://localhost:4000/images/runup.png"
+              src={`${imageBase}/images/runup.png`}
             />
             <View style={s.careerInfo}>
               <View style={s.careerHeader}>
@@ -375,7 +377,7 @@ export default function ProductivityDocument({
           <View style={s.careerRow}>
             <Image
               style={s.careerLogo}
-              src="http://localhost:4000/images/poul.png"
+              src={`${imageBase}/images/poul.png`}
             />
             <View style={s.careerInfo}>
               <View style={s.careerHeader}>
@@ -468,7 +470,7 @@ export default function ProductivityDocument({
           <View style={s.eduRow}>
             <Image
               style={s.eduLogo}
-              src="http://localhost:4000/images/sku.svg"
+              src={`${imageBase}/images/sku.svg`}
             />
             <View>
               <Text style={s.eduName}>{data.education.name}</Text>
