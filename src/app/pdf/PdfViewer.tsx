@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import ProductivityDocument from "@/components/pdf/ProductivityDocument";
 import {
@@ -51,6 +52,7 @@ export default function ProductivityPdfViewer() {
   const [locale, setLocale] = useState<Locale>("ko");
   const [company, setCompany] = useState<Company>("default");
   const [showLanguage, setShowLanguage] = useState(false);
+  const router = useRouter();
 
   const data = getPdfContent(variant, locale, company);
   const config = companyConfigs[company];
@@ -73,7 +75,20 @@ export default function ProductivityPdfViewer() {
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3 shadow-sm">
         <div className="flex items-center gap-4">
-          <h1 className="text-lg font-semibold text-gray-900">Resume PDF</h1>
+          {/* Tab Navigation */}
+          <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
+            <button
+              onClick={() => router.push("/pdf")}
+              className="rounded-full px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              포트폴리오
+            </button>
+            <button
+              className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white"
+            >
+              이력서
+            </button>
+          </div>
 
           {/* Variant switcher */}
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">

@@ -2,8 +2,11 @@
 
 import dynamic from "next/dynamic";
 
-const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
+const PortfolioViewer = dynamic(
+  () => import("./portfolio/PortfolioViewer"),
+  { ssr: false }
+);
 
 export default function PdfPage() {
-  return <PdfViewer />;
+  return <PortfolioViewer />;
 }
