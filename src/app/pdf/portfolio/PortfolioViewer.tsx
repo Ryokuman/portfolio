@@ -10,7 +10,7 @@ export default function PortfolioViewer() {
   const [showPreview, setShowPreview] = useState(true);
   const router = useRouter();
 
-  const fileName = "김용민_포트폴리오_토스뱅크_FrontendOps.pdf";
+  const fileName = "김용민_포트폴리오_Frontend.pdf";
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -32,7 +32,7 @@ export default function PortfolioViewer() {
             </button>
           </div>
           <span className="rounded-full bg-blue-100 px-3 py-0.5 text-xs font-medium text-blue-700">
-            토스뱅크 Frontend Ops
+            Frontend Developer
           </span>
         </div>
 

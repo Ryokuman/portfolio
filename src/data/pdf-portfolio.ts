@@ -1,5 +1,5 @@
 // ── PDF Portfolio Data ──
-// 토스뱅크 Frontend Ops Developer 포트폴리오
+// 포트폴리오
 // 회사 프로젝트: DynaMOS, CGV | 사이드 프로젝트: Worktree, agent-hive
 
 export type ProjectCategory = "work" | "side";
@@ -41,7 +41,7 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   cover: {
     name: "김용민",
-    position: "Frontend Ops Developer 지원",
+    position: "Frontend Developer 지원",
     tagline: "100페이지 ERP를 선언적 프레임워크로 표준화하고,\nDX 인프라를 설계해 팀 생산성을 끌어올린 개발자",
     contact: {
       email: "ryokuman21@gmail.com",
