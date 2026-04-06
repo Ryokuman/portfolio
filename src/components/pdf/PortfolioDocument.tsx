@@ -8,6 +8,49 @@ import {
   Link,
 } from "@react-pdf/renderer";
 import type { PortfolioData, PortfolioProject } from "@/data/pdf-portfolio";
+import type { Locale } from "@/i18n/context";
+
+const uiLabels: Record<Locale, {
+  problem: string;
+  solution: string;
+  result: string;
+  workProjects: string;
+  sideProjects: string;
+  workCategory: string;
+  sideCategory: string;
+  footer: string;
+}> = {
+  ko: {
+    problem: "문제 정의",
+    solution: "설계 및 구현",
+    result: "결과",
+    workProjects: "회사 프로젝트",
+    sideProjects: "사이드 프로젝트",
+    workCategory: "회사 프로젝트",
+    sideCategory: "사이드 프로젝트",
+    footer: "김용민 — Portfolio",
+  },
+  en: {
+    problem: "Problem",
+    solution: "Solution",
+    result: "Result",
+    workProjects: "Work Projects",
+    sideProjects: "Side Projects",
+    workCategory: "Work Project",
+    sideCategory: "Side Project",
+    footer: "Yongmin Kim — Portfolio",
+  },
+  tr: {
+    problem: "Sorun",
+    solution: "Çözüm",
+    result: "Sonuç",
+    workProjects: "İş Projeleri",
+    sideProjects: "Yan Projeler",
+    workCategory: "İş Projesi",
+    sideCategory: "Yan Proje",
+    footer: "Yongmin Kim — Portfolyo",
+  },
+};
 
 Font.register({
   family: "Pretendard",
@@ -261,9 +304,11 @@ const s = StyleSheet.create({
 function ProjectPages({
   project,
   startPage,
+  labels,
 }: {
   project: PortfolioProject;
   startPage: number;
+  labels: typeof uiLabels[Locale];
 }) {
   const isWork = project.category === "work";
 
@@ -272,7 +317,7 @@ function ProjectPages({
       {/* Header */}
       <View fixed={false}>
         <Text style={[s.categoryLabel, { color: c.grayLight }]}>
-          {isWork ? "회사 프로젝트" : "사이드 프로젝트"}
+          {isWork ? labels.workCategory : labels.sideCategory}
         </Text>
         <Text style={s.projectOrg}>{project.org}</Text>
         <Text style={s.projectTitle}>{project.title}</Text>
@@ -308,11 +353,11 @@ function ProjectPages({
           )}
 
           {/* 문제 정의 */}
-          <Text style={s.subLabel}>문제 정의</Text>
+          <Text style={s.subLabel}>{labels.problem}</Text>
           <Text style={s.problemText}>{section.problem}</Text>
 
           {/* 설계 및 구현 */}
-          <Text style={s.subLabel}>설계 및 구현</Text>
+          <Text style={s.subLabel}>{labels.solution}</Text>
           {section.actions.map((action, j) => (
             <Text key={j} style={s.bullet}>
               • {action}
@@ -322,7 +367,7 @@ function ProjectPages({
           {/* 결과 */}
           {section.result && (
             <>
-              <Text style={s.subLabel}>결과</Text>
+              <Text style={s.subLabel}>{labels.result}</Text>
               <Text style={s.resultText}>{section.result}</Text>
             </>
           )}
@@ -331,7 +376,7 @@ function ProjectPages({
 
       {/* Footer */}
       <View style={s.footer} fixed>
-        <Text style={s.footerText}>김용민 — Portfolio</Text>
+        <Text style={s.footerText}>{labels.footer}</Text>
         <Text
           style={s.footerText}
           render={({ pageNumber }) => `${pageNumber}`}
@@ -345,9 +390,11 @@ function ProjectPages({
 
 interface PortfolioDocumentProps {
   data: PortfolioData;
+  locale?: Locale;
 }
 
-export default function PortfolioDocument({ data }: PortfolioDocumentProps) {
+export default function PortfolioDocument({ data, locale = "ko" }: PortfolioDocumentProps) {
+  const labels = uiLabels[locale];
   const workProjects = data.projects.filter((p) => p.category === "work");
   const sideProjects = data.projects.filter((p) => p.category === "side");
 
@@ -378,7 +425,7 @@ export default function PortfolioDocument({ data }: PortfolioDocumentProps) {
 
         {/* TOC */}
         <View style={s.tocSection}>
-          <Text style={s.tocTitle}>회사 프로젝트</Text>
+          <Text style={s.tocTitle}>{labels.workProjects}</Text>
           {workProjects.map((p, i) => (
             <View key={p.id} style={s.tocRow}>
               <Text style={s.tocLabel}>{`${i + 1}. ${p.title}`}</Text>
@@ -387,7 +434,7 @@ export default function PortfolioDocument({ data }: PortfolioDocumentProps) {
           ))}
 
           <Text style={[s.tocTitle, { marginTop: 16 }]}>
-            사이드 프로젝트
+            {labels.sideProjects}
           </Text>
           {sideProjects.map((p, i) => (
             <View key={p.id} style={s.tocRow}>
@@ -398,7 +445,7 @@ export default function PortfolioDocument({ data }: PortfolioDocumentProps) {
         </View>
 
         <View style={s.footer} fixed>
-          <Text style={s.footerText}>김용민 — Portfolio</Text>
+          <Text style={s.footerText}>{labels.footer}</Text>
           <Text style={s.footerText}>1</Text>
         </View>
       </Page>
@@ -409,6 +456,7 @@ export default function PortfolioDocument({ data }: PortfolioDocumentProps) {
           key={project.id}
           project={project}
           startPage={i + 2}
+          labels={labels}
         />
       ))}
     </Document>

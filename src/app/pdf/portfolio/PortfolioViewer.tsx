@@ -4,13 +4,28 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import PortfolioDocument from "@/components/pdf/PortfolioDocument";
-import { portfolioData } from "@/data/pdf-portfolio";
+import { getPortfolioData } from "@/data/pdf-portfolio";
+import type { Locale } from "@/i18n/context";
+
+const locales: { value: Locale; label: string }[] = [
+  { value: "ko", label: "한국어" },
+  { value: "en", label: "EN" },
+  { value: "tr", label: "TR" },
+];
+
+const nameByLocale: Record<Locale, string> = {
+  ko: "김용민",
+  en: "YongminKim",
+  tr: "YongminKim",
+};
 
 export default function PortfolioViewer() {
   const [showPreview, setShowPreview] = useState(true);
+  const [locale, setLocale] = useState<Locale>("ko");
   const router = useRouter();
 
-  const fileName = "김용민_포트폴리오_Frontend.pdf";
+  const data = getPortfolioData(locale);
+  const fileName = `${nameByLocale[locale]}_포트폴리오_Frontend_${locale.toUpperCase()}.pdf`;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -34,6 +49,23 @@ export default function PortfolioViewer() {
           <span className="rounded-full bg-blue-100 px-3 py-0.5 text-xs font-medium text-blue-700">
             Frontend Developer
           </span>
+
+          {/* Locale switcher */}
+          <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
+            {locales.map((l) => (
+              <button
+                key={l.value}
+                onClick={() => setLocale(l.value)}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+                  locale === l.value
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-400 hover:text-gray-700"
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -45,7 +77,7 @@ export default function PortfolioViewer() {
           </button>
 
           <PDFDownloadLink
-            document={<PortfolioDocument data={portfolioData} />}
+            document={<PortfolioDocument data={data} locale={locale} />}
             fileName={fileName}
             className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
@@ -61,8 +93,13 @@ export default function PortfolioViewer() {
             className="w-full max-w-4xl"
             style={{ height: "calc(100vh - 80px)" }}
           >
-            <PDFViewer width="100%" height="100%" className="rounded-lg shadow-lg">
-              <PortfolioDocument data={portfolioData} />
+            <PDFViewer
+              key={locale}
+              width="100%"
+              height="100%"
+              className="rounded-lg shadow-lg"
+            >
+              <PortfolioDocument data={data} locale={locale} />
             </PDFViewer>
           </div>
         </div>
