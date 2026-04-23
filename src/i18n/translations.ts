@@ -55,6 +55,15 @@ const translations = {
     tr: "İletişime geçelim",
   },
 
+  // PDF viewer
+  "pdf.portfolio": { ko: "포트폴리오", en: "Portfolio", tr: "Portföy" },
+  "pdf.resume": { ko: "이력서", en: "Resume", tr: "Özgeçmiş" },
+  "pdf.role": { ko: "프론트엔드 개발자", en: "Frontend Developer", tr: "Frontend Geliştirici" },
+  "pdf.hidePreview": { ko: "미리보기 숨기기", en: "Hide Preview", tr: "Önizlemeyi Gizle" },
+  "pdf.showPreview": { ko: "미리보기", en: "Show Preview", tr: "Önizleme" },
+  "pdf.download": { ko: "PDF 다운로드", en: "Download PDF", tr: "PDF İndir" },
+  "pdf.generating": { ko: "생성 중...", en: "Generating...", tr: "Oluşturuluyor..." },
+
   // Detail page
   "detail.contribution": { ko: "기여도", en: "Contribution", tr: "Katkı" },
   "detail.viewDetail": { ko: "상세 보기", en: "View details", tr: "Detaylar" },

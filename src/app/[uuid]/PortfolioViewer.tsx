@@ -7,6 +7,7 @@ import PortfolioDocument from "@/components/pdf/PortfolioDocument";
 import { getPortfolioData } from "@/data/pdf-portfolio";
 import { getPdfUuid } from "@/data/routes";
 import type { Locale } from "@/i18n/context";
+import { t } from "@/i18n/translations";
 
 const locales: { value: Locale; label: string }[] = [
   { value: "ko", label: "한국어" },
@@ -38,17 +39,17 @@ export default function PortfolioViewer() {
             <button
               className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white"
             >
-              포트폴리오
+              {t("pdf.portfolio", locale)}
             </button>
             <button
               onClick={() => router.push(`/${getPdfUuid("pdf-resume")}`)}
               className="rounded-full px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-700 transition-colors"
             >
-              이력서
+              {t("pdf.resume", locale)}
             </button>
           </div>
           <span className="rounded-full bg-blue-100 px-3 py-0.5 text-xs font-medium text-blue-700">
-            Frontend Developer
+            {t("pdf.role", locale)}
           </span>
 
           {/* Locale switcher */}
@@ -74,7 +75,7 @@ export default function PortfolioViewer() {
             onClick={() => setShowPreview(!showPreview)}
             className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-50"
           >
-            {showPreview ? "Hide Preview" : "Show Preview"}
+            {showPreview ? t("pdf.hidePreview", locale) : t("pdf.showPreview", locale)}
           </button>
 
           <PDFDownloadLink
@@ -82,7 +83,7 @@ export default function PortfolioViewer() {
             fileName={fileName}
             className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
-            {({ loading }) => (loading ? "Generating..." : "Download PDF")}
+            {({ loading }) => (loading ? t("pdf.generating", locale) : t("pdf.download", locale))}
           </PDFDownloadLink>
         </div>
       </div>
