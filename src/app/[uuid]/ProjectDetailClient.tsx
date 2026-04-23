@@ -10,6 +10,7 @@ import Card from "@/components/ui/Card";
 import basePath from "@/lib/basePath";
 import { useT } from "@/i18n/useT";
 import { useProject } from "@/i18n/useData";
+import { getDetailUuid } from "@/data/routes";
 
 interface Props {
   project: Project;
@@ -158,7 +159,7 @@ export default function ProjectDetailClient({ project: serverProject }: Props) {
                     transition={{ delay: idx * 0.06, duration: 0.4 }}
                   >
                     <Card
-                      link={`/projects/${project.id}/details/${idx}`}
+                      link={`/${getDetailUuid(project.id, idx)}`}
                       title={section.title}
                       period={section.period}
                       badge={section.techStack?.[0]}

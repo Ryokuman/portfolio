@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { scaleIn } from "@/lib/animations";
 import type { Project } from "@/types";
 import basePath from "@/lib/basePath";
+import { getProjectUuid } from "@/data/routes";
 
 interface ProjectCardProps {
   project: Project;
@@ -17,7 +18,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const hasMedia = project.video || project.thumbnail;
 
   return (
-    <Link href={`/projects/${project.id}`}>
+    <Link href={`/${getProjectUuid(project.id)}`}>
       <motion.div
         variants={scaleIn}
         whileHover={{ y: -6, scale: 1.02 }}

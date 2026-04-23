@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import PortfolioDocument from "@/components/pdf/PortfolioDocument";
-import { getPortfolioData } from "@/data/pdf-portfolio";
+import ProductivityDocument from "@/components/pdf/ProductivityDocument";
+import { getPdfContent, companyConfigs } from "@/data/pdf-resume";
+import { getPdfUuid } from "@/data/routes";
 import type { Locale } from "@/i18n/context";
+
+const basePath = process.env.NEXT_PUBLIC_REPO_NAME
+  ? `/${process.env.NEXT_PUBLIC_REPO_NAME}`
+  : "";
 
 const locales: { value: Locale; label: string }[] = [
   { value: "ko", label: "한국어" },
@@ -19,13 +24,22 @@ const nameByLocale: Record<Locale, string> = {
   tr: "YongminKim",
 };
 
-export default function PortfolioViewer() {
+export default function ResumeViewer() {
   const [showPreview, setShowPreview] = useState(true);
   const [locale, setLocale] = useState<Locale>("ko");
   const router = useRouter();
 
-  const data = getPortfolioData(locale);
-  const fileName = `${nameByLocale[locale]}_포트폴리오_Frontend_${locale.toUpperCase()}.pdf`;
+  const data = getPdfContent("frontend", locale, "default");
+  const config = companyConfigs["default"];
+
+  const imageBase = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return `${window.location.origin}${basePath}`;
+  }, []);
+
+  const fileName = `${nameByLocale[locale]}_Frontend_${locale.toUpperCase()}.pdf`;
+
+  const docProps = { data, config, locale, showLanguage: false, imageBase };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -35,17 +49,18 @@ export default function PortfolioViewer() {
           {/* Tab Navigation */}
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
             <button
-              className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white"
+              onClick={() => router.push(`/${getPdfUuid("pdf-portfolio")}`)}
+              className="rounded-full px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-700 transition-colors"
             >
               포트폴리오
             </button>
             <button
-              onClick={() => router.push("/pdf/resume")}
-              className="rounded-full px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-700 transition-colors"
+              className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white"
             >
               이력서
             </button>
           </div>
+
           <span className="rounded-full bg-blue-100 px-3 py-0.5 text-xs font-medium text-blue-700">
             Frontend Developer
           </span>
@@ -77,7 +92,7 @@ export default function PortfolioViewer() {
           </button>
 
           <PDFDownloadLink
-            document={<PortfolioDocument data={data} locale={locale} />}
+            document={<ProductivityDocument {...docProps} />}
             fileName={fileName}
             className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
@@ -94,12 +109,12 @@ export default function PortfolioViewer() {
             style={{ height: "calc(100vh - 80px)" }}
           >
             <PDFViewer
-              key={locale}
+              key={`frontend-${locale}`}
               width="100%"
               height="100%"
               className="rounded-lg shadow-lg"
             >
-              <PortfolioDocument data={data} locale={locale} />
+              <ProductivityDocument {...docProps} />
             </PDFViewer>
           </div>
         </div>

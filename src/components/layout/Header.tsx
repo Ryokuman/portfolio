@@ -8,6 +8,7 @@ import basePath from "@/lib/basePath";
 import { useLocale, localeLabels, type Locale } from "@/i18n/context";
 import { useT } from "@/i18n/useT";
 import { useProfile } from "@/i18n/useData";
+import { getRoute, getProjectUuid } from "@/data/routes";
 
 const navItems = [
   { key: "nav.about" as const, hash: "#hero" },
@@ -20,15 +21,20 @@ function useBackLink() {
   const pathname = usePathname();
   const t = useT();
 
-  const detailMatch = pathname.match(/^\/projects\/([^/]+)\/details\/\d+\/?$/);
-  if (detailMatch) {
-    const project = projects.find((p) => p.id === detailMatch[1]);
-    return { href: `/projects/${detailMatch[1]}/`, label: project?.title ?? "Back" };
-  }
-
-  const projectMatch = pathname.match(/^\/projects\/([^/]+)\/?$/);
-  if (projectMatch) {
-    return { href: "/#projects", label: t("detail.backToList") };
+  // Match UUID routes: /uuid
+  const uuidMatch = pathname.match(/^\/([0-9a-f-]{36})\/?$/);
+  if (uuidMatch) {
+    const route = getRoute(uuidMatch[1]);
+    if (route) {
+      if (route.type === "detail") {
+        const projectUuid = getProjectUuid(route.projectId);
+        const project = projects.find((p) => p.id === route.projectId);
+        return { href: `/${projectUuid}/`, label: project?.title ?? "Back" };
+      }
+      if (route.type === "project") {
+        return { href: "/#projects", label: t("detail.backToList") };
+      }
+    }
   }
 
   return null;

@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 
 const PortfolioViewer = dynamic(
-  () => import("./portfolio/PortfolioViewer"),
+  () => import("./PortfolioViewer"),
   { ssr: false }
 );
 
-export default function PdfPage() {
+export default function PdfPortfolioClient() {
   return <PortfolioViewer />;
 }

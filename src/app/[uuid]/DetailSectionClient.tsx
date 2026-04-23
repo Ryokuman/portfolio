@@ -129,7 +129,6 @@ export default function DetailSectionClient({
   const router = useRouter();
   const [leaving, setLeaving] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const pinterestKey = `/projects/${project.id}/details/${sectionIndex}`;
 
   const handleLeave = useCallback(() => {
     if (leaving) return;
@@ -137,7 +136,6 @@ export default function DetailSectionClient({
     setTimeout(() => router.back(), 200);
   }, [leaving, router]);
 
-  // Lock page scroll
   useEffect(() => {
     const html = document.documentElement;
     html.style.overflow = "hidden";
@@ -158,7 +156,6 @@ export default function DetailSectionClient({
     <div className="h-screen pt-14 bg-white overflow-hidden">
       {/* ── Desktop: side-by-side ── */}
       <div className="hidden md:flex h-full">
-        {/* Left — Image (70%) */}
         {hasImages && (
           <div className="w-[70%] h-full bg-gray-50 flex items-center">
             <div className="w-full">
@@ -167,9 +164,7 @@ export default function DetailSectionClient({
           </div>
         )}
 
-        {/* Right — Content (30%) */}
         <div
-          data-pinterest-detail-key={pinterestKey}
           className={`${hasImages ? "w-[30%] border-l border-gray-200" : "w-full"} h-full overflow-y-auto`}
         >
           <div className="p-6 lg:p-8">
@@ -180,7 +175,6 @@ export default function DetailSectionClient({
 
       {/* ── Mobile: full-screen image + content bubble ── */}
       <div className="md:hidden h-full relative">
-        {/* Image — full screen */}
         {hasImages && (
           <div className="h-full flex items-center bg-gray-50">
             <div className="w-full">
@@ -189,7 +183,6 @@ export default function DetailSectionClient({
           </div>
         )}
 
-        {/* Content bubble trigger */}
         <AnimatePresence>
           {!showContent && (
             <motion.button
@@ -217,7 +210,6 @@ export default function DetailSectionClient({
           )}
         </AnimatePresence>
 
-        {/* Content overlay */}
         <AnimatePresence>
           {showContent && (
             <motion.div
