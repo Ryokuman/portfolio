@@ -8,7 +8,7 @@ import basePath from "@/lib/basePath";
 import { useLocale, localeLabels, type Locale } from "@/i18n/context";
 import { useT } from "@/i18n/useT";
 import { useProfile } from "@/i18n/useData";
-import { getRoute, getProjectUuid } from "@/data/routes";
+import { getRoute, getProjectUuid, getHomeUuid } from "@/data/routes";
 
 const navItems = [
   { key: "nav.about" as const, hash: "#hero" },
@@ -32,7 +32,7 @@ function useBackLink() {
         return { href: `/${projectUuid}/`, label: project?.title ?? "Back" };
       }
       if (route.type === "project") {
-        return { href: "/#projects", label: t("detail.backToList") };
+        return { href: `/${getHomeUuid()}/#projects`, label: t("detail.backToList") };
       }
     }
   }
@@ -140,7 +140,7 @@ export default function Header() {
           )}
           {!backLink && (
             <a
-              href={`${basePath}/#hero`}
+              href={`${basePath}/${getHomeUuid()}/#hero`}
               className="text-lg font-bold text-gray-900 transition-colors hover:text-blue-600"
             >
               {profile.name}
@@ -152,7 +152,7 @@ export default function Header() {
           {navItems.map((item) => (
             <a
               key={item.hash}
-              href={`${basePath}/${item.hash}`}
+              href={`${basePath}/${getHomeUuid()}/${item.hash}`}
               className="text-sm text-gray-500 transition-colors hover:text-gray-900"
             >
               {t(item.key)}
@@ -197,7 +197,7 @@ export default function Header() {
               {navItems.map((item) => (
                 <a
                   key={item.hash}
-                  href={`${basePath}/${item.hash}`}
+                  href={`${basePath}/${getHomeUuid()}/${item.hash}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block rounded-lg px-3 py-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
                 >

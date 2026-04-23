@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import { SsgoiTransition } from "@ssgoi/react";
 import { projects } from "@/data/projects";
 import { getRoute, getAllUuids } from "@/data/routes";
+import HeroSection from "@/components/sections/HeroSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import CareerSection from "@/components/sections/CareerSection";
+import ContactSection from "@/components/sections/ContactSection";
 import ProjectDetailClient from "./ProjectDetailClient";
 import DetailSectionClient from "./DetailSectionClient";
 import PdfPortfolioClient from "./PdfPortfolioClient";
@@ -20,6 +24,17 @@ export default async function UuidPage({ params }: Props) {
   const route = getRoute(uuid);
 
   if (!route) notFound();
+
+  if (route.type === "home") {
+    return (
+      <SsgoiTransition id={`/${uuid}`}>
+        <HeroSection />
+        <ProjectsSection />
+        <CareerSection />
+        <ContactSection />
+      </SsgoiTransition>
+    );
+  }
 
   if (route.type === "project") {
     const project = projects.find((p) => p.id === route.projectId);

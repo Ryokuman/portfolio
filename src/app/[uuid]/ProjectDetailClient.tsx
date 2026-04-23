@@ -10,7 +10,7 @@ import Card from "@/components/ui/Card";
 import basePath from "@/lib/basePath";
 import { useT } from "@/i18n/useT";
 import { useProject } from "@/i18n/useData";
-import { getDetailUuid } from "@/data/routes";
+import { getDetailUuid, getHomeUuid } from "@/data/routes";
 
 interface Props {
   project: Project;
@@ -179,7 +179,7 @@ export default function ProjectDetailClient({ project: serverProject }: Props) {
             className="mt-16 text-center"
           >
             <Link
-              href="/#projects"
+              href={`/${getHomeUuid()}/#projects`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm text-gray-600 transition-colors hover:border-blue-300 hover:text-blue-600"
             >
               <svg

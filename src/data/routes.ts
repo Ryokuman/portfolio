@@ -2,7 +2,7 @@ import { projects } from "./projects";
 
 // ── Route types ──
 
-export type RouteType = "project" | "detail" | "pdf-portfolio" | "pdf-resume";
+export type RouteType = "home" | "project" | "detail" | "pdf-portfolio" | "pdf-resume";
 
 export interface ProjectRoute {
   type: "project";
@@ -15,15 +15,22 @@ export interface DetailRoute {
   detailIndex: number;
 }
 
+export interface HomeRoute {
+  type: "home";
+}
+
 export interface PdfRoute {
   type: "pdf-portfolio" | "pdf-resume";
 }
 
-export type RouteEntry = ProjectRoute | DetailRoute | PdfRoute;
+export type RouteEntry = HomeRoute | ProjectRoute | DetailRoute | PdfRoute;
 
 // ── UUID mappings ──
 
 const routeMap: Record<string, RouteEntry> = {
+  // Home
+  "9f6ee8d3-12b4-4b28-80a8-6530187cf787": { type: "home" },
+
   // Projects
   "a69d5303-a08e-43dc-a549-4412d330e5c0": { type: "project", projectId: "llami" },
   "b9d08e90-d6f3-4499-88fe-e3331867e60d": { type: "project", projectId: "cgv-assistant" },
@@ -69,12 +76,15 @@ export function getAllUuids(): string[] {
 
 // ── Reverse lookup: get UUID from semantic key ──
 
+let homeUuid = "";
 const projectUuidMap: Record<string, string> = {};
 const detailUuidMap: Record<string, Record<number, string>> = {};
 const pdfUuidMap: Record<string, string> = {};
 
 for (const [uuid, entry] of Object.entries(routeMap)) {
-  if (entry.type === "project") {
+  if (entry.type === "home") {
+    homeUuid = uuid;
+  } else if (entry.type === "project") {
     projectUuidMap[entry.projectId] = uuid;
   } else if (entry.type === "detail") {
     if (!detailUuidMap[entry.projectId]) detailUuidMap[entry.projectId] = {};
@@ -82,6 +92,10 @@ for (const [uuid, entry] of Object.entries(routeMap)) {
   } else {
     pdfUuidMap[entry.type] = uuid;
   }
+}
+
+export function getHomeUuid(): string {
+  return homeUuid;
 }
 
 export function getProjectUuid(projectId: string): string {
