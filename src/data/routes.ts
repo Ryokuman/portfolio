@@ -1,5 +1,3 @@
-import { projects } from "./projects";
-
 // ── Route types ──
 
 export type RouteType = "home" | "project" | "detail" | "pdf-portfolio" | "pdf-resume";

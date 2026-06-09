@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { Project, ProjectDetailSection } from "@/types";
 import ImageCarousel from "@/components/ui/ImageCarousel";
@@ -45,9 +44,9 @@ function ContentPanel({
       className={`transition-opacity duration-200 ${leaving ? "opacity-0" : "opacity-100"}`}
     >
       <div className="flex flex-wrap items-center gap-2">
-        <h1 className="text-xl font-bold text-gray-900">{section.title}</h1>
+        <h1 className="text-2xl font-bold text-gray-950">{section.title}</h1>
         {section.period && (
-          <span className="text-sm text-gray-400">{section.period}</span>
+          <span className="text-sm text-gray-500">{section.period}</span>
         )}
       </div>
 
@@ -56,7 +55,7 @@ function ContentPanel({
           {section.techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded bg-gray-100 px-2.5 py-1 text-xs text-gray-500"
+              className="rounded bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600"
             >
               {tech}
             </span>
@@ -67,8 +66,8 @@ function ContentPanel({
       {percentage !== null && (
         <div className="mt-4">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-medium text-gray-500">{t("detail.contribution")}</span>
-            <span className="text-xs font-semibold text-gray-700">{percentage}%</span>
+            <span className="text-xs font-medium text-gray-600">{t("detail.contribution")}</span>
+            <span className="text-xs font-semibold text-gray-800">{percentage}%</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
             <motion.div
@@ -107,9 +106,9 @@ function ContentPanel({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 + i * 0.05, duration: 0.4 }}
-            className="flex items-start gap-3 text-sm text-gray-500 leading-relaxed"
+            className="flex items-start gap-3 text-[15px] leading-7 text-gray-700"
           >
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-300" />
+            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
             {item}
           </motion.li>
         ))}
@@ -126,15 +125,8 @@ export default function DetailSectionClient({
   const t = useT();
   const project = useProject(serverProject.id) ?? serverProject;
   const section = project.details?.[sectionIndex] ?? serverSection;
-  const router = useRouter();
   const [leaving, setLeaving] = useState(false);
   const [showContent, setShowContent] = useState(false);
-
-  const handleLeave = useCallback(() => {
-    if (leaving) return;
-    setLeaving(true);
-    setTimeout(() => router.back(), 200);
-  }, [leaving, router]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -157,7 +149,7 @@ export default function DetailSectionClient({
       {/* ── Desktop: side-by-side ── */}
       <div className="hidden md:flex h-full">
         {hasImages && (
-          <div className="w-[70%] h-full bg-gray-50 flex items-center">
+          <div className="w-[62%] h-full bg-gray-50 flex items-center">
             <div className="w-full">
               <ImageCarousel images={section.images!} alt={section.title} />
             </div>
@@ -165,7 +157,7 @@ export default function DetailSectionClient({
         )}
 
         <div
-          className={`${hasImages ? "w-[30%] border-l border-gray-200" : "w-full"} h-full overflow-y-auto`}
+          className={`${hasImages ? "w-[38%] border-l border-gray-200" : "w-full"} h-full overflow-y-auto`}
         >
           <div className="p-6 lg:p-8">
             <ContentPanel section={section} leaving={leaving} />

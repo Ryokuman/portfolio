@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { scaleIn } from "@/lib/animations";
 import type { Project } from "@/types";
@@ -49,10 +50,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
 
           {!project.video && project.thumbnail && (
-            <img
+            <Image
               src={`${basePath}${project.thumbnail}`}
               alt={project.title}
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover"
             />
           )}
 

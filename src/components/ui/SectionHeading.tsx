@@ -23,7 +23,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
         </span>
       </h2>
       {subtitle && (
-        <p className="mt-3 text-gray-400">{subtitle}</p>
+        <p className="mt-3 text-gray-500">{subtitle}</p>
       )}
     </motion.div>
   );

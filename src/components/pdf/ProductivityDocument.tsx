@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text -- @react-pdf/renderer Image does not support the browser img alt prop. */
 import {
   Document,
   Page,
@@ -38,10 +39,7 @@ Font.register({
 const labels: Record<Locale, {
   greeting: string;
   intro: string;
-  career: string;
   projects: string;
-  sideProjects: string;
-  techStack: string;
   education: string;
   gender: string;
   present: string;
@@ -56,10 +54,7 @@ const labels: Record<Locale, {
   ko: {
     greeting: "김용민입니다.",
     intro: "소개",
-    career: "경력",
-    projects: "대표 프로젝트",
-    sideProjects: "사이드 프로젝트",
-    techStack: "기술 스택",
+    projects: "경력",
     education: "학력",
     gender: "남",
     present: "현재",
@@ -74,10 +69,7 @@ const labels: Record<Locale, {
   en: {
     greeting: "Yongmin Kim",
     intro: "About",
-    career: "Experience",
-    projects: "Key Projects",
-    sideProjects: "Side Projects",
-    techStack: "Tech Stack",
+    projects: "Experience",
     education: "Education",
     gender: "M",
     present: "Present",
@@ -92,10 +84,7 @@ const labels: Record<Locale, {
   tr: {
     greeting: "Yongmin Kim",
     intro: "Hakkımda",
-    career: "Deneyim",
-    projects: "Öne Çıkan Projeler",
-    sideProjects: "Yan Projeler",
-    techStack: "Teknoloji Yığını",
+    projects: "Deneyim",
     education: "Eğitim",
     gender: "E",
     present: "Devam",
@@ -223,6 +212,48 @@ const s = StyleSheet.create({
     marginBottom: 4,
   },
   careerDesc: { fontSize: 9.5, color: c.text, lineHeight: 1.8 },
+  companyEntry: {
+    marginBottom: 16,
+  },
+  companyHeader: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "flex-start",
+    marginBottom: 8,
+  },
+  companyLogo: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginTop: 2,
+    objectFit: "contain",
+    border: `1 solid ${c.border}`,
+  },
+  companyInfo: { flex: 1 },
+  companyNameRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 1,
+  },
+  companyName: { fontSize: 12, fontWeight: 700, color: c.black },
+  companyRole: { fontSize: 9.5, color: c.textSub, marginBottom: 4 },
+  companySummary: { fontSize: 9, color: c.textSub, lineHeight: 1.6 },
+  projectList: {
+    marginLeft: 15,
+    paddingLeft: 14,
+    borderLeft: `1.5 solid ${c.border}`,
+  },
+  nestedProject: {
+    marginBottom: 10,
+  },
+  projectTitleRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 2,
+  },
+  projectTitle: { fontSize: 10.5, fontWeight: 700, color: c.black },
   eduEntry: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -303,17 +334,27 @@ export default function ProductivityDocument({
 }: ProductivityDocumentProps) {
   const l = labels[locale];
   const fitness = config.showFitness ? config.fitness?.[locale] : null;
-
-  // Split projects into main (first 3 from projectOrder) and side (worktree)
-  const mainProjects = config.projectOrder.filter((id) => id !== "worktree");
-  const sideProjects = config.projectOrder.filter((id) => id === "worktree");
-
-  const techGroups: { label: string; items: string[] }[] = [
-    { label: "Core", items: data.techStack.core },
-    { label: "State", items: data.techStack.state },
-    { label: "UI", items: data.techStack.ui },
-    { label: "Backend", items: data.techStack.backend },
-    { label: "Infra · DX", items: data.techStack.infra },
+  const activeProjects = new Set(config.projectOrder);
+  const periodOnly = (period: string) => period.split(" · ")[0];
+  const companySections = [
+    {
+      key: "runup",
+      name: l.runupName,
+      period: `2025.12 - ${l.present}`,
+      logo: "/images/runup.png",
+      role: data.career.runup.role,
+      summary: data.career.runup.summary,
+      projects: ["dynamos"] as const,
+    },
+    {
+      key: "poul",
+      name: l.poulName,
+      period: "2024.06 - 2025.08",
+      logo: "/images/poul.png",
+      role: data.career.poul.role,
+      summary: data.career.poul.summary,
+      projects: ["cgv", "llami"] as const,
+    },
   ];
 
   return (
@@ -332,7 +373,10 @@ export default function ProductivityDocument({
               <Text style={s.infoText}>github.com/Ryokuman</Text>
             </View>
           </View>
-          <Image style={s.profileImage} src={`${imageBase}${config.profileImage}`} />
+          <Image
+            style={s.profileImage}
+            src={`${imageBase}${config.profileImage}`}
+          />
         </View>
 
         {/* Fitness highlight (planfit) */}
@@ -351,96 +395,51 @@ export default function ProductivityDocument({
         <Text style={s.sectionTitle}>{l.intro}</Text>
         <Text style={s.introText}>{data.intro}</Text>
 
-        {/* Career */}
-        <Text style={s.sectionTitle}>{l.career}</Text>
-
-        <View style={s.careerEntry}>
-          <View style={s.careerRow}>
-            <Image
-              style={s.careerLogo}
-              src={`${imageBase}/images/runup.png`}
-            />
-            <View style={s.careerInfo}>
-              <View style={s.careerHeader}>
-                <Text style={s.careerCompany}>{l.runupName}</Text>
-                <Text style={s.careerPeriod}>
-                  2025.12 - {l.present}
-                </Text>
-              </View>
-              <Text style={s.careerRole}>{data.career.runup.role}</Text>
-              <Text style={s.careerDesc}>{data.career.runup.summary}</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={s.careerEntry}>
-          <View style={s.careerRow}>
-            <Image
-              style={s.careerLogo}
-              src={`${imageBase}/images/poul.png`}
-            />
-            <View style={s.careerInfo}>
-              <View style={s.careerHeader}>
-                <Text style={s.careerCompany}>{l.poulName}</Text>
-                <Text style={s.careerPeriod}>2024.06 - 2025.08</Text>
-              </View>
-              <Text style={s.careerRole}>{data.career.poul.role}</Text>
-              <Text style={s.careerDesc}>{data.career.poul.summary}</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Main Projects */}
+        {/* Experience */}
         <Text style={s.sectionTitle}>{l.projects}</Text>
 
-        {mainProjects.map((id) => {
-          const meta = projectMeta[id];
-          const proj = data.projects[id];
+        {companySections.map((company) => {
+          const projects = company.projects.filter((id) => activeProjects.has(id));
+          if (projects.length === 0) return null;
+
           return (
-            <View key={id} style={s.careerEntry}>
-              <View style={s.careerHeader}>
-                <Text style={s.careerCompany}>{meta.title}</Text>
-                <Text style={s.careerPeriod}>{l[meta.periodKey]}</Text>
+            <View key={company.key} style={s.companyEntry}>
+              <View style={s.companyHeader}>
+                <Image
+                  style={s.companyLogo}
+                  src={`${imageBase}${company.logo}`}
+                />
+                <View style={s.companyInfo}>
+                  <View style={s.companyNameRow}>
+                    <Text style={s.companyName}>{company.name}</Text>
+                    <Text style={s.careerPeriod}>{company.period}</Text>
+                  </View>
+                  <Text style={s.companyRole}>{company.role}</Text>
+                  <Text style={s.companySummary}>{company.summary}</Text>
+                </View>
               </View>
-              <Text style={s.projectSummary}>{proj.summary}</Text>
-              <Text style={s.careerDesc}>{proj.detail}</Text>
+
+              <View style={s.projectList}>
+                {projects.map((id) => {
+                  const meta = projectMeta[id];
+                  const proj = data.projects[id];
+                  return (
+                    <View key={id} style={s.nestedProject} wrap={false}>
+                      <View style={s.projectTitleRow}>
+                        <Text style={s.projectTitle}>{meta.title}</Text>
+                        <Text style={s.careerPeriod}>
+                          {periodOnly(l[meta.periodKey])}
+                        </Text>
+                      </View>
+                      <Text style={s.projectSummary}>{proj.summary}</Text>
+                      <Text style={s.careerDesc}>{proj.detail}</Text>
+                    </View>
+                  );
+                })}
+              </View>
             </View>
           );
         })}
-
-        {/* Side Projects */}
-        {sideProjects.length > 0 && (
-          <>
-            <Text style={s.subSectionTitle}>{l.sideProjects}</Text>
-            {sideProjects.map((id) => {
-              const meta = projectMeta[id];
-              const proj = data.projects[id];
-              return (
-                <View key={id} style={s.careerEntry}>
-                  <View style={s.careerHeader}>
-                    <Text style={s.careerCompany}>{meta.title}</Text>
-                    <Text style={s.careerPeriod}>{l[meta.periodKey]}</Text>
-                  </View>
-                  <Text style={s.projectSummary}>{proj.summary}</Text>
-                  <Text style={s.careerDesc}>{proj.detail}</Text>
-                </View>
-              );
-            })}
-          </>
-        )}
-
-        {/* Tech Stack */}
-        <Text style={s.sectionTitle}>{l.techStack}</Text>
-        {techGroups.map((g) => (
-          <View key={g.label} style={s.techGroup}>
-            <Text style={s.techGroupLabel}>{g.label}</Text>
-            <View style={s.techRow}>
-              {g.items.map((item) => (
-                <Text key={item} style={s.techBadge}>{item}</Text>
-              ))}
-            </View>
-          </View>
-        ))}
 
         {/* Language */}
         {showLanguage && (

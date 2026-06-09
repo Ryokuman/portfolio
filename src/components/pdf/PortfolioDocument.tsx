@@ -303,11 +303,9 @@ const s = StyleSheet.create({
 
 function ProjectPages({
   project,
-  startPage,
   labels,
 }: {
   project: PortfolioProject;
-  startPage: number;
   labels: typeof uiLabels[Locale];
 }) {
   const isWork = project.category === "work";
@@ -451,11 +449,10 @@ export default function PortfolioDocument({ data, locale = "ko" }: PortfolioDocu
       </Page>
 
       {/* Project Pages */}
-      {data.projects.map((project, i) => (
+      {data.projects.map((project) => (
         <ProjectPages
           key={project.id}
           project={project}
-          startPage={i + 2}
           labels={labels}
         />
       ))}

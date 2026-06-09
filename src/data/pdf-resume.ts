@@ -47,30 +47,30 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   fullstack: {
     ko: {
       position: "풀스택 개발자",
-      tagline: "팀에 없던 구조와 프로세스를 직접 만들어 정착시켜 온 개발자입니다.",
-      intro: "합류한 팀의 코드베이스를 관찰하고, 반복되는 병목의 윤곽을 파악하여 구조·프로세스·도구를 직접 만들어 해결합니다. Git Flow와 코드리뷰 문화를 도입하고, Storybook 기반 선행 개발 환경을 구축하여 백엔드 의존 없이 프론트가 먼저 움직이는 체계를 만들었습니다. 도구가 없으면 직접 만들고, 구조가 예측 가능해지면 AI를 활용한 자동화까지 도입합니다.",
+      tagline: "화면과 API의 병목을 직접 확인하고 개선해 온 개발자입니다.",
+      intro: "프로젝트에 합류하면 먼저 코드와 운영 흐름을 읽고, 실제로 막히는 지점을 확인한 뒤 필요한 구조를 정리합니다. ERP/MES 화면 프레임워크, CGV 리뷰 분석 서비스, LLAMI AI 플랫폼에서 프론트엔드 화면과 백엔드 API 양쪽의 병목을 추적하고 개선했습니다.",
       career: {
         runup: {
           role: "풀스택 개발자",
-          summary: "ERP/MES 프론트엔드를 처음부터 설계·구축하여 PR 속도 약 25배 향상, 코드량 약 70% 감소를 달성했습니다. 선언적 아키텍처 설계부터 Git Flow/PR 프로세스, AI 자동화 도입까지 주도했습니다.",
+          summary: "ERP/MES 화면 구조를 config와 코어 컴포넌트 중심으로 정리하고, Storybook/Mock 기반 개발 흐름과 PR 프로세스를 도입했습니다.",
         },
         poul: {
           role: "풀스택 개발자",
-          summary: "CGV 합작 감정 분석 서비스, AI 플랫폼 LLAMI 등 다수 프로젝트를 풀스택으로 개발했습니다. 서비스가 Toss Payments 우수사례에 선정되었습니다.",
+          summary: "CGV 리뷰 분석 서비스의 메모리·API·화면 병목을 추적했고, LLAMI에서는 LLM API 통합과 챗봇/결제 흐름 구현에 참여했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "레거시 구조를 선언적 프레임워크로 전환하여 팀 개발 속도를 끌어올린 프로젝트",
-          detail: "• 페이지마다 useState/훅 난립, 문서화 없음 → 신규 인원이 건드릴 수 없는 구조\n• 요구사항을 재정의하고 선언적 프레임워크를 처음부터 설계·구축\n• Valtio 도입: ref()로 렌더링 제어 + 팀 러닝커브 최소화\n• Storybook + Mock으로 백엔드 의존 없이 프론트 선행 개발 체계 확립\n• PR 프로세스 없던 팀에 Git Flow + 코드리뷰 도입 → 구조 안정화 후 AI 페이지 자동생성\n• PR 속도 약 25배 향상, 코드량 약 70% 감소, 리렌더링 약 85% 감소",
+          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반 구조로 정리한 프로젝트",
+          detail: "• 합류 초기 페이지별 useState 7개+, 훅 16~20개가 얽힌 레거시 구조를 분석\n• Tab/Filter/Grid/Button/Modal을 코어 컴포넌트로 분리하고, 페이지는 config 조립만 남도록 설계\n• Valtio store 17개와 Provider 구조를 설계하여 탭·그리드·필터·모달 상태 책임을 분리\n• Storybook + Mock Backend로 백엔드 대기 없이 화면과 API 스펙을 먼저 검증하는 흐름 구축\n• Git Flow, PR, 코드리뷰 프로세스를 도입하고 안정화된 패턴을 AI 페이지 생성 워크플로우로 확장\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소, 리렌더링 트리거 약 85% 감소",
         },
         cgv: {
-          summary: "반복되는 메모리 폭주를 직접 추적하여 안정화한 프로젝트",
-          detail: "• 매일 아침 반복되던 메모리 폭주 → 메모리 로거 직접 작성하여 원인 추적\n• tiktoken 인코더 싱글톤 미적용이 근본 원인 → 적용 후 안정화\n• 날짜별 API 비효율 조회 구조를 캐싱 테이블로 개선, 렌더링 속도 약 10배 향상\n• 바이럴 분석 UI/UX 전체 설계, 감정 분석 시각화 구현",
+          summary: "리뷰 분석 서비스의 메모리, API 조회, 분석 화면 병목을 추적해 개선한 프로젝트",
+          detail: "• 매일 아침 백엔드 메모리가 8GB까지 증가하는 현상을 발견하고 메모리 로거를 직접 추가\n• 호출마다 tiktoken 인코더가 새로 생성되는 원인을 확인해 싱글톤 패턴으로 고정, 약 300MB 수준으로 안정화\n• 날짜별 그래프 요구사항에서 전체 리뷰를 매번 분류·정렬하던 O(n²) 흐름을 캐싱 테이블 기반 O(n) 조회로 변경\n• AI 키워드 분석, 한줄평 자동 생성, 위험 리뷰 필터링과 바이럴 감정 분석 UI를 직접 설계·구현\n• 주요 화면 렌더링을 약 3000ms에서 300ms 수준으로 개선",
         },
         llami: {
-          summary: "다수의 LLM API를 단일 인터페이스로 통합한 AI 플랫폼",
-          detail: "• 다수 LLM API의 서로 다른 스펙(인증, 포맷, 스트리밍)을 pipe 패턴으로 통합\n• 신규 모델 추가 시 pipe 하나만 작성 → 확장 비용 최소화\n• 웹뷰 기반 Bridge/ReverseBridge로 React 문법만으로 네이티브 기능 활용\n• AI 챗봇 마켓플레이스(봇스토어) 프론트엔드 전체 설계·개발\n• Toss Payments 우수사례 선정",
+          summary: "LLM API 통합과 챗봇 탐색·채팅·결제 흐름을 구현한 AI 플랫폼",
+          detail: "• 17개 LLM API의 요청 형식, 스트리밍 방식, 응답 구조가 모두 달라 모델별 핸들러가 늘어나는 문제를 정리\n• 공통 처리 흐름을 pipe 단계로 나누고 모델별 차이는 필요한 pipe만 조합하도록 설계해 신규 모델 추가 비용을 축소\n• fetch ReadableStream 응답과 function-call 결과를 정규화하여 프론트가 모델과 무관하게 동일 컴포넌트로 렌더링하도록 구성\n• 봇스토어에서는 태그 필터, BotCard/Grid, 비주얼 채팅, 봇 생성/승인 흐름 등 주요 화면을 설계·구현\n• Toss Payments 결제 연동 및 크레딧 기반 모델 사용 흐름 구현, 우수사례 선정",
         },
         worktree: {
           summary: "기존 도구로 해결되지 않는 병렬 개발 문제를 직접 해결한 시스템",
@@ -178,30 +178,30 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   backend: {
     ko: {
       position: "백엔드 개발자",
-      tagline: "반복되는 병목의 근본 원인을 추적하고, 구조적으로 해결하는 개발자입니다.",
-      intro: "메모리 폭주의 원인을 로거로 추적하고, O(n²) API를 캐싱 테이블로 개선하고, 17개 LLM API의 서로 다른 스펙을 pipe 패턴으로 통합했습니다. 프론트엔드 경험을 바탕으로 API 스펙을 소비자 관점에서 설계하며, 구조가 안정되면 AI 자동화까지 도입합니다.",
+      tagline: "서비스 병목을 로그와 구조 개선으로 줄여 온 개발자입니다.",
+      intro: "장애나 느린 화면을 결과로만 보지 않고, 로그와 호출 흐름을 따라가며 원인을 확인합니다. CGV 서비스에서는 메모리 폭주와 API 조회 병목을 추적했고, LLAMI에서는 서로 다른 LLM API 스펙을 pipe 구조로 정리했습니다. DynaMOS v2에서는 프론트 개발 흐름 안에서 API 스펙을 먼저 정리하는 방식을 만들었습니다.",
       career: {
         runup: {
           role: "풀스택 개발자",
-          summary: "ERP/MES 시스템의 프론트엔드 프레임워크를 설계·구축하며 API 스펙 설계를 주도했습니다. Storybook + Mock 환경으로 프론트가 API 스펙을 선정의하는 체계를 만들어 개발 속도를 향상시켰습니다.",
+          summary: "ERP/MES 화면 개발 과정에서 Storybook + Mock 환경을 구축하고, 프론트가 요청/응답 스펙을 먼저 정리해 백엔드와 맞추는 흐름을 만들었습니다.",
         },
         poul: {
           role: "풀스택 개발자",
-          summary: "17개 LLM API를 pipe 패턴으로 통합하는 아키텍처를 설계하고, CGV 합작 서비스의 메모리 폭주/렌더링 병목을 직접 추적하여 해결했습니다. Toss Payments 우수사례 선정.",
+          summary: "CGV 합작 서비스의 메모리 폭주와 API 병목을 추적했고, LLAMI에서는 17개 LLM API의 차이를 pipe 단계로 정리했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "프론트엔드 프레임워크 설계를 통해 API 스펙 주도권을 확보한 프로젝트",
-          detail: "• Storybook + Mock Backend 환경 구축 → 프론트가 API 스펙(요청/응답)을 먼저 정의하고 백엔드에 전달\n• Valtio 기반 17개 스토어 설계 — 프론트 상태와 API 응답 구조를 일치시켜 변환 로직 최소화\n• 선언적 config + 코어 컴포넌트 구조로 페이지 패턴 예측 가능 → AI 페이지 자동생성\n• PR 속도 약 25배 향상, 코드량 약 70% 감소",
+          summary: "Storybook + Mock으로 API 스펙을 먼저 검증하는 개발 흐름을 만든 프로젝트",
+          detail: "• 백엔드 API 완성 전까지 프론트 개발이 멈추는 병목을 확인하고 Storybook + Mock Backend 환경을 구축\n• 화면 요구사항을 먼저 쪼개 요청/응답 스펙을 프론트에서 정의한 뒤 백엔드에 전달하는 개발 흐름으로 전환\n• Valtio 기반 17개 store를 설계해 grid/tab/filter/modal 상태와 API 응답 형태를 맞추고 변환 로직을 줄임\n• config + 코어 컴포넌트 조립 구조로 페이지 패턴을 표준화하여 AI가 같은 규칙으로 페이지를 생성할 수 있게 만듦\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소",
         },
         cgv: {
-          summary: "메모리 폭주와 API 병목을 근본 원인부터 추적하여 해결한 프로젝트",
-          detail: "• 매일 아침 반복되던 메모리 폭주(8GB) → 메모리 로거 직접 작성하여 원인 추적\n• tiktoken 인코더가 호출마다 재생성되는 것이 근본 원인 → 싱글톤 적용 후 ~300MB로 안정화\n• 날짜별 전체 리뷰 조회 O(n²) 구조 → 캐싱 테이블 도입으로 O(n) 개선, 렌더링 3000ms → 300ms\n• API 호출 병렬화 적용: 렌더링 52~6300ms → 2~3000ms",
+          summary: "메모리 증가와 리뷰 조회 API 병목을 로그와 캐싱 구조로 개선한 프로젝트",
+          detail: "• 매일 아침 반복되던 8GB 메모리 폭주를 재현하고, 메모리 로거를 추가해 증가 지점을 추적\n• tiktoken 인코더가 요청마다 재생성되는 것을 확인해 싱글톤으로 변경, 메모리 사용량을 약 300MB 수준으로 안정화\n• 날짜별 리뷰 그래프 API가 전체 리뷰를 가져와 분류·정렬하는 O(n²) 구조임을 확인하고 캐싱 테이블을 설계\n• 캐싱 테이블 기반 조회로 O(n)까지 낮추고, 독립 API 호출은 병렬화해 초기 렌더링 지연을 줄임\n• 렌더링 3000ms → 300ms, API 병렬 처리 구간 52~6300ms → 2~3000ms로 개선",
         },
         llami: {
-          summary: "17개 LLM API를 pipe 패턴으로 통합한 백엔드 아키텍처",
-          detail: "• 모델마다 다른 API 스펙(인증, 요청 포맷, 스트리밍, 응답 구조)을 pipe 패턴으로 추상화\n• 신규 모델 추가 = pipe 하나 작성 → 확장 비용 최소화\n• ReadableStream 기반 스트리밍으로 모델 응답 실시간 전달, pipe 단계에서 포맷 정규화\n• function-call 스펙을 모델 간 통합 추상화 → 프론트엔드가 모델 무관하게 동일 인터페이스 사용\n• Toss Payments 우수사례 선정",
+          summary: "17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 정리한 프로젝트",
+          detail: "• 모델별 인증, 요청 포맷, 스트리밍 이벤트, 응답 구조가 달라 핸들러가 늘어나는 문제를 분석\n• 요청 생성, 스트림 파싱, 토큰/크레딧 계산, function-call 정규화를 pipe 단계로 분리\n• 신규 모델은 공통 pipe를 재사용하고 차이가 나는 단계만 추가하도록 구성해 확장 비용을 낮춤\n• ReadableStream 기반 응답을 표준 이벤트로 변환해 프론트가 모델과 무관하게 동일 인터페이스를 사용하도록 설계\n• Toss Payments 결제 및 크레딧 차등 소모 흐름을 연동, 우수사례 선정",
         },
         worktree: {
           summary: "PTY 세션 기반 서버 상태 관리와 프로세스 복구 시스템",
@@ -309,30 +309,30 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   frontend: {
     ko: {
       position: "프론트엔드 개발자",
-      tagline: "코드베이스를 읽고, 구조적 병목을 파악하고, 실질적인 개선을 만드는 개발자입니다.",
-      intro: "합류한 프로젝트의 코드를 먼저 읽고, 반복되는 문제의 윤곽을 파악한 뒤 움직입니다. 짧고 읽히는 코드를 선호하고, 핫픽스 남발보다 원인을 끝까지 파고들어 해결하는 쪽을 택합니다. PR은 작게 쪼개되 히스토리를 체계적으로 관리하고, 길어지는 논의는 이슈 티켓으로 빼고, 컨벤션은 린터로 자동화하여 팀이 코드에 집중할 수 있는 환경을 만듭니다.",
+      tagline: "레거시 화면 구조와 사용자 흐름을 정리해 온 프론트엔드 개발자입니다.",
+      intro: "기존 화면의 상태 흐름과 반복 패턴을 먼저 읽고, config·코어 컴포넌트·작은 PR 단위로 정리하는 일을 해왔습니다. ERP/MES 화면 프레임워크를 정리했고, CGV 분석 대시보드와 LLAMI 챗봇 화면에서는 실제 사용 흐름과 성능 병목을 따라가며 개선했습니다.",
       career: {
         runup: {
           role: "프론트엔드 개발자",
-          summary: "레거시 코드 분석 후 선언적 프레임워크를 설계하여 PR 속도 약 25배 향상, 코드량 약 70% 감소를 달성했습니다. PR 프로세스와 코드리뷰 문화를 도입하고, Storybook 기반 문서화를 구축했습니다.",
+          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반으로 정리하고, Storybook 문서화와 PR 단위 개발 흐름을 만들었습니다.",
         },
         poul: {
           role: "프론트엔드 개발자",
-          summary: "CGV 합작 서비스에서 렌더링 병목을 직접 추적하여 해결했습니다. LLAMI에서 챗봇 마켓플레이스 프론트엔드를 전체 설계·개발했으며, 서비스가 Toss Payments 우수사례에 선정되었습니다.",
+          summary: "CGV 분석 대시보드의 화면 병목과 시각화 흐름을 개선했고, LLAMI에서는 챗봇 탐색·채팅 UI와 앱 브릿지 흐름을 구현했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "레거시 구조를 선언적 프레임워크로 전환하여 팀 개발 속도를 끌어올린 프로젝트",
-          detail: "• 기존 코드 분석: 페이지마다 useState/훅 난립, 문서화 없음, 유지보수 불가 구조\n• 요구사항 재정의 → config + 코어 컴포넌트 조립 기반 선언적 구조 설계\n• Valtio 선택 근거: 프록시 구독으로 렌더링 세밀 제어 + 팀 러닝커브 최소화\n• Storybook + Mock으로 백엔드 의존 제거, API 스펙을 프론트가 선정의\n• Git Flow + 코드리뷰 도입, 구조 안정화 후 AI 페이지 자동생성 워크플로우 확장\n• PR 속도 약 25배 향상, 코드량 약 70% 감소, 리렌더링 약 85% 감소",
+          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반으로 정리한 프로젝트",
+          detail: "• 페이지마다 useState 7개+, 훅 16~20개가 얽힌 코드를 분석하고 반복 패턴을 Tab/Filter/Grid/Button/Modal로 분리\n• 컬럼·필터·버튼 정의는 config로 빼고, 화면은 코어 컴포넌트를 조립하는 선언적 구조로 재설계\n• Valtio store와 Provider를 직접 설계해 페이지 레벨 상태를 줄이고, useSnapshot으로 필요한 값만 구독하게 구성\n• Storybook + Mock으로 API 완성 전에도 화면을 개발·검증하고, 프론트가 요청/응답 스펙을 먼저 정리하도록 프로세스 변경\n• Git Flow + 코드리뷰 도입 후 안정화된 페이지 패턴을 AI 페이지 자동생성 워크플로우로 확장\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소, 리렌더링 트리거 약 85% 감소",
         },
         cgv: {
-          summary: "반복되는 메모리 폭주를 직접 추적하여 안정화한 프로젝트",
-          detail: "• 매일 아침 반복되던 메모리 폭주 → 메모리 로거 직접 작성하여 원인 추적\n• tiktoken 인코더 싱글톤 미적용이 근본 원인 → 적용 후 안정화\n• 날짜별 API 비효율 조회 구조를 캐싱 테이블로 개선, 렌더링 속도 약 10배 향상\n• 바이럴 분석 UI/UX 전체 설계, 감정 분석 시각화 구현",
+          summary: "분석 대시보드의 렌더링 병목과 리뷰/바이럴 시각화 흐름을 개선한 프로젝트",
+          detail: "• CGV 실관람평/바이럴 데이터를 수집·분석하는 대시보드에서 느린 렌더링과 메모리 증가 현상을 추적\n• 메모리 로거로 tiktoken 인코더 재생성 문제를 찾아 싱글톤으로 고정하고, 백엔드 메모리를 약 300MB 수준으로 안정화\n• 날짜별 그래프가 전체 리뷰를 매번 분류·정렬하던 구조를 캐싱 테이블 기반 조회로 바꿔 렌더링을 약 10배 개선\n• AI 키워드 분석, 한줄평 자동 생성, 위험 리뷰 필터링, 바이럴 감정/트렌드 화면을 직접 설계·구현",
         },
         llami: {
-          summary: "AI 챗봇 마켓플레이스 프론트엔드 전체 설계·개발",
-          detail: "• 태그 기반 필터링/정렬 — BotCard, BotGrid, 검색/필터/태그 컴포넌트로 카테고리 탐색 UX 설계\n• 텍스트 모드와 캐릭터 비주얼 모드 듀얼 채팅 — 대화 상태를 유지하면서 UI 모드만 전환\n• 웹뷰 기반 Bridge/ReverseBridge로 React 문법만으로 네이티브 기능 활용\n• OpenAI Assistant API 기반 스트리밍 채팅 및 대화 히스토리 관리\n• Toss Payments 우수사례 선정",
+          summary: "챗봇 탐색, 채팅 UI, 앱 브릿지 흐름을 구현한 AI 서비스",
+          detail: "• 봇스토어에서 카테고리/태그 기반 탐색을 위해 BotCard, BotGrid, 검색/필터/태그 컴포넌트 구조를 설계\n• 일반 텍스트 채팅과 캐릭터 이미지가 함께 보이는 비주얼 채팅을 같은 대화 상태 위에서 전환되도록 구현\n• OpenAI Assistant API 스트리밍 응답과 대화 히스토리를 연결해 게스트 체험, 로그인 전환, 채팅 지속 흐름을 구성\n• 라미 앱에서는 WebView postMessage 기반 Bridge/ReverseBridge를 설계해 웹 개발자가 React 문법으로 네이티브 기능을 호출하도록 지원\n• Toss Payments 결제 및 크레딧 충전 흐름과 연결되어 우수사례 선정",
         },
         worktree: {
           summary: "기존 도구로 해결되지 않는 병렬 개발 문제를 직접 해결한 시스템",
@@ -351,8 +351,8 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     en: {
       position: "Frontend Developer",
-      tagline: "A developer who reads codebases, identifies structural bottlenecks, and delivers real improvements.",
-      intro: "I read the codebase first, identify recurring problem patterns, then act. I prefer short, readable code and choose to dig into root causes over quick hotfixes. I split PRs small with systematic history management, move long discussions to issue tickets, and automate conventions with linters so the team can focus on code.",
+      tagline: "I turn complex frontend systems into readable development flows.",
+      intro: "I read legacy code and recurring bottlenecks first, then build declarative structures, small PR workflows, documentation, and automation so teams can keep improving. In DynaMOS v2 I reorganized the framework and development process; in CGV-ASSISTANT and LLAMI I traced real product UI and performance issues through to delivery.",
       career: {
         runup: {
           role: "Frontend Developer",
@@ -393,8 +393,8 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     tr: {
       position: "Frontend Geliştirici",
-      tagline: "Kod tabanını okuyup yapısal darboğazları tespit ederek gerçek iyileştirmeler yapan bir geliştirici.",
-      intro: "Önce kod tabanını okur, tekrarlayan sorun kalıplarını tespit eder, sonra harekete geçerim. Kısa ve okunabilir kod tercih ederim, hızlı düzeltmeler yerine kök nedeni araştırmayı seçerim. PR'ları küçük tutup sistematik geçmiş yönetimi yapar, uzayan tartışmaları issue biletlerine taşır ve konvansiyonları linter ile otomatikleştiririm.",
+      tagline: "Karmaşık frontend yapılarını okunabilir geliştirme akışlarına dönüştürürüm.",
+      intro: "Önce legacy kodu ve tekrarlayan darboğazları okur, ardından bildirimsel yapılar, küçük PR akışları, dokümantasyon ve otomasyonla ekibin sürekli iyileştirebileceği bir düzen kurarım. DynaMOS v2'de framework ve geliştirme sürecini düzenledim; CGV-ASSISTANT ve LLAMI'de gerçek ürün UI'ı ve performans sorunlarını teslimata kadar takip ettim.",
       career: {
         runup: {
           role: "Frontend Geliştirici",

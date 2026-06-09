@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useState,
-  useEffect,
   useCallback,
   type ReactNode,
 } from "react";
@@ -28,23 +27,16 @@ const I18nContext = createContext<I18nContextValue>({
 });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("ko");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved && ["ko", "en", "tr"].includes(saved)) {
-      setLocaleState(saved);
-    }
-    setMounted(true);
-  }, []);
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "ko";
+    const saved = window.localStorage.getItem("locale") as Locale | null;
+    return saved && ["ko", "en", "tr"].includes(saved) ? saved : "ko";
+  });
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);
-    localStorage.setItem("locale", l);
+    window.localStorage.setItem("locale", l);
   }, []);
-
-  if (!mounted) return <>{children}</>;
 
   return (
     <I18nContext.Provider value={{ locale, setLocale }}>

@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import basePath from "@/lib/basePath";
 
 interface CardProps {
@@ -38,11 +39,13 @@ export default function Card({
       className="group block cursor-pointer rounded-xl border border-gray-200 bg-white overflow-hidden transition-all hover:border-gray-300 hover:shadow-md"
     >
       {image && (
-        <div className="aspect-video w-full overflow-hidden">
-          <img
+        <div className="relative aspect-video w-full overflow-hidden">
+          <Image
             src={`${basePath}${image}`}
             alt={title}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       )}

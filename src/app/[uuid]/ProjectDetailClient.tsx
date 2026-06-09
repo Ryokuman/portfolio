@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import type { Project } from "@/types";
@@ -45,10 +46,13 @@ export default function ProjectDetailClient({ project: serverProject }: Props) {
           />
         )}
         {!project.video && project.thumbnail && (
-          <img
+          <Image
             src={`${basePath}${project.thumbnail}`}
             alt={project.title}
-            className="absolute inset-0 h-full w-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
           />
         )}
         {!project.video && !project.thumbnail && (
@@ -96,7 +100,7 @@ export default function ProjectDetailClient({ project: serverProject }: Props) {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-gray-500 leading-relaxed"
+              className="text-base leading-7 text-gray-700"
             >
               {project.description}
             </motion.p>
@@ -120,10 +124,10 @@ export default function ProjectDetailClient({ project: serverProject }: Props) {
                   {project.achievements.map((achievement) => (
                     <div
                       key={achievement}
-                      className="flex items-start gap-2.5 text-sm font-medium text-emerald-600"
+                      className="flex items-start gap-2.5 text-sm font-medium leading-6 text-gray-700"
                     >
                       <svg
-                        className="mt-0.5 h-4 w-4 shrink-0"
+                        className="mt-1 h-4 w-4 shrink-0 text-emerald-600"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

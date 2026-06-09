@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import Image from "next/image";
 import basePath from "@/lib/basePath";
 
 interface ImageCarouselProps {
@@ -20,6 +21,8 @@ export default function ImageCarousel({
   // Drag state
   const dragRef = useRef({ startX: 0, currentX: 0, dragging: false });
   const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Auto-play
@@ -41,6 +44,18 @@ export default function ImageCarousel({
     };
   }, [resetTimer]);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const updateWidth = () => setContainerWidth(container.offsetWidth || 1);
+    updateWidth();
+
+    const resizeObserver = new ResizeObserver(updateWidth);
+    resizeObserver.observe(container);
+    return () => resizeObserver.disconnect();
+  }, []);
+
   const go = useCallback(
     (dir: 1 | -1) => {
       setCurrent((prev) => (prev + dir + images.length) % images.length);
@@ -54,6 +69,7 @@ export default function ImageCarousel({
     (e: React.PointerEvent) => {
       if (!multi) return;
       dragRef.current = { startX: e.clientX, currentX: e.clientX, dragging: true };
+      setIsDragging(true);
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
     },
     [multi],
@@ -70,22 +86,22 @@ export default function ImageCarousel({
   );
 
   const onPointerUp = useCallback(
-    (e: React.PointerEvent) => {
+    () => {
       if (!dragRef.current.dragging) return;
       dragRef.current.dragging = false;
       const diff = dragRef.current.currentX - dragRef.current.startX;
-      const width = containerRef.current?.offsetWidth ?? 1;
 
       // Threshold: 15% of container width
-      if (Math.abs(diff) > width * 0.15) {
+      if (Math.abs(diff) > containerWidth * 0.15) {
         go(diff < 0 ? 1 : -1);
       }
+      setIsDragging(false);
       setDragOffset(0);
     },
-    [go],
+    [containerWidth, go],
   );
 
-  const translateX = -(current * 100) + (containerRef.current ? (dragOffset / containerRef.current.offsetWidth) * 100 : 0);
+  const translateX = -(current * 100) + (dragOffset / containerWidth) * 100;
 
   return (
     <div
@@ -99,17 +115,21 @@ export default function ImageCarousel({
     >
       {/* Slides */}
       <div
-        className={`flex h-full ${dragRef.current.dragging ? "" : "transition-transform duration-300 ease-out"}`}
+        className={`flex h-full ${isDragging ? "" : "transition-transform duration-300 ease-out"}`}
         style={{ transform: `translateX(${translateX}%)` }}
       >
         {images.map((src, i) => (
-          <img
-            key={src}
-            src={`${basePath}${src}`}
-            alt={`${alt} ${i + 1}`}
-            className="h-full w-full shrink-0 object-contain pointer-events-none"
-            draggable={false}
-          />
+          <div key={src} className="relative h-full w-full shrink-0">
+            <Image
+              src={`${basePath}${src}`}
+              alt={`${alt} ${i + 1}`}
+              fill
+              sizes="(min-width: 768px) 70vw, 100vw"
+              className="object-contain pointer-events-none"
+              draggable={false}
+              priority={i === 0}
+            />
+          </div>
         ))}
       </div>
 

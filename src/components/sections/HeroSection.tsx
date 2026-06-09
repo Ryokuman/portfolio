@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import TechBadge from "@/components/ui/TechBadge";
 import basePath from "@/lib/basePath";
@@ -14,7 +15,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+      className="relative flex min-h-screen items-start justify-center overflow-hidden px-6 pb-16 pt-24 md:items-center md:py-24"
     >
       {/* Background gradient */}
       <div className="pointer-events-none absolute inset-0">
@@ -29,11 +30,16 @@ export default function HeroSection() {
         className="relative mx-auto max-w-3xl text-center"
       >
         <motion.div variants={fadeInUp} className="mb-6">
-          <img
-            src={`${basePath}/images/profile.jpg`}
-            alt={profile.name}
-            className="mx-auto h-28 w-28 rounded-full object-cover ring-4 ring-white shadow-lg"
-          />
+          <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-full ring-4 ring-white shadow-lg">
+            <Image
+              src={`${basePath}/images/profile.jpg`}
+              alt={profile.name}
+              fill
+              sizes="112px"
+              className="object-cover"
+              priority
+            />
+          </div>
         </motion.div>
 
         <motion.p
@@ -54,14 +60,14 @@ export default function HeroSection() {
 
         <motion.p
           variants={fadeInUp}
-          className="mt-4 text-lg text-gray-500 sm:text-xl"
+          className="mt-4 text-lg text-gray-600 sm:text-xl"
         >
           {profile.tagline}
         </motion.p>
 
-        <motion.div variants={fadeInUp} className="mt-6 space-y-2">
+        <motion.div variants={fadeInUp} className="mx-auto mt-6 max-w-2xl space-y-2">
           {profile.bio.map((paragraph) => (
-            <p key={paragraph} className="text-gray-400 leading-relaxed">
+            <p key={paragraph} className="leading-7 text-gray-600">
               {paragraph}
             </p>
           ))}
@@ -71,7 +77,7 @@ export default function HeroSection() {
         <motion.div variants={fadeInUp} className="mt-10 space-y-4">
           {profile.techStack.map((category) => (
             <div key={category.category}>
-              <p className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase">
+              <p className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase">
                 {category.category}
               </p>
               <div className="flex flex-wrap justify-center gap-2">
