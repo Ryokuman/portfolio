@@ -161,7 +161,7 @@ const s = StyleSheet.create({
     flexShrink: 0,
   },
   bodyColumn: {
-    marginLeft: 138,
+    marginLeft: 96,
   },
   contactRule: {
     height: 1,
@@ -185,6 +185,17 @@ const s = StyleSheet.create({
   },
   headerBlock: {
     marginBottom: 0,
+    minHeight: 142,
+  },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 18,
+  },
+  titlePhoto: {
+    width: 94,
+    height: 116,
+    objectFit: "cover",
   },
   bigTitle: {
     fontSize: 34,
@@ -240,7 +251,7 @@ const s = StyleSheet.create({
     fontSize: 9,
     color: c.text,
     lineHeight: 1.5,
-    width: 300,
+    width: 260,
   },
   careerEntry: { marginBottom: 14 },
   careerRow: {
@@ -440,9 +451,17 @@ export default function ProductivityDocument({
           <View style={s.topRow}>
             <View style={s.heroColumn}>
               <View style={s.headerBlock}>
-                <Text style={s.bigTitle}>{l.greeting}</Text>
-                <Text style={s.fieldText}>{data.position}</Text>
-                <Text style={s.introText}>{data.intro}</Text>
+                <View style={s.titleRow}>
+                  <Image
+                    style={s.titlePhoto}
+                    src={`${imageBase}${config.profileImage}`}
+                  />
+                  <View>
+                    <Text style={s.bigTitle}>{l.greeting}</Text>
+                    <Text style={s.fieldText}>{data.position}</Text>
+                    <Text style={s.introText}>{data.intro}</Text>
+                  </View>
+                </View>
               </View>
             </View>
 

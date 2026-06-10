@@ -51,7 +51,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     ko: {
       position: "풀스택 개발자",
       tagline: "",
-      intro: "화면, API, QA, 개발 프로세스의 반복 병목을 시스템으로 전환해 제품 개발 속도를 높이는 개발자입니다.",
+      intro: "화면, API, QA, 개발 프로세스의 반복 병목을\n시스템으로 전환해 제품 개발 속도를 높이는 개발자입니다.",
       career: {
         runup: {
           role: "프로덕트 엔지니어 리드 / 풀스택 개발자",
@@ -194,7 +194,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     ko: {
       position: "백엔드 개발자",
       tagline: "API, 데이터 처리, LLM 통합의 반복 병목을 구조화하고 자동화 시스템으로 전환하는 개발자입니다.",
-      intro: "서비스 병목을 결과로만 보지 않고, 로그·호출 흐름·backend contract를 따라가며 원인을 구조화합니다. CGV-ASSISTANT에서는 메모리 폭주와 리뷰 조회 병목을 안정화했고, LLAMI에서는 17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 정리했습니다. DynaMOS에서는 Spring/MyBatis 기반 endpoint와 mapper statement를 분석해 생성 코드의 API method/query 정책을 맞추는 흐름을 만들었습니다.",
+      intro: "API, 데이터 처리, LLM 통합의 반복 병목을\n구조화하고 자동화 시스템으로 전환하는 개발자입니다.",
       career: {
         runup: {
           role: "프로덕트 엔지니어 리드 / 풀스택 개발자",
@@ -325,7 +325,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     ko: {
       position: "프론트엔드 개발자",
       tagline: "반복되는 화면 개발 병목을 프레임워크·생성기·검증 시스템으로 전환해 개발 속도를 높이는 개발자입니다.",
-      intro: "레거시 화면을 단순히 다시 구현하지 않고, 팀이 같은 방식으로 빠르게 만들 수 있는 개발 시스템으로 전환합니다. DynaMOS에서는 100개+ ERP/MES 화면의 상태관리·필터·그리드·버튼 구조를 Store + Context 기반 프레임워크와 config 조립 방식으로 표준화했고, V1 snapshot 기반 page generator와 dynaVite 사일로 QA 런타임으로 생성/검증 루프까지 구축했습니다.",
+      intro: "반복되는 화면 개발 병목을\n프레임워크·생성기·검증 시스템으로 전환해 개발 속도를 높이는 개발자입니다.",
       career: {
         runup: {
           role: "프로덕트 엔지니어 리드 / 프론트엔드 개발자",
