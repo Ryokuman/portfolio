@@ -549,7 +549,7 @@ export default function ProductivityDocument({
               <View style={s.eduRow}>
                 <Image
                   style={s.eduLogo}
-                  src={`${imageBase}/logo/sku.svg`}
+                  src={`${imageBase}/logo/sku.png`}
                 />
                 <View>
                   <Text style={s.eduName}>{data.education.name}</Text>

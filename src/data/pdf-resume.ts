@@ -89,7 +89,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
         },
         worktree: {
           summary: "QA 병렬 처리와 작업 컨텍스트 유실 문제를 해결하기 위해 만든 개발 운영 시스템",
-          detail: "• 여러 브랜치를 동시에 처리할 때 서버 재시작·의존성 설치·작업 맥락 복구가 반복되던 문제를 worktree 대시보드로 시스템화\n• 브랜치별 dev server, web terminal, plan, health check를 한곳에서 관리해 QA 피드백을 병렬로 처리\n• PTY 세션을 서버 상태의 source of truth로 두고, plan 양방향 동기화로 dashboard와 worktree 내부 작업 맥락 불일치 해결",
+          detail: "• 여러 브랜치를 동시에 처리할 때마다 서버 재시작, 의존성 설치, 터미널 이동, 작업 맥락 복구가 반복되는 문제가 있었습니다.\n• 이 문제는 개인 기억이나 수동 체크리스트로 해결하기 어렵다고 판단했고, branch별 dev server, web terminal, plan, health check를 한곳에서 관리하는 worktree 대시보드를 구축했습니다.\n• PTY 세션을 서버 상태의 source of truth로 두고 plan을 양방향 동기화해, 사람과 AI가 같은 작업 맥락을 유지하면서 QA 피드백을 병렬로 처리할 수 있게 만들었습니다.",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
@@ -104,34 +104,46 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     en: {
       position: "Full Stack Developer",
-      tagline: "A developer who builds structures and processes that didn't exist before.",
-      intro: "I observe a team's codebase, identify recurring bottlenecks, and build structures, processes, and tools to solve them. I introduced Git Flow and code review culture, built a Storybook-based pre-development environment so frontend could move independently of backend. When tools don't exist, I build them — and once structures become predictable, I bring in AI-powered automation.",
+      tagline: "",
+      intro: "I turn recurring bottlenecks across UI, API, QA, and development process\ninto systems that improve product development speed.",
       career: {
         runup: {
           role: "Product Engineering Lead / Full Stack Developer",
-          summary: "Designed and built ERP/MES frontend from scratch — achieved ~25x PR velocity improvement and ~70% code reduction. Led declarative architecture design, Git Flow/PR process, and AI automation.",
+          summary: "Structured the pressure of converting 100+ ERP/MES screens into a frontend framework, generator, QA runtime, and worktree operating system.",
         },
         poul: {
           role: "Full Stack Developer",
-          summary: "Full-stack development of CGV collaboration sentiment analysis service, AI platform LLAMI, and more. Service selected as Toss Payments best practice.",
+          summary: "Connected operational analytics, API stabilization, LLM integration, and product surfaces into working service flows in CGV-ASSISTANT and LLAMI.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Transformed legacy structure into a declarative framework, accelerating team development",
-          detail: "• Pages riddled with useState/hooks, no documentation → untouchable by new members\n• Redefined requirements and designed declarative framework from scratch\n• Introduced Valtio: ref() for render control + minimized team learning curve\n• Storybook + Mock for frontend-first development without backend dependency\n• Introduced Git Flow + code review to team with no PR process → AI page auto-generation after stabilization\n• ~25x PR velocity improvement, ~70% code reduction, ~85% fewer re-renders",
+          summary: "DynaMOS development system for ERP/MES screen development, legacy conversion, and QA operation",
+          detail: "• The team had to convert 100+ business screens quickly, but each screen handled state, filters, grids, and buttons differently, which made development speed and quality unstable.\n• I judged that implementing more screens would not solve the repeated pattern problem, so I designed core components and a Store + Context page structure to turn screen development into standardized composition.\n• I separated column, filter, and button definitions into config and connected Storybook + Mock Backend so the team could fix screen behavior and request/response contracts before the real API was ready.",
+        },
+        generator: {
+          summary: "Page generator that converts V1 screen data into V2 index.tsx/config.ts drafts",
+          detail: "• Reading V1 screen information and manually moving it into V2 code was becoming a repeated bottleneck in the legacy conversion process.\n• I judged that this should be handled as a rule-based transformation problem rather than manual restoration, so I analyzed V1 HTML/JS/widgetprop/elements data.\n• I connected that analysis to the DynaMOS Generator pipeline, which creates V2 index.tsx and config.ts drafts and reduces the cost of converting legacy screens.",
+        },
+        dynavite: {
+          summary: "Silo QA runtime for validating generated pages without the full app",
+          detail: "• To verify one generated page, the team had to run the full Next app, auth flow, session state, and backend APIs, which made the silo QA loop slow.\n• I judged that generated page QA should be reduced to page-level surface checks, so I injected mock auth/API/session into the dynaVite runtime.\n• As a result, filter/grid/button surfaces could be checked in a single page harness, improving the feedback speed of generated page QA.",
+        },
+        agentSilo: {
+          summary: "Agent Silo System where the main orchestrator creates task-level silos and separates implementation, QA, and review",
+          detail: "• When one agent directly modified multiple issues, SSoT, working branches, verification boundaries, and failed experiments could easily get mixed together.\n• I designed operating rules where the main orchestrator creates task/issue/page-level silos, clones only the required repos, and works on a new branch instead of protected branches.\n• Inside each silo, developer agents implement, QA agents verify with tools such as agent-browser, and review agents inspect scope, branch, secrets, and SSoT promotion candidates.\n• Results return as PRs and verification records, with PR bodies separating what should be promoted into SSoT from what should remain local.",
         },
         cgv: {
-          summary: "Tracked down recurring memory explosions and stabilized the service",
-          detail: "• Daily morning memory spikes → wrote custom memory logger to trace root cause\n• tiktoken encoder missing singleton pattern was the root cause → applied and stabilized\n• Replaced inefficient date-based API queries with caching table, ~10x rendering speed improvement\n• Designed complete viral analysis UI/UX and sentiment visualization",
+          summary: "CGV operations dashboard for collecting and analyzing movie review and viral data",
+          detail: "• CGV operators needed to review audience and viral data every day, but memory growth and slow review APIs made the analytics dashboard unstable and less responsive.\n• I treated the bottleneck as a backend call-flow and data-query problem rather than a screen-only issue, then traced the tiktoken encoder being recreated per request with memory logging.\n• I moved encoder creation to a singleton structure, changed date-based graph queries to cached-table reads with parallel API calls, and improved dashboard responsiveness.\n• On top of that, I connected review collection, AI sentiment/toxicity analysis, risky-review filtering, short review generation, and viral trend screens into a daily analytics service.",
         },
         llami: {
-          summary: "AI platform unifying multiple LLM APIs into a single interface",
-          detail: "• Unified different LLM API specs (auth, format, streaming) with pipe pattern\n• Adding new model = writing one pipe → minimal extension cost\n• Bridge/ReverseBridge on webview — native features with React syntax only\n• Designed and built entire AI chatbot marketplace (Bot Store) frontend\n• Selected as Toss Payments best practice",
+          summary: "AI platform that unifies 17 LLM APIs and delivers multiple product surfaces",
+          detail: "• Each model had different auth, request format, streaming events, and function-call responses, so adding a new model kept increasing handler code.\n• I judged that model-specific handlers would keep raising maintenance cost, so I separated request creation, stream parsing, token/credit calculation, and function-call normalization into pipe stages.\n• I normalized model responses into a single interface so the frontend could render responses with the same components regardless of model differences.\n• On top of this structure, I implemented multiple product surfaces including Model Store, Bot Store, LLAMI Chat, and the Expo app.",
         },
         worktree: {
-          summary: "Built a system to solve parallel development bottlenecks no existing tool could handle",
-          detail: "• Multi-branch parallel work bottleneck during QA → no suitable tool existed, built from scratch\n• xterm.js + Claude Code integration for AI-powered development plan generation\n• chokidar + sync lock for bidirectional dashboard ↔ worktree plan sync",
+          summary: "Development operation system for parallel QA handling and work context preservation",
+          detail: "• Handling multiple branches at once repeatedly required server restarts, dependency setup, and context recovery.\n• I systematized this with a worktree dashboard that manages branch-specific dev servers, web terminals, plans, and health checks in one place.\n• PTY sessions became the source of truth for server state, and bidirectional plan sync kept dashboard context aligned with worktree-local work context.",
         },
       },
       education: { name: "Sungkyul University", dept: "Computer Science (Withdrawn)" },
@@ -146,34 +158,46 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     tr: {
       position: "Full Stack Geliştirici",
-      tagline: "Ekipte olmayan yapı ve süreçleri sıfırdan kuran bir geliştirici.",
-      intro: "Ekibin kod tabanını gözlemler, tekrarlanan darboğazları tespit eder ve çözmek için yapılar, süreçler ve araçlar inşa ederim. Git Flow ve kod inceleme kültürünü tanıttım, Storybook tabanlı ön geliştirme ortamı kurarak frontend'in backend'den bağımsız hareket etmesini sağladım. Araç yoksa kendim yaparım — yapılar öngörülebilir hale gelince AI otomasyonu devreye sokarım.",
+      tagline: "",
+      intro: "Ekran, API, QA ve geliştirme sürecindeki tekrarlayan darboğazları\nürün geliştirme hızını artıran sistemlere dönüştüren geliştiriciyim.",
       career: {
         runup: {
           role: "Product Engineering Lead / Full Stack Geliştirici",
-          summary: "ERP/MES frontend'ini sıfırdan tasarlayıp geliştirdi — PR hızında ~25 kat artış ve ~%70 kod azaltma. Bildirimsel mimari, Git Flow/PR süreci ve AI otomasyon liderliği.",
+          summary: "100+ ERP/MES ekran dönüşüm baskısını frontend framework, generator, QA runtime ve worktree işletim sistemi olarak yapılandırdı.",
         },
         poul: {
           role: "Full Stack Geliştirici",
-          summary: "CGV işbirliği duygu analizi servisi, AI platformu LLAMI ve daha fazlasını full-stack olarak geliştirdi. Servis Toss Payments en iyi uygulama seçildi.",
+          summary: "CGV-ASSISTANT ve LLAMI'de operasyonel analiz, API stabilizasyonu, LLM entegrasyonu ve ürün yüzeylerini çalışan servis akışlarına bağladı.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Legacy yapıyı bildirimsel framework'e dönüştürerek ekip geliştirme hızını artırdı",
-          detail: "• Her sayfada useState/hook karmaşası, dokümantasyon yok → yeni üyelerin dokunamayacağı yapı\n• Gereksinimleri yeniden tanımlayıp bildirimsel framework'ü sıfırdan tasarladı\n• Valtio tanıtımı: ref() ile render kontrolü + ekip öğrenme eğrisini minimize\n• Storybook + Mock ile backend bağımlılığı olmadan frontend ön geliştirme\n• PR süreci olmayan ekibe Git Flow + kod inceleme → stabilizasyon sonrası AI sayfa otomatik oluşturma\n• PR hızında ~25 kat artış, ~%70 kod azaltma, ~%85 daha az yeniden render",
+          summary: "ERP/MES ekran geliştirme, legacy dönüşüm ve QA operasyonunu birleştiren DynaMOS geliştirme sistemi",
+          detail: "• Ekip 100+ iş ekranını hızlı dönüştürmek zorundaydı; ancak her ekran state, filtre, grid ve butonları farklı şekilde yönettiği için hız ve kalite dalgalanıyordu.\n• Daha fazla ekran yazmanın bu tekrarlayan problemi çözmeyeceğine karar verdim ve ekran geliştirmeyi standart kompozisyona çevirmek için core component ve Store + Context sayfa yapısı tasarladım.\n• Kolon, filtre ve buton tanımlarını config'e ayırdım; Storybook + Mock Backend ile gerçek API hazır olmadan ekran davranışını ve request/response contract'larını sabitleyen akış kurdum.",
+        },
+        generator: {
+          summary: "V1 ekran verisini V2 index.tsx/config.ts taslaklarına dönüştüren page generator",
+          detail: "• V1 ekran bilgisini okuyup V2 koda elle taşımak legacy dönüşümde tekrarlayan bir darboğaz haline geliyordu.\n• Bunun elle restorasyon değil kural tabanlı dönüşüm problemi olarak ele alınması gerektiğine karar verdim ve V1 HTML/JS/widgetprop/elements verilerini analiz ettim.\n• Bu analizi V2 index.tsx ve config.ts taslakları üreten DynaMOS Generator pipeline'ına bağlayarak legacy ekran dönüşüm maliyetini düşürdüm.",
+        },
+        dynavite: {
+          summary: "Generated page'leri tam uygulama olmadan doğrulayan silo QA runtime",
+          detail: "• Tek bir generated page'i doğrulamak için tüm Next uygulaması, auth akışı, session ve backend API'leri çalıştırmak gerekiyordu; bu da silo QA döngüsünü yavaşlatıyordu.\n• Generated page QA'nın page-level surface kontrolüne indirgenmesi gerektiğine karar verdim ve dynaVite runtime'a mock auth/API/session enjekte ettim.\n• Böylece filter/grid/button surface'leri tek page harness içinde hızlıca kontrol edilebilir hale geldi ve QA geri bildirim hızı arttı.",
+        },
+        agentSilo: {
+          summary: "Main orchestrator'ın task bazlı silo oluşturup implementasyon, QA ve review'u ayırdığı Agent Silo System",
+          detail: "• Tek bir agent birden fazla issue'yu doğrudan değiştirince SSoT, çalışma branch'i, doğrulama sınırı ve başarısız deneyler kolayca birbirine karışıyordu.\n• Main orchestrator'ın task/issue/page bazlı silo oluşturduğu, sadece gerekli repo'ları izole clone ettiği ve protected branch yerine yeni çalışma branch'inde çalıştığı işletim kurallarını tasarladım.\n• Her silo içinde developer agent implementasyon yapar, QA agent agent-browser gibi araçlarla doğrular, review agent ise scope, branch, secret ve SSoT promotion adaylarını kontrol eder.\n• Sonuçlar PR ve doğrulama kayıtları olarak geri döner; PR body içinde SSoT'ye yükseltilecek ve local kalacak maddeler ayrıştırılır.",
         },
         cgv: {
-          summary: "Tekrarlayan bellek patlamalarını takip edip servisi stabilize etti",
-          detail: "• Her sabah tekrarlayan bellek patlaması → özel bellek logger yazarak kök neden takibi\n• tiktoken kodlayıcıda singleton eksikliği kök neden → uygulandı ve stabilize edildi\n• Verimsiz tarih bazlı API sorgularını önbellek tablosuyla değiştirdi, ~10 kat render hızı artışı\n• Viral analiz UI/UX tasarımı ve duygu görselleştirmesi",
+          summary: "Film yorumları ve viral verileri toplayıp analiz eden CGV operasyon dashboard'u",
+          detail: "• CGV operatörlerinin yorum ve viral verileri her gün incelemesi gerekiyordu; ancak memory growth ve yavaş review API'leri analytics dashboard'un stabilitesini ve yanıt hızını bozuyordu.\n• Darboğazı sadece ekran problemi değil backend call-flow ve data-query problemi olarak ele aldım; memory logging ile tiktoken encoder'ın her request'te yeniden oluşturulduğunu buldum.\n• Encoder oluşturmayı singleton yapısına taşıdım, tarih bazlı grafik sorgularını cache table read ve parallel API call yapısına çevirdim.\n• Bunun üzerine review collection, AI sentiment/toxicity analysis, risky-review filtering, short review generation ve viral trend ekranlarını bağlayarak günlük analiz servisi haline getirdim.",
         },
         llami: {
-          summary: "Birden fazla LLM API'sini tek arayüzde birleştiren AI platformu",
-          detail: "• Farklı LLM API spesifikasyonlarını (kimlik doğrulama, format, akış) pipe deseniyle birleştirdi\n• Yeni model ekleme = bir pipe yazmak → minimum genişleme maliyeti\n• Webview üzerinde Bridge/ReverseBridge — sadece React söz dizimiyle native özellikler\n• AI chatbot pazarı (Bot Store) frontend tasarımı ve geliştirmesi\n• Toss Payments en iyi uygulama seçildi",
+          summary: "17 LLM API farkını birleştiren ve birden fazla product surface sunan AI platformu",
+          detail: "• Her modelin auth, request formatı, streaming event ve function-call response yapısı farklıydı; bu yüzden yeni model ekledikçe handler kodu büyüyordu.\n• Model-specific handler sayısını artırmanın bakım maliyetini yükselteceğine karar verdim ve request creation, stream parsing, token/credit calculation ve function-call normalization adımlarını pipe aşamalarına böldüm.\n• Model yanıtlarını tek arayüze normalize ederek frontend'in model farklarını bilmeden aynı component'lerle render etmesini sağladım.\n• Bu yapı üzerinde Model Store, Bot Store, LLAMI Chat ve Expo app gibi birden fazla product surface geliştirdim.",
         },
         worktree: {
-          summary: "Mevcut araçların çözemediği paralel geliştirme darboğazını çözen sistem",
-          detail: "• QA'da çoklu branch paralel çalışma darboğazı → uygun araç yok, sıfırdan tasarladı\n• xterm.js + Claude Code entegrasyonu ile AI destekli geliştirme planı oluşturma\n• chokidar + sync lock ile pano ↔ worktree çift yönlü plan senkronizasyonu",
+          summary: "QA paralel işleme ve çalışma bağlamı kaybını azaltmak için kurulan geliştirme operasyon sistemi",
+          detail: "• Birden fazla branch aynı anda işlendiğinde server restart, dependency setup, terminal geçişi ve çalışma bağlamını geri yükleme tekrar eden bir probleme dönüşüyordu.\n• Bunun kişisel hafıza veya manuel checklist ile çözülemeyeceğine karar verdim ve branch bazlı dev server, web terminal, plan ve health check'i tek yerde yöneten bir worktree dashboard kurdum.\n• PTY session'larını server state'in source of truth'u yaptım ve plan'ı çift yönlü senkronize ederek insan ve AI'nın aynı çalışma bağlamını koruyup QA feedback'lerini paralel işlemesini sağladım.",
         },
       },
       education: { name: "Sungkyul Üniversitesi", dept: "Bilgisayar Mühendisliği (Ayrıldı)" },
@@ -220,7 +244,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
         },
         worktree: {
           summary: "브랜치별 dev server와 terminal 상태를 안정적으로 관리하는 개발 운영 시스템",
-          detail: "• 여러 worktree의 dev server 상태가 JSON 기록과 실제 프로세스 사이에서 어긋나는 문제를 PTY 세션 중심으로 재설계\n• Node.js Custom HTTP Server와 WebSocket upgrade로 브라우저 터미널을 제공하고, PTY 세션을 서버 상태의 source of truth로 사용\n• lsof 기반 orphan process 탐지/복구로 crash/restart 이후에도 기존 process를 재활용할 수 있게 구성\n• chokidar + sync lock으로 dashboard plan과 worktree 내부 plan의 양방향 동기화를 안정화",
+          detail: "• 여러 worktree의 dev server 상태가 JSON 기록과 실제 프로세스 사이에서 어긋나고, branch 전환 때마다 terminal 상태 복구가 반복되는 문제가 있었습니다.\n• 이 문제를 terminal 상태가 흩어지는 운영 문제로 판단했고, Node.js Custom HTTP Server와 WebSocket upgrade로 PTY session을 관리하는 구조를 구축했습니다.\n• lsof 기반 orphan process 탐지로 crash/restart 이후에도 기존 server process를 복구하고, chokidar와 sync lock으로 plan을 양방향 동기화해 backend contract 분석과 API 검증 맥락이 유실되지 않게 만들었습니다.",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
@@ -236,33 +260,33 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     en: {
       position: "Backend Developer",
       tagline: "A developer who traces root causes of recurring bottlenecks and solves them structurally.",
-      intro: "I traced memory explosion root causes with custom loggers, improved O(n²) APIs with caching tables, and unified 17 different LLM API specs with the pipe pattern. With frontend experience, I design API specs from the consumer's perspective — and once structures stabilize, I bring in AI automation.",
+      intro: "I turn recurring bottlenecks in API, data processing, and LLM integration\ninto structured and automated systems.",
       career: {
         runup: {
           role: "Product Engineering Lead / Full Stack Developer",
-          summary: "Designed and built ERP/MES frontend framework, leading API spec design. Created Storybook + Mock environment where frontend pre-defines API specs, improving overall development velocity.",
+          summary: "Analyzed ERP/MES legacy backend contracts and built conversion and verification flows aligned with generated page API policies.",
         },
         poul: {
           role: "Full Stack Developer",
-          summary: "Designed pipe pattern architecture unifying 17 LLM APIs. Traced and resolved memory explosion and rendering bottlenecks in CGV collaboration service. Selected as Toss Payments best practice.",
+          summary: "Stabilized memory/API bottlenecks in CGV and organized 17 LLM APIs in LLAMI into a pipe-based integration structure.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Frontend framework design that secured API spec initiative",
-          detail: "• Built Storybook + Mock Backend → frontend defines API spec (request/response) first, delivers to backend\n• Designed 17 Valtio stores — aligned frontend state with API response structure, minimizing transformation logic\n• Declarative config + core components → predictable page patterns → AI page auto-generation\n• ~25x PR velocity improvement, ~70% code reduction",
+          summary: "Project aligning legacy backend contracts with generated frontend API call policies",
+          detail: "• In the V1/V2 conversion, generating screens was not enough; Spring/MyBatis endpoint methods and mapper statements also had to match the FE call policy.\n• I judged that generated page API policies had to be stabilized first, then analyzed /mos/request methods and create/modify/remove mapper prefixes in dynamosconvert to classify PUT/POST/deleteList usage.\n• I identified stale method outputs that conflicted with backend query contracts while generating page source from V1 snapshot data, and used them as grounds to adjust generator policy.\n• With Storybook + Mock Backend, request/response shapes could be fixed before the real API was ready, reducing backend integration risk.",
         },
         cgv: {
-          summary: "Traced memory explosion and API bottleneck from root cause to resolution",
-          detail: "• Daily morning memory spikes (8GB) → wrote custom memory logger to trace root cause\n• tiktoken encoder recreated per call was the root cause → singleton pattern, stabilized to ~300MB\n• Date-based full review query O(n²) → caching table for O(n), rendering 3000ms → 300ms\n• API call parallelization: rendering 52~6300ms → 2~3000ms",
+          summary: "Backend stabilization project for CGV review and viral analytics service",
+          detail: "• Backend memory repeatedly grew to 8GB in the morning, and the date-based review graph API was slow.\n• I treated this as a call-flow and query-structure problem rather than a server-size problem, then used memory logging to find that the tiktoken encoder was recreated per request.\n• I moved encoder creation into a singleton structure and stabilized backend memory usage to around 300MB.\n• I also replaced the O(n²) full-review classification/sort flow with cached-table reads and parallel API calls, improving dashboard responsiveness.",
         },
         llami: {
-          summary: "Backend architecture unifying 17 LLM APIs with pipe pattern",
-          detail: "• Abstracted different API specs (auth, request format, streaming, response) with pipe pattern\n• Adding new model = writing one pipe → minimal extension cost\n• ReadableStream-based streaming for real-time model response delivery, format normalization at pipe stage\n• Unified function-call spec abstraction across models → frontend uses single interface regardless of model\n• Selected as Toss Payments best practice",
+          summary: "LLM worker project unifying request, streaming, and response differences across 17 LLM APIs",
+          detail: "• Each model had different auth, request format, streaming events, response structure, and function-call specs, so adding a new model kept increasing handler code.\n• I judged that model-specific handlers would keep raising maintenance cost, so I separated request creation, stream parsing, token/credit calculation, and function-call normalization into pipe stages.\n• I transformed ReadableStream responses into standard events so the frontend could render through a single interface regardless of model differences.\n• On top of that structure, I connected model-specific credit consumption, payment, model usage, charging, and workspace sharing flows.",
         },
         worktree: {
           summary: "PTY session-based server state management and process recovery system",
-          detail: "• Node.js Custom HTTP Server + WebSocket upgrade for PTY session management\n• PTY sessions as source of truth for server state — resolved JSON state inconsistency\n• lsof-based orphan process detection and recovery — reuses existing processes on crash/restart\n• chokidar + sync lock (500ms) for bidirectional plan sync, preventing infinite loops",
+          detail: "• Dev server state across multiple worktrees could diverge between JSON records and real processes, and terminal state recovery repeated on every branch switch.\n• I judged this as an operations problem caused by scattered terminal state, so I built a PTY session management structure with a Node.js Custom HTTP Server and WebSocket upgrade.\n• I added lsof-based orphan process detection to recover existing server processes after crash/restart, and used chokidar with a sync lock to keep plans synchronized in both directions without losing backend contract analysis and API verification context.",
         },
       },
       education: { name: "Sungkyul University", dept: "Computer Science (Withdrawn)" },
@@ -278,33 +302,33 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     tr: {
       position: "Backend Geliştirici",
       tagline: "Tekrarlayan darboğazların kök nedenini takip edip yapısal olarak çözen bir geliştirici.",
-      intro: "Bellek patlamalarının kök nedenini özel logger ile takip ettim, O(n²) API'leri önbellek tablolarıyla iyileştirdim ve 17 farklı LLM API spesifikasyonunu pipe deseniyle birleştirdim. Frontend deneyimimle API spesifikasyonlarını tüketici perspektifinden tasarlarım — yapılar stabilize olunca AI otomasyonu devreye sokarım.",
+      intro: "API, veri işleme ve LLM entegrasyonundaki tekrarlayan darboğazları\nyapılandırılmış ve otomatik sistemlere dönüştüren geliştiriciyim.",
       career: {
         runup: {
           role: "Product Engineering Lead / Full Stack Geliştirici",
-          summary: "ERP/MES frontend framework tasarlayıp API spesifikasyon tasarımını yönetti. Storybook + Mock ortamıyla frontend'in API spesifikasyonunu ön tanımlaması sağlandı.",
+          summary: "ERP/MES legacy backend contract'larını analiz edip generated page API policy ile uyumlu conversion ve verification akışları kurdu.",
         },
         poul: {
           role: "Full Stack Geliştirici",
-          summary: "17 LLM API'yi pipe deseniyle birleştiren mimariyi tasarladı. CGV işbirliği servisindeki bellek patlaması ve render darboğazlarını çözdü. Toss Payments en iyi uygulama seçildi.",
+          summary: "CGV'de memory/API darboğazlarını stabilize etti; LLAMI'de 17 LLM API'yi pipe tabanlı entegrasyon yapısına dönüştürdü.",
         },
       },
       projects: {
         dynamos: {
-          summary: "API spesifikasyon inisiyatifini ele geçiren frontend framework tasarımı",
-          detail: "• Storybook + Mock Backend → frontend API spesifikasyonunu önce tanımlar, backend'e iletir\n• 17 Valtio store tasarımı — frontend state ile API yanıt yapısını hizalayarak dönüşüm mantığını minimize\n• Bildirimsel config + çekirdek bileşenler → öngörülebilir sayfa desenleri → AI sayfa otomatik oluşturma\n• PR hızında ~25 kat artış, ~%70 kod azaltma",
+          summary: "Legacy backend contract ile generated frontend API call policy'lerini hizalayan dönüşüm projesi",
+          detail: "• V1/V2 dönüşümünde sadece ekran üretmek yeterli değildi; Spring/MyBatis endpoint method'ları ve mapper statement'ları FE çağrı politikasıyla uyumlu olmalıydı.\n• Bu yüzden generated page API policy'nin önce stabilize edilmesi gerektiğine karar verdim ve dynamosconvert içinde /mos/request method'larını ve create/modify/remove mapper prefix'lerini inceleyerek PUT/POST/deleteList kullanımını sınıflandırdım.\n• V1 snapshot data'dan page source üretirken backend query contract ile çelişen stale method output'larını bulup generator policy düzeltme gerekçesi haline getirdim.\n• Storybook + Mock Backend ile gerçek API hazır olmadan request/response şekillerini sabitledim ve backend integration riskini azalttım.",
         },
         cgv: {
-          summary: "Bellek patlaması ve API darboğazını kök nedenden çözüme takip etti",
-          detail: "• Her sabah bellek patlaması (8GB) → özel bellek logger ile kök neden takibi\n• tiktoken kodlayıcı her çağrıda yeniden oluşturuluyor → singleton deseni, ~300MB'ye stabilize\n• Tarih bazlı tam inceleme sorgusu O(n²) → önbellek tablosu ile O(n), render 3000ms → 300ms\n• API çağrı paralelleştirmesi: render 52~6300ms → 2~3000ms",
+          summary: "CGV review ve viral analytics servisinin backend stabilizasyon projesi",
+          detail: "• Backend memory her sabah tekrar 8GB'a kadar yükseliyor ve tarih bazlı review graph API yavaş çalışıyordu.\n• Bunu server büyüklüğü değil call-flow ve query structure problemi olarak ele aldım; memory logging ile tiktoken encoder'ın her request'te yeniden oluşturulduğunu buldum.\n• Encoder oluşturmayı singleton yapısına taşıyarak backend memory kullanımını yaklaşık 300MB seviyesinde stabilize ettim.\n• Tüm review'ları her seferinde sınıflandırıp sıralayan O(n²) akışı cache table read ve parallel API call yapısına çevirerek dashboard yanıt hızını iyileştirdim.",
         },
         llami: {
-          summary: "17 LLM API'yi pipe deseniyle birleştiren backend mimarisi",
-          detail: "• Farklı API spesifikasyonlarını (kimlik doğrulama, istek formatı, akış, yanıt) pipe deseniyle soyutladı\n• Yeni model ekleme = bir pipe yazmak → minimum genişleme maliyeti\n• ReadableStream tabanlı akış ile gerçek zamanlı model yanıt iletimi, pipe aşamasında format normalleştirme\n• Modeller arası function-call spesifikasyonu birleşik soyutlama → frontend model fark etmeksizin tek arayüz\n• Toss Payments en iyi uygulama seçildi",
+          summary: "17 LLM API'nin request, streaming ve response farklarını birleştiren LLM worker projesi",
+          detail: "• Her modelin auth, request formatı, streaming event, response structure ve function-call spec'i farklıydı; bu yüzden yeni model ekledikçe handler kodu artıyordu.\n• Model-specific handler sayısını artırmanın bakım maliyetini yükselteceğine karar verdim ve request creation, stream parsing, token/credit calculation ve function-call normalization adımlarını pipe aşamalarına böldüm.\n• ReadableStream yanıtlarını standart event'lere dönüştürerek frontend'in model farklarını bilmeden tek arayüzle render etmesini sağladım.\n• Bu yapı üzerinde model-specific credit consumption, payment, model usage, charging ve workspace sharing akışlarını bağladım.",
         },
         worktree: {
           summary: "PTY oturum tabanlı sunucu durumu yönetimi ve süreç kurtarma sistemi",
-          detail: "• Node.js Custom HTTP Server + WebSocket upgrade ile PTY oturum yönetimi\n• PTY oturumları sunucu durumunun kaynağı — JSON durum tutarsızlığı çözüldü\n• lsof tabanlı yetim süreç tespiti ve kurtarma — çökme/yeniden başlatmada mevcut süreçleri yeniden kullanır\n• chokidar + sync lock (500ms) ile çift yönlü plan senkronizasyonu, sonsuz döngü önleme",
+          detail: "• Birden fazla worktree'de dev server state JSON kayıtları ile gerçek process'ler arasında ayrışabiliyor, her branch geçişinde terminal state recovery tekrar ediyordu.\n• Bunu dağınık terminal state'ten kaynaklanan bir operasyon problemi olarak ele aldım ve Node.js Custom HTTP Server ile WebSocket upgrade kullanan PTY session management yapısı kurdum.\n• lsof tabanlı orphan process detection ile crash/restart sonrasında mevcut server process'lerini geri kullandım, chokidar ve sync lock ile plan'ı çift yönlü senkronize ederek backend contract analysis ve API verification bağlamını korudum.",
         },
       },
       education: { name: "Sungkyul Üniversitesi", dept: "Bilgisayar Mühendisliği (Ayrıldı)" },
@@ -363,7 +387,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
         },
         worktree: {
           summary: "QA 병렬 처리와 브랜치 전환 컨텍스트 유실을 줄이기 위해 만든 개발 대시보드",
-          detail: "• 여러 브랜치를 동시에 처리할 때 서버 재시작, 의존성 설치, 터미널 이동, 작업 맥락 복구가 반복되던 문제를 worktree 운영 시스템으로 전환\n• 브랜치별 dev server, web terminal, plan, health check를 한 화면에서 관리하는 대시보드 구축\n• Claude Code를 worktree별 터미널에서 실행하고 plan을 양방향 동기화해 사람과 AI가 같은 작업 맥락을 유지하도록 구성\n• QA 피드백을 해당 worktree에서 바로 처리하고 다른 브랜치는 중단 없이 병렬 진행하는 흐름 구축",
+          detail: "• 여러 브랜치를 동시에 처리할 때 서버 재시작, 의존성 설치, 터미널 이동, 작업 맥락 복구가 반복되어 QA 피드백 처리 속도가 느려지는 문제가 있었습니다.\n• 이 문제는 branch 전환을 줄이고 작업 환경을 격리해야 해결된다고 판단했고, branch별 dev server, web terminal, plan, health check를 한 화면에서 관리하는 worktree 대시보드를 구축했습니다.\n• Claude Code를 worktree별 터미널에서 실행하고 plan을 양방향 동기화해 사람과 AI가 같은 작업 맥락을 유지하도록 구성했습니다.\n• 그 결과 QA 피드백을 해당 worktree에서 바로 처리하고 다른 브랜치는 중단 없이 병렬 진행하는 운영 흐름을 만들었습니다.",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
@@ -378,34 +402,46 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     en: {
       position: "Frontend Developer",
-      tagline: "I turn complex frontend systems into readable development flows.",
-      intro: "I read legacy code and recurring bottlenecks first, then build declarative structures, small PR workflows, documentation, and automation so teams can keep improving. In DynaMOS v2 I reorganized the framework and development process; in CGV-ASSISTANT and LLAMI I traced real product UI and performance issues through to delivery.",
+      tagline: "I turn repeated screen development bottlenecks into frameworks, generators, and validation systems.",
+      intro: "I turn repeated screen development bottlenecks\ninto frameworks, generators, and validation systems that improve development speed.",
       career: {
         runup: {
           role: "Product Engineering Lead / Frontend Developer",
-          summary: "Analyzed legacy code and designed declarative framework — ~25x PR velocity improvement, ~70% code reduction. Introduced PR process, code review culture, and Storybook-based documentation.",
+          summary: "Solved the pressure of building 100+ ERP/MES screens through a frontend framework, page generator, and generated page QA runtime.",
         },
         poul: {
           role: "Frontend Developer",
-          summary: "Traced and resolved rendering bottlenecks in CGV collaboration service. Designed and built the entire chatbot marketplace frontend for LLAMI. Selected as Toss Payments best practice.",
+          summary: "Implemented product surfaces for CGV analytics and LLAMI Bot Store/App, connecting data exploration, chat, and WebView bridge flows.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Transformed legacy structure into a declarative framework, accelerating team development",
-          detail: "• Legacy analysis: pages with useState/hooks everywhere, no documentation, unmaintainable\n• Redefined requirements → declarative structure with config + core component composition\n• Valtio choice: proxy subscription for fine-grained render control + minimized team learning curve\n• Storybook + Mock removed backend dependency, frontend pre-defines API spec\n• Git Flow + code review, then AI page auto-generation workflow after stabilization\n• ~25x PR velocity improvement, ~70% code reduction, ~85% fewer re-renders",
+          summary: "Frontend platform project standardizing 100+ ERP/MES business screens",
+          detail: "• Each screen handled useState, hooks, props, filters, grids, and buttons differently, so new developers had to read the entire flow just to modify one screen.\n• I judged that this would repeat if handled screen by screen, so I designed core components and a Store + Context page structure.\n• As a result, props drilling and page-level state confusion were reduced, and column/filter/button definitions moved into config so screens became declarative compositions of core components.\n• Storybook + Mock Backend made it possible to fix screens and request/response contracts before the real API was complete.",
+        },
+        generator: {
+          summary: "Page generator that converts V1 screen data into V2 index.tsx/config.ts drafts",
+          detail: "• Reading V1 screen information and manually moving it into V2 code was a repeated bottleneck in screen conversion.\n• I judged that this should be handled as a rule-based transformation rather than manual work, then analyzed V1 HTML/JS/widgetprop/elements data.\n• I connected that analysis to the DynaMOS Generator pipeline, which creates V2 index.tsx and config.ts drafts and turns legacy screen restoration into a generatable page pattern.",
+        },
+        dynavite: {
+          summary: "Silo QA runtime for validating generated pages without the full app",
+          detail: "• Generated page validation required running the full Next app, auth, session, and backend APIs, which slowed down the silo QA loop.\n• I judged that generated page validation should be reduced to page-level surface checks, then built dynaVite runtime with mock auth/API/session injection.\n• This reduced validation from full-app execution to a single page harness for checking filter/grid/button surfaces.",
+        },
+        agentSilo: {
+          summary: "Agent Silo System where the main orchestrator creates task-level silos and separates implementation, QA, and review",
+          detail: "• When one agent directly modified multiple screen issues, SSoT, working branches, verification boundaries, and failed experiments could easily get mixed together.\n• I designed rules where the main orchestrator creates task/issue/page-level silos, clones only the required repos, and works on a new branch instead of protected branches.\n• Inside each silo, developer agents implement, QA agents verify with tools such as agent-browser, and review agents inspect scope, branch, secrets, and SSoT promotion candidates.\n• Results return as PRs and verification records, with PR bodies separating what should be promoted into SSoT from what should remain local.",
         },
         cgv: {
-          summary: "Tracked down recurring memory explosions and stabilized the service",
-          detail: "• Daily morning memory spikes → wrote custom memory logger to trace root cause\n• tiktoken encoder missing singleton pattern was the root cause → applied and stabilized\n• Replaced inefficient date-based API queries with caching table, ~10x rendering speed improvement\n• Designed complete viral analysis UI/UX and sentiment visualization",
+          summary: "Analytics dashboard where CGV operators review audience and viral analysis results",
+          detail: "• Audience reviews, AI sentiment/toxicity analysis, risky reviews, short review summaries, and viral metrics were scattered, so operators needed a daily screen flow.\n• I judged that this should be organized as an operational decision flow rather than a list of charts, then designed and implemented date graphs, AI keyword analysis, risky-review filtering, and viral sentiment/trend screens.\n• I aligned the UI with API parallelization and caching improvements so large review datasets could be explored quickly.\n• As a result, the analytics dashboard connected data collection to operational screens from zero to one.",
         },
         llami: {
-          summary: "Designed and built the entire AI chatbot marketplace frontend",
-          detail: "• Tag-based filtering/sorting — BotCard, BotGrid, search/filter/tag components for category browsing UX\n• Dual chat: text mode and character visual mode — UI mode switches while maintaining conversation state\n• Bridge/ReverseBridge on webview — native features with React syntax only\n• OpenAI Assistant API-based streaming chat with conversation history management\n• Selected as Toss Payments best practice",
+          summary: "AI service frontend covering chatbot discovery, realtime chat, and app bridge",
+          detail: "• If Bot Store, LLAMI Chat, and the Expo app remained separate surfaces, users would struggle to understand discovery, trial, chat, and login transition as one flow.\n• I designed category/tag exploration, text chat, character visual chat, guest trial, and login transition on top of shared conversation state and user flow.\n• I implemented BotCard, BotGrid, search/filter/tag components, and streaming response screens to build the core chatbot marketplace experience.\n• In the Expo app, I designed a WebView postMessage-based Bridge/ReverseBridge so web developers could call native features and subscribe to native state.",
         },
         worktree: {
-          summary: "Built a system to solve parallel development bottlenecks no existing tool could handle",
-          detail: "• Multi-branch parallel work bottleneck during QA → no suitable tool existed, built from scratch\n• xterm.js multi-session web terminal + Claude Code integration for AI plan generation\n• Dashboard worktree create/delete/complete, one-click dev server management\n• Structured view (progress bar + status toggle) and editable Raw view",
+          summary: "Development dashboard for reducing QA parallel-processing and branch-switching context loss",
+          detail: "• During multi-branch QA work, server restarts, dependency setup, terminal navigation, and context recovery repeated on every branch switch, slowing down feedback handling.\n• I judged that this required isolated branch environments rather than more manual switching, so I built a dashboard that manages branch-specific dev servers, web terminals, plans, and health checks in one screen.\n• I ran Claude Code inside each worktree terminal and synchronized plans in both directions so humans and AI could keep the same work context.\n• As a result, QA feedback could be handled directly in the relevant worktree while other branches continued in parallel.",
         },
       },
       education: { name: "Sungkyul University", dept: "Computer Science (Withdrawn)" },
@@ -420,34 +456,46 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
 
     tr: {
       position: "Frontend Geliştirici",
-      tagline: "Karmaşık frontend yapılarını okunabilir geliştirme akışlarına dönüştürürüm.",
-      intro: "Önce legacy kodu ve tekrarlayan darboğazları okur, ardından bildirimsel yapılar, küçük PR akışları, dokümantasyon ve otomasyonla ekibin sürekli iyileştirebileceği bir düzen kurarım. DynaMOS v2'de framework ve geliştirme sürecini düzenledim; CGV-ASSISTANT ve LLAMI'de gerçek ürün UI'ı ve performans sorunlarını teslimata kadar takip ettim.",
+      tagline: "Tekrarlayan ekran geliştirme darboğazlarını framework, generator ve validation sistemlerine dönüştürürüm.",
+      intro: "Tekrarlayan ekran geliştirme darboğazlarını\ngeliştirme hızını artıran framework, generator ve validation sistemlerine dönüştüren geliştiriciyim.",
       career: {
         runup: {
           role: "Product Engineering Lead / Frontend Geliştirici",
-          summary: "Legacy kodu analiz edip bildirimsel framework tasarladı — PR hızında ~25 kat artış, ~%70 kod azaltma. PR süreci, kod inceleme kültürü ve Storybook dokümantasyonu tanıttı.",
+          summary: "100+ ERP/MES ekran geliştirme baskısını frontend framework, page generator ve generated page QA runtime ile çözdü.",
         },
         poul: {
           role: "Frontend Geliştirici",
-          summary: "CGV işbirliği servisinde render darboğazlarını takip edip çözdü. LLAMI için chatbot pazarı frontend'ini tasarlayıp geliştirdi. Toss Payments en iyi uygulama seçildi.",
+          summary: "CGV analytics ve LLAMI Bot Store/App yüzeylerinde data exploration, chat ve WebView bridge akışlarını ürün ekranlarına dönüştürdü.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Legacy yapıyı bildirimsel framework'e dönüştürerek ekip geliştirme hızını artırdı",
-          detail: "• Legacy analiz: her sayfada useState/hook, dokümantasyon yok, bakım yapılamaz\n• Gereksinimleri yeniden tanımlama → config + çekirdek bileşen montajıyla bildirimsel yapı\n• Valtio tercihi: proxy aboneliği ile ince taneli render kontrolü + ekip öğrenme eğrisini minimize\n• Storybook + Mock ile backend bağımlılığı kaldırıldı, frontend API spesifikasyonunu ön tanımlar\n• Git Flow + kod inceleme, sonra stabilizasyon sonrası AI sayfa otomatik oluşturma\n• PR hızında ~25 kat artış, ~%70 kod azaltma, ~%85 daha az yeniden render",
+          summary: "100+ ERP/MES iş ekranını standartlaştıran frontend platform projesi",
+          detail: "• Her ekran useState, hook, props, filter, grid ve button yapılarını farklı kullandığı için yeni geliştiriciler tek bir ekranı değiştirmek için tüm akışı okumak zorundaydı.\n• Bunun ekran bazlı düzenlemeyle tekrar edeceğine karar verdim ve core component ile Store + Context sayfa yapısı tasarladım.\n• Böylece props drilling ve sayfa bazlı state karmaşasını azalttım; column/filter/button tanımlarını config'e taşıyarak ekranları core component kompozisyonuna dönüştürdüm.\n• Storybook + Mock Backend ile gerçek API tamamlanmadan ekranları ve request/response contract'larını önce sabitleyen frontend-first geliştirme akışı kurdum.",
+        },
+        generator: {
+          summary: "V1 ekran verisini V2 index.tsx/config.ts taslaklarına dönüştüren page generator",
+          detail: "• V1 ekran bilgisini okuyup V2 koda elle taşımak ekran dönüşümünde tekrarlayan bir darboğazdı.\n• Bunun manuel iş değil kural tabanlı dönüşüm olarak ele alınması gerektiğine karar verdim ve V1 HTML/JS/widgetprop/elements verilerini analiz ettim.\n• Bu analizi V2 index.tsx ve config.ts taslakları üreten DynaMOS Generator pipeline'ına bağlayarak legacy ekran restorasyonunu üretilebilir page pattern haline getirdim.",
+        },
+        dynavite: {
+          summary: "Generated page'leri tam uygulama olmadan doğrulayan silo QA runtime",
+          detail: "• Generated page doğrulamak için full Next app, auth, session ve backend API çalıştırmak gerekiyordu; bu da silo QA döngüsünü yavaşlatıyordu.\n• Generated page validation'ın page-level surface kontrolüne indirgenmesi gerektiğine karar verdim ve mock auth/API/session injection içeren dynaVite runtime kurdum.\n• Böylece validation full-app execution'dan filter/grid/button surface kontrolü yapan single page harness'a indirildi.",
+        },
+        agentSilo: {
+          summary: "Main orchestrator'ın task bazlı silo oluşturup implementasyon, QA ve review'u ayırdığı Agent Silo System",
+          detail: "• Tek bir agent birden fazla screen issue'yu doğrudan değiştirince SSoT, çalışma branch'i, verification boundary ve başarısız deneyler kolayca birbirine karışıyordu.\n• Main orchestrator'ın task/issue/page bazlı silo oluşturduğu, sadece gerekli repo'ları izole clone ettiği ve protected branch yerine yeni branch'te çalıştığı kuralları tasarladım.\n• Her silo içinde developer agent implementasyon yapar, QA agent agent-browser gibi araçlarla doğrular, review agent ise scope, branch, secret ve SSoT promotion adaylarını kontrol eder.\n• Sonuçlar PR ve doğrulama kayıtları olarak geri döner; PR body içinde SSoT'ye yükseltilecek ve local kalacak maddeler ayrıştırılır.",
         },
         cgv: {
-          summary: "Tekrarlayan bellek patlamalarını takip edip servisi stabilize etti",
-          detail: "• Her sabah bellek patlaması → özel bellek logger ile kök neden takibi\n• tiktoken kodlayıcıda singleton eksikliği kök neden → uygulandı ve stabilize edildi\n• Verimsiz tarih bazlı API sorgularını önbellek tablosuyla değiştirdi, ~10 kat render hızı artışı\n• Viral analiz UI/UX tasarımı ve duygu görselleştirmesi",
+          summary: "CGV operatörlerinin review ve viral analysis sonuçlarını izlediği analytics dashboard",
+          detail: "• Audience review, AI sentiment/toxicity analysis, risky review, short summary ve viral metric verileri dağınıktı; operatörlerin her gün takip edeceği ekran akışı gerekiyordu.\n• Bunu chart listesi değil operational decision flow olarak kurmak gerektiğine karar verdim ve date graph, AI keyword analysis, risky-review filtering, viral sentiment/trend ekranlarını tasarlayıp geliştirdim.\n• UI'yı API parallelization ve caching improvement ile uyumlu hale getirerek büyük review dataset'lerinin hızlı keşfedilmesini sağladım.\n• Sonuç olarak data collection'dan operation screen'e uzanan analytics dashboard'u sıfırdan kurdum.",
         },
         llami: {
-          summary: "AI chatbot pazarı frontend tasarımı ve geliştirmesinin tamamı",
-          detail: "• Etiket tabanlı filtreleme/sıralama — BotCard, BotGrid, arama/filtre/etiket bileşenleri\n• Çift mod sohbet: metin modu ve karakter görsel modu — sohbet durumunu koruyarak UI modu geçişi\n• Webview üzerinde Bridge/ReverseBridge — sadece React söz dizimiyle native özellikler\n• OpenAI Assistant API tabanlı akış sohbet ve konuşma geçmişi yönetimi\n• Toss Payments en iyi uygulama seçildi",
+          summary: "Chatbot discovery, realtime chat ve app bridge'i kapsayan AI service frontend",
+          detail: "• Bot Store, LLAMI Chat ve Expo app ayrı surface'ler olarak kalırsa kullanıcı discovery, trial, chat ve login transition akışını tek deneyim olarak anlayamazdı.\n• Bu yüzden category/tag exploration, text chat, character visual chat, guest trial ve login transition'ı ortak conversation state ve user flow üzerine tasarladım.\n• BotCard, BotGrid, search/filter/tag component'leri ve streaming response ekranlarını geliştirerek chatbot marketplace'in core user flow'unu kurdum.\n• Expo app'te WebView postMessage tabanlı Bridge/ReverseBridge tasarlayarak web geliştiricilerin native feature çağırmasını ve native state'e subscribe olmasını sağladım.",
         },
         worktree: {
-          summary: "Mevcut araçların çözemediği paralel geliştirme darboğazını çözen sistem",
-          detail: "• QA'da çoklu branch paralel çalışma darboğazı → uygun araç yok, sıfırdan tasarladı\n• xterm.js çoklu oturum web terminali + Claude Code entegrasyonu ile AI plan oluşturma\n• Pano üzerinden worktree oluşturma/silme/tamamlama, tek tıkla dev sunucu yönetimi\n• İlerleme çubuğu + durum değiştirme yapılandırılmış görünüm ve düzenlenebilir Ham görünüm",
+          summary: "QA paralel işleme ve branch geçişlerinde bağlam kaybını azaltan geliştirme dashboard'u",
+          detail: "• Çoklu branch QA sırasında her branch geçişinde server restart, dependency setup, terminal navigation ve context recovery tekrarlanıyor, feedback işleme hızı düşüyordu.\n• Bunun daha fazla manuel geçişle değil izole branch ortamlarıyla çözüleceğine karar verdim ve branch bazlı dev server, web terminal, plan ve health check'i tek ekranda yöneten dashboard kurdum.\n• Claude Code'u her worktree terminalinde çalıştırdım ve plan'ları çift yönlü senkronize ederek insan ve AI'nın aynı çalışma bağlamını korumasını sağladım.\n• Böylece QA feedback ilgili worktree içinde doğrudan işlenebilirken diğer branch'ler paralel şekilde ilerleyebildi.",
         },
       },
       education: { name: "Sungkyul Üniversitesi", dept: "Bilgisayar Mühendisliği (Ayrıldı)" },
