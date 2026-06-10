@@ -4,7 +4,7 @@ export const career: CareerEntry[] = [
   {
     id: "runup",
     type: "work",
-    title: "프론트엔드 리드",
+    title: "프로덕트 엔지니어 리드",
     organization: "주식회사 런업",
     logo: "/images/runup.png",
     period: "2025.12 ~ 현재",

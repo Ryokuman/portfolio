@@ -456,10 +456,10 @@ export default function ProductivityDocument({
         {/* Contact */}
         <View style={[s.contactRow, { marginTop: 16 }]}>
           <Link src="https://github.com/Ryokuman" style={s.contactLink}>
-            GitHub: github.com/Ryokuman
+            github.com/Ryokuman
           </Link>
           <Link src="mailto:ryokuman21@gmail.com" style={s.contactLink}>
-            Email: ryokuman21@gmail.com
+            ryokuman21@gmail.com
           </Link>
         </View>
 

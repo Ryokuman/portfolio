@@ -51,7 +51,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "반복되는 개발 병목을 구조화하고, 필요한 경우 직접 시스템을 만들어 해결합니다. DynaMOS에서는 100개+ ERP/MES 화면 개발, V1 레거시 전환, generated page QA, 브랜치 병렬 운영까지 이어지는 병목을 프론트엔드 프레임워크·페이지 생성기·사일로 QA 런타임·worktree 대시보드로 전환했습니다. POUL에서는 CGV 분석 대시보드와 LLAMI AI 플랫폼의 프론트엔드, 백엔드, 앱 기능을 넘나들며 0→1 제품 구현을 담당했습니다.",
       career: {
         runup: {
-          role: "풀스택 개발자 / 프론트엔드 리드",
+          role: "프로덕트 엔지니어 리드 / 풀스택 개발자",
           summary: "ERP/MES 화면 개발 병목을 프레임워크, 생성기, 사일로 QA 런타임, worktree 운영 시스템으로 전환했습니다.",
         },
         poul: {
@@ -93,7 +93,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "I observe a team's codebase, identify recurring bottlenecks, and build structures, processes, and tools to solve them. I introduced Git Flow and code review culture, built a Storybook-based pre-development environment so frontend could move independently of backend. When tools don't exist, I build them — and once structures become predictable, I bring in AI-powered automation.",
       career: {
         runup: {
-          role: "Full Stack Developer",
+          role: "Product Engineering Lead / Full Stack Developer",
           summary: "Designed and built ERP/MES frontend from scratch — achieved ~25x PR velocity improvement and ~70% code reduction. Led declarative architecture design, Git Flow/PR process, and AI automation.",
         },
         poul: {
@@ -135,7 +135,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "Ekibin kod tabanını gözlemler, tekrarlanan darboğazları tespit eder ve çözmek için yapılar, süreçler ve araçlar inşa ederim. Git Flow ve kod inceleme kültürünü tanıttım, Storybook tabanlı ön geliştirme ortamı kurarak frontend'in backend'den bağımsız hareket etmesini sağladım. Araç yoksa kendim yaparım — yapılar öngörülebilir hale gelince AI otomasyonu devreye sokarım.",
       career: {
         runup: {
-          role: "Full Stack Geliştirici",
+          role: "Product Engineering Lead / Full Stack Geliştirici",
           summary: "ERP/MES frontend'ini sıfırdan tasarlayıp geliştirdi — PR hızında ~25 kat artış ve ~%70 kod azaltma. Bildirimsel mimari, Git Flow/PR süreci ve AI otomasyon liderliği.",
         },
         poul: {
@@ -182,7 +182,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "서비스 병목을 결과로만 보지 않고, 로그·호출 흐름·backend contract를 따라가며 원인을 구조화합니다. CGV-ASSISTANT에서는 메모리 폭주와 리뷰 조회 병목을 안정화했고, LLAMI에서는 17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 정리했습니다. DynaMOS에서는 Spring/MyBatis 기반 endpoint와 mapper statement를 분석해 생성 코드의 API method/query 정책을 맞추는 흐름을 만들었습니다.",
       career: {
         runup: {
-          role: "풀스택 개발자",
+          role: "프로덕트 엔지니어 리드 / 풀스택 개발자",
           summary: "ERP/MES 레거시 backend contract를 분석하고, generated page가 backend method/query 정책과 맞도록 변환·검증 흐름을 구축했습니다.",
         },
         poul: {
@@ -224,7 +224,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "I traced memory explosion root causes with custom loggers, improved O(n²) APIs with caching tables, and unified 17 different LLM API specs with the pipe pattern. With frontend experience, I design API specs from the consumer's perspective — and once structures stabilize, I bring in AI automation.",
       career: {
         runup: {
-          role: "Full Stack Developer",
+          role: "Product Engineering Lead / Full Stack Developer",
           summary: "Designed and built ERP/MES frontend framework, leading API spec design. Created Storybook + Mock environment where frontend pre-defines API specs, improving overall development velocity.",
         },
         poul: {
@@ -266,7 +266,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "Bellek patlamalarının kök nedenini özel logger ile takip ettim, O(n²) API'leri önbellek tablolarıyla iyileştirdim ve 17 farklı LLM API spesifikasyonunu pipe deseniyle birleştirdim. Frontend deneyimimle API spesifikasyonlarını tüketici perspektifinden tasarlarım — yapılar stabilize olunca AI otomasyonu devreye sokarım.",
       career: {
         runup: {
-          role: "Full Stack Geliştirici",
+          role: "Product Engineering Lead / Full Stack Geliştirici",
           summary: "ERP/MES frontend framework tasarlayıp API spesifikasyon tasarımını yönetti. Storybook + Mock ortamıyla frontend'in API spesifikasyonunu ön tanımlaması sağlandı.",
         },
         poul: {
@@ -313,7 +313,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "레거시 화면을 단순히 다시 구현하지 않고, 팀이 같은 방식으로 빠르게 만들 수 있는 개발 시스템으로 전환합니다. DynaMOS에서는 100개+ ERP/MES 화면의 상태관리·필터·그리드·버튼 구조를 Store + Context 기반 프레임워크와 config 조립 방식으로 표준화했고, V1 snapshot 기반 page generator와 dynavite 사일로 QA 런타임으로 생성/검증 루프까지 구축했습니다.",
       career: {
         runup: {
-          role: "프론트엔드 개발자",
+          role: "프로덕트 엔지니어 리드 / 프론트엔드 개발자",
           summary: "ERP/MES 화면 개발 병목을 프레임워크, page generator, generated page QA runtime으로 전환했습니다.",
         },
         poul: {
@@ -355,7 +355,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "I read legacy code and recurring bottlenecks first, then build declarative structures, small PR workflows, documentation, and automation so teams can keep improving. In DynaMOS v2 I reorganized the framework and development process; in CGV-ASSISTANT and LLAMI I traced real product UI and performance issues through to delivery.",
       career: {
         runup: {
-          role: "Frontend Developer",
+          role: "Product Engineering Lead / Frontend Developer",
           summary: "Analyzed legacy code and designed declarative framework — ~25x PR velocity improvement, ~70% code reduction. Introduced PR process, code review culture, and Storybook-based documentation.",
         },
         poul: {
@@ -397,7 +397,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       intro: "Önce legacy kodu ve tekrarlayan darboğazları okur, ardından bildirimsel yapılar, küçük PR akışları, dokümantasyon ve otomasyonla ekibin sürekli iyileştirebileceği bir düzen kurarım. DynaMOS v2'de framework ve geliştirme sürecini düzenledim; CGV-ASSISTANT ve LLAMI'de gerçek ürün UI'ı ve performans sorunlarını teslimata kadar takip ettim.",
       career: {
         runup: {
-          role: "Frontend Geliştirici",
+          role: "Product Engineering Lead / Frontend Geliştirici",
           summary: "Legacy kodu analiz edip bildirimsel framework tasarladı — PR hızında ~25 kat artış, ~%70 kod azaltma. PR süreci, kod inceleme kültürü ve Storybook dokümantasyonu tanıttı.",
         },
         poul: {
