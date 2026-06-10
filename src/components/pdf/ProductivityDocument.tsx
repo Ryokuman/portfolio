@@ -151,17 +151,17 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    marginBottom: 28,
+    marginBottom: 14,
   },
   heroColumn: {
-    width: 320,
+    width: 382,
   },
   contactColumn: {
-    width: 126,
+    width: 112,
     flexShrink: 0,
   },
   bodyColumn: {
-    marginLeft: 96,
+    marginLeft: 0,
   },
   contactRule: {
     height: 1,
@@ -185,7 +185,7 @@ const s = StyleSheet.create({
   },
   headerBlock: {
     marginBottom: 0,
-    minHeight: 142,
+    minHeight: 104,
   },
   titleRow: {
     flexDirection: "row",
@@ -193,12 +193,12 @@ const s = StyleSheet.create({
     gap: 18,
   },
   titlePhoto: {
-    width: 94,
-    height: 116,
+    width: 82,
+    height: 98,
     objectFit: "cover",
   },
   bigTitle: {
-    fontSize: 34,
+    fontSize: 28,
     fontWeight: 700,
     color: c.black,
     lineHeight: 1.1,
@@ -251,7 +251,7 @@ const s = StyleSheet.create({
     fontSize: 9,
     color: c.text,
     lineHeight: 1.5,
-    width: 260,
+    width: 255,
   },
   careerEntry: { marginBottom: 14 },
   careerRow: {
@@ -292,8 +292,8 @@ const s = StyleSheet.create({
     marginBottom: 7,
   },
   companyLogo: {
-    width: 24,
-    height: 24,
+    width: 28,
+    height: 28,
     borderRadius: 2,
     marginTop: 1,
     objectFit: "contain",
@@ -311,8 +311,8 @@ const s = StyleSheet.create({
   companyRole: { fontSize: 8.2, color: c.textSub, marginBottom: 3 },
   companySummary: { fontSize: 8, color: c.textSub, lineHeight: 1.4 },
   projectList: {
-    marginLeft: 32,
-    paddingLeft: 19,
+    marginLeft: 36,
+    paddingLeft: 22,
   },
   nestedProject: {
     position: "relative",
@@ -324,10 +324,10 @@ const s = StyleSheet.create({
   },
   projectLogo: {
     position: "absolute",
-    left: -31,
+    left: -35,
     top: 5,
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     borderRadius: 2,
     objectFit: "contain",
     border: `1 solid ${c.border}`,
