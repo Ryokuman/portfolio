@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text -- @react-pdf/renderer Image does not support the browser img alt prop. */
+import { Fragment } from "react";
 import {
   Document,
   Page,
@@ -489,7 +490,8 @@ export default function ProductivityDocument({
               if (projects.length === 0) return null;
 
               return (
-                <View key={company.key} style={s.companyEntry}>
+                <Fragment key={company.key}>
+                <View style={s.companyEntry}>
                   <View style={s.companyHeader}>
                     <Image
                       style={s.companyLogo}
@@ -504,6 +506,7 @@ export default function ProductivityDocument({
                       <Text style={s.companySummary}>{company.summary}</Text>
                     </View>
                   </View>
+                </View>
 
                   <View style={s.projectList}>
                     {projects.map((id) => {
@@ -511,7 +514,7 @@ export default function ProductivityDocument({
                       const proj = data.projects[id];
                       if (!proj) return null;
                       return (
-                        <View key={id} style={s.nestedProject} wrap={false}>
+                        <View key={id} style={s.nestedProject}>
                           <Image
                             style={[
                               s.projectLogo,
@@ -537,7 +540,7 @@ export default function ProductivityDocument({
                       );
                     })}
                   </View>
-                </View>
+                </Fragment>
               );
             })}
 
