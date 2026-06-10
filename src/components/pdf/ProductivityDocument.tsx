@@ -112,9 +112,9 @@ const projectMeta: Record<
     logoFit?: "contain" | "cover";
   }
 > = {
-  dynamos: { title: "DynaMOS", periodKey: "dynamosPeriod", logo: "/logo/dyna-mos.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
-  generator: { title: "DynaMOS Generator", periodKey: "dynamosPeriod", logo: "/logo/dynamos-generator.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
-  dynavite: { title: "dynaVite", periodKey: "dynamosPeriod", logo: "/logo/dyna-vite.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  dynamos: { title: "DynaMOS", periodKey: "dynamosPeriod", logo: "/logo/dyna-mos.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
+  generator: { title: "DynaMOS Generator", periodKey: "dynamosPeriod", logo: "/logo/dynamos-generator.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
+  dynavite: { title: "dynaVite", periodKey: "dynamosPeriod", logo: "/logo/dyna-vite.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
   agentSilo: { title: "Agent Silo System", periodKey: "dynamosPeriod", logo: "/logo/agent-silo-system.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
   cgv: { title: "CGV-ASSISTANT", periodKey: "cgvPeriod", logo: "/logo/cgv.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
   llami: { title: "LLAMI", periodKey: "llamiPeriod", logo: "/logo/llami.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 1, logoFit: "cover" },
