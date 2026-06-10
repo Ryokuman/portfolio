@@ -145,16 +145,28 @@ const s = StyleSheet.create({
     lineHeight: 1.5,
   },
   layout: {
+    flexDirection: "column",
+  },
+  topRow: {
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: 28,
+    justifyContent: "space-between",
+    marginBottom: 28,
   },
-  sideColumn: {
-    width: 138,
+  heroColumn: {
+    width: 320,
+  },
+  contactColumn: {
+    width: 126,
     flexShrink: 0,
   },
-  mainColumn: {
-    flex: 1,
+  bodyColumn: {
+    marginLeft: 138,
+  },
+  contactRule: {
+    height: 1,
+    backgroundColor: c.textLight,
+    marginBottom: 4,
   },
   profileWrap: {
     width: 98,
@@ -162,7 +174,7 @@ const s = StyleSheet.create({
     backgroundColor: c.accentLight,
     borderRadius: 8,
     padding: 5,
-    marginBottom: 18,
+    marginBottom: 10,
   },
   profileImage: {
     width: 88,
@@ -172,15 +184,20 @@ const s = StyleSheet.create({
     opacity: 0.92,
   },
   headerBlock: {
-    marginTop: 16,
-    marginBottom: 22,
+    marginBottom: 0,
   },
   bigTitle: {
-    fontSize: 29,
+    fontSize: 34,
     fontWeight: 700,
     color: c.black,
     lineHeight: 1.1,
-    marginBottom: 10,
+    marginBottom: 8,
+  },
+  fieldText: {
+    fontSize: 10,
+    color: c.textSub,
+    lineHeight: 1.35,
+    marginBottom: 16,
   },
   tagline: {
     fontSize: 8.5,
@@ -189,10 +206,10 @@ const s = StyleSheet.create({
     marginBottom: 8,
   },
   infoText: {
-    fontSize: 7.8,
+    fontSize: 7.2,
     color: c.textSub,
-    marginBottom: 5,
-    lineHeight: 1.35,
+    marginBottom: 1.5,
+    lineHeight: 1.25,
   },
   positionLabel: {
     alignSelf: "flex-start",
@@ -205,18 +222,12 @@ const s = StyleSheet.create({
     marginBottom: 10,
   },
   sectionTitle: {
-    fontSize: 12,
-    fontWeight: 700,
+    fontSize: 8.2,
+    fontWeight: 500,
     color: c.black,
-    marginTop: 18,
-    marginBottom: 9,
-  },
-  sideSectionTitle: {
-    fontSize: 10,
-    fontWeight: 700,
-    color: c.black,
-    marginTop: 18,
-    marginBottom: 8,
+    paddingTop: 3,
+    borderTop: `1 solid ${c.textLight}`,
+    marginBottom: 12,
   },
   subSectionTitle: {
     fontSize: 11,
@@ -226,12 +237,10 @@ const s = StyleSheet.create({
     marginBottom: 6,
   },
   introText: {
-    fontSize: 8.6,
+    fontSize: 9,
     color: c.text,
-    lineHeight: 1.55,
-    paddingLeft: 18,
-    borderLeft: `1.5 solid ${c.textLight}`,
-    marginBottom: 18,
+    lineHeight: 1.5,
+    width: 300,
   },
   careerEntry: { marginBottom: 14 },
   careerRow: {
@@ -264,7 +273,7 @@ const s = StyleSheet.create({
     marginBottom: 4,
   },
   careerDesc: { fontSize: 9, color: c.text, lineHeight: 1.65 },
-  companyEntry: { marginBottom: 13 },
+  companyEntry: { marginBottom: 16 },
   companyHeader: {
     flexDirection: "row",
     gap: 9,
@@ -272,13 +281,13 @@ const s = StyleSheet.create({
     marginBottom: 7,
   },
   companyLogo: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     borderRadius: 2,
-    marginTop: 2,
+    marginTop: 1,
     objectFit: "contain",
     border: `1 solid ${c.border}`,
-    opacity: 0.92,
+    padding: 2,
   },
   companyInfo: { flex: 1 },
   companyNameRow: {
@@ -291,8 +300,8 @@ const s = StyleSheet.create({
   companyRole: { fontSize: 8.2, color: c.textSub, marginBottom: 3 },
   companySummary: { fontSize: 8, color: c.textSub, lineHeight: 1.4 },
   projectList: {
-    marginLeft: 28,
-    paddingLeft: 18,
+    marginLeft: 32,
+    paddingLeft: 19,
   },
   nestedProject: {
     position: "relative",
@@ -304,14 +313,13 @@ const s = StyleSheet.create({
   },
   projectLogo: {
     position: "absolute",
-    left: -27,
+    left: -31,
     top: 5,
-    width: 16,
-    height: 16,
+    width: 20,
+    height: 20,
     borderRadius: 2,
     objectFit: "contain",
     border: `1 solid ${c.border}`,
-    opacity: 0.9,
   },
   projectTitleRow: {
     flexDirection: "row",
@@ -325,15 +333,18 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: 10,
+    marginTop: 4,
+    marginBottom: 0,
+    opacity: 0.72,
   },
   eduRow: {
     flexDirection: "row",
     alignItems: "flex-start",
     gap: 10,
   },
-  eduLogo: { width: 20, height: 20, marginTop: 2 },
-  eduName: { fontSize: 8.8, fontWeight: 700, color: c.black },
-  eduDept: { fontSize: 8, color: c.textSub },
+  eduLogo: { width: 16, height: 16, marginTop: 2, opacity: 0.72 },
+  eduName: { fontSize: 8.2, fontWeight: 600, color: c.textSub },
+  eduDept: { fontSize: 7.4, color: c.textLight },
   techGroup: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -360,12 +371,12 @@ const s = StyleSheet.create({
     padding: "3 8",
     borderRadius: 4,
   },
-  contactRow: { gap: 5 },
+  contactRow: { gap: 1 },
   contactLink: {
-    fontSize: 7.8,
+    fontSize: 7.4,
     color: c.textSub,
     textDecoration: "none",
-    marginBottom: 5,
+    marginBottom: 2,
   },
   fitnessBox: {
     flexDirection: "row",
@@ -396,11 +407,9 @@ export default function ProductivityDocument({
   data,
   config,
   locale,
-  showLanguage = false,
   imageBase = "",
 }: ProductivityDocumentProps) {
   const l = labels[locale];
-  const fitness = config.showFitness ? config.fitness?.[locale] : null;
   const activeProjects = new Set(config.projectOrder);
   const periodOnly = (period: string) => period.split(" · ")[0];
   const companySections = [
@@ -428,73 +437,32 @@ export default function ProductivityDocument({
     <Document>
       <Page size="A4" style={s.page}>
         <View style={s.layout}>
-          <View style={s.sideColumn}>
-            <View style={s.profileWrap}>
-              <Image
-                style={s.profileImage}
-                src={`${imageBase}${config.profileImage}`}
-              />
-            </View>
-
-            <Text style={s.sideSectionTitle}>CONTACT</Text>
-            <View style={s.contactRow}>
-              <Text style={s.infoText}>1998.07.18</Text>
-              <Text style={s.infoText}>{l.gender}</Text>
-              <Link src="mailto:ryokuman21@gmail.com" style={s.contactLink}>
-                ryokuman21@gmail.com
-              </Link>
-              <Link src="https://github.com/Ryokuman" style={s.contactLink}>
-                github.com/Ryokuman
-              </Link>
-            </View>
-
-            {showLanguage && (
-              <>
-                <Text style={s.sideSectionTitle}>{l.language}</Text>
-                <View>
-                  <Text style={s.infoText}>Korean</Text>
-                  <Text style={s.infoText}>English</Text>
-                  <Text style={s.infoText}>Turkish</Text>
-                </View>
-              </>
-            )}
-
-            {fitness && (
-              <View style={s.fitnessBox}>
-                <Text style={s.fitnessTotal}>{fitness.total}</Text>
-                <View>
-                  {fitness.stats.map((stat) => (
-                    <Text key={stat} style={s.fitnessStat}>{stat}</Text>
-                  ))}
-                </View>
+          <View style={s.topRow}>
+            <View style={s.heroColumn}>
+              <View style={s.headerBlock}>
+                <Text style={s.bigTitle}>{l.greeting}</Text>
+                <Text style={s.fieldText}>{data.position}</Text>
+                <Text style={s.introText}>{data.intro}</Text>
               </View>
-            )}
+            </View>
 
-            <Text style={s.sideSectionTitle}>{l.education}</Text>
-            <View style={s.eduRow}>
-              <Image
-                style={s.eduLogo}
-                src={`${imageBase}/logo/sku.svg`}
-              />
-              <View>
-                <Text style={s.eduName}>{data.education.name}</Text>
-                <Text style={s.eduDept}>{data.education.dept}</Text>
-                <Text style={s.infoText}>2017 - 2023</Text>
+            <View style={s.contactColumn}>
+              <View style={s.contactRule} />
+              <Text style={s.infoText}>Contact</Text>
+              <View style={s.contactRow}>
+                <Text style={s.infoText}>1998.07.18</Text>
+                <Text style={s.infoText}>{l.gender}</Text>
+                <Link src="mailto:ryokuman21@gmail.com" style={s.contactLink}>
+                  ryokuman21@gmail.com
+                </Link>
+                <Link src="https://github.com/Ryokuman" style={s.contactLink}>
+                  github.com/Ryokuman
+                </Link>
               </View>
             </View>
           </View>
 
-          <View style={s.mainColumn}>
-            <View style={s.headerBlock}>
-              <Text style={s.bigTitle}>{l.greeting}</Text>
-              <Text style={s.positionLabel}>{data.position}</Text>
-              {data.tagline ? (
-                <Text style={s.tagline}>{data.tagline}</Text>
-              ) : null}
-            </View>
-
-            <Text style={s.introText}>{data.intro}</Text>
-
+          <View style={s.bodyColumn}>
             <Text style={s.sectionTitle}>{l.projects}</Text>
 
             {companySections.map((company) => {
@@ -553,6 +521,21 @@ export default function ProductivityDocument({
                 </View>
               );
             })}
+
+            <Text style={s.sectionTitle}>{l.education}</Text>
+            <View style={s.eduEntry}>
+              <View style={s.eduRow}>
+                <Image
+                  style={s.eduLogo}
+                  src={`${imageBase}/logo/sku.svg`}
+                />
+                <View>
+                  <Text style={s.eduName}>{data.education.name}</Text>
+                  <Text style={s.eduDept}>{data.education.dept}</Text>
+                </View>
+              </View>
+              <Text style={[s.infoText, { color: c.textLight }]}>2017 - 2023</Text>
+            </View>
           </View>
         </View>
       </Page>
