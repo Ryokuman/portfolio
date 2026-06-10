@@ -16,7 +16,7 @@ export const projects: Project[] = [
     ],
     techStack: ["Next.js", "TypeScript", "ElysiaJS", "Expo", "LegendApp-state"],
     primaryTech: "AI Platform",
-    thumbnail: "/images/details/llami-chat-landing.png",
+    thumbnail: "/details/llami-chat-landing.png",
     gradient: "from-violet-600 via-blue-600 to-cyan-500",
     period: "2024.12 ~ 2025.08",
     details: [
@@ -31,8 +31,8 @@ export const projects: Project[] = [
         ],
         techStack: ["ElysiaJS", "TypeScript", "Next.js", "Valtio", "Supabase"],
         images: [
-          "/images/details/model-store-promo.png",
-          "/images/details/model-store-ui.png",
+          "/details/model-store-promo.png",
+          "/details/model-store-ui.png",
         ],
         links: [
           { label: "IT비즈뉴스 기사", url: "https://www.it-b.co.kr/news/articleView.html?idxno=82396" },
@@ -49,11 +49,11 @@ export const projects: Project[] = [
         ],
         techStack: ["Expo", "LegendApp-state", "TypeScript", "ONNX Runtime", "MMKV"],
         images: [
-          "/images/details/llami-app-banner.png",
-          "/images/details/llami-app-onboarding.png",
-          "/images/details/llami-app-chat-main.png",
-          "/images/details/llami-app-model-select.png",
-          "/images/details/llami-app-conversation.png",
+          "/details/llami-app-banner.png",
+          "/details/llami-app-onboarding.png",
+          "/details/llami-app-chat-main.png",
+          "/details/llami-app-model-select.png",
+          "/details/llami-app-conversation.png",
         ],
         links: [
           { label: "LLAMI 공식 보도자료", url: "https://business.llami.net/media-center/notice/notice-2" },
@@ -71,11 +71,11 @@ export const projects: Project[] = [
         ],
         techStack: ["Next.js", "TypeScript", "Valtio", "Radix UI"],
         images: [
-          "/images/details/bot-store-promo-1.png",
-          "/images/details/bot-store-promo-2.png",
-          "/images/details/bot-store-promo-3.png",
-          "/images/details/bot-store-categories-full.png",
-          "/images/details/bot-store-visual-chat.png",
+          "/details/bot-store-promo-1.png",
+          "/details/bot-store-promo-2.png",
+          "/details/bot-store-promo-3.png",
+          "/details/bot-store-categories-full.png",
+          "/details/bot-store-visual-chat.png",
         ],
       },
       {
@@ -89,9 +89,9 @@ export const projects: Project[] = [
         ],
         techStack: ["Next.js", "TypeScript", "TailwindCSS", "Supabase"],
         images: [
-          "/images/details/llami-chat-landing.png",
-          "/images/details/llami-chat-builder-detail.png",
-          "/images/details/llami-chat-dashboard.webp",
+          "/details/llami-chat-landing.png",
+          "/details/llami-chat-builder-detail.png",
+          "/details/llami-chat-dashboard.webp",
         ],
       },
     ],
@@ -113,7 +113,7 @@ export const projects: Project[] = [
     ],
     techStack: ["Next.js", "TypeScript", "ElysiaJS", "Supabase"],
     primaryTech: "Data Analytics",
-    thumbnail: "/images/projects/cgv-assistant.jpg",
+    thumbnail: "/projects/cgv-assistant.jpg",
     gradient: "from-red-600 via-rose-600 to-orange-500",
     period: "2024.06 ~ 2025.07",
     details: [
@@ -128,11 +128,10 @@ export const projects: Project[] = [
           "API 콜 병렬 처리 로직을 구현하여 렌더링 52~6300ms → 2~3000ms로 개선",
         ],
         images: [
-          "/images/details/cgv-login.png",
-          "/images/details/cgv-review-dashboard.png",
-          "/images/details/cgv-analysis-dashboard.png",
-          "/images/details/cgv-analysis-full.png",
-          "/images/details/cgv-api-docs.png",
+          "/details/cgv-review-dashboard.png",
+          "/details/cgv-analysis-dashboard.png",
+          "/details/cgv-analysis-full.png",
+          "/details/cgv-api-docs.png",
         ],
       },
       {
@@ -144,12 +143,12 @@ export const projects: Project[] = [
           "감정평가 시스템 구축 및 임베딩 처리 — 바이럴 스크래핑을 제외한 모든 비즈니스 로직 담당",
         ],
         images: [
-          "/images/details/cgv-viral-list.png",
-          "/images/details/cgv-viral-sentiment.png",
-          "/images/details/cgv-viral-trend-detail.png",
-          "/images/details/cgv-viral-analysis.png",
-          "/images/details/cgv-viral-service.png",
-          "/images/details/cgv-viral-trend.png",
+          "/details/cgv-viral-list.png",
+          "/details/cgv-viral-sentiment.png",
+          "/details/cgv-viral-trend-detail.png",
+          "/details/cgv-viral-analysis.png",
+          "/details/cgv-viral-service.png",
+          "/details/cgv-viral-trend.png",
         ],
       },
     ],
@@ -180,7 +179,7 @@ export const projects: Project[] = [
       "Jenkins",
     ],
     primaryTech: "Enterprise Framework",
-    thumbnail: "/images/details/dynamos-dashboard.png",
+    thumbnail: "/details/dynamos-dashboard.png",
     gradient: "from-sky-600 via-blue-600 to-indigo-600",
     period: "2025.12 ~ 현재",
     details: [
@@ -195,7 +194,7 @@ export const projects: Project[] = [
         ],
         techStack: ["Next.js", "TypeScript", "Valtio", "AG Grid"],
         images: [
-          "/images/details/dynamos-dashboard.png",
+          "/details/dynamos-dashboard.png",
         ],
       },
       {

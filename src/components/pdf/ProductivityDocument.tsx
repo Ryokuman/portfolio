@@ -101,25 +101,37 @@ const labels: Record<Locale, {
 // ── Project metadata (titles & periods are proper nouns / dates, not translated) ──
 
 const projectMeta: Record<
-  "dynamos" | "cgv" | "llami" | "worktree",
-  { title: string; periodKey: keyof (typeof labels)["ko"] }
+  "dynamos" | "generator" | "dynavite" | "agentSilo" | "cgv" | "llami" | "worktree",
+  {
+    title: string;
+    periodKey: keyof (typeof labels)["ko"];
+    logo: string;
+    logoBg: string;
+    surface: string;
+    logoPadding: number;
+    logoFit?: "contain" | "cover";
+  }
 > = {
-  dynamos: { title: "DynaMOS v2", periodKey: "dynamosPeriod" },
-  cgv: { title: "CGV-ASSISTANT", periodKey: "cgvPeriod" },
-  llami: { title: "LLAMI", periodKey: "llamiPeriod" },
-  worktree: { title: "Claude Worktree System", periodKey: "worktreePeriod" },
+  dynamos: { title: "DynaMOS", periodKey: "dynamosPeriod", logo: "/logo/dyna-mos.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  generator: { title: "DynaMOS Generator", periodKey: "dynamosPeriod", logo: "/logo/dynamos-generator.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  dynavite: { title: "dynaVite", periodKey: "dynamosPeriod", logo: "/logo/dyna-vite.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  agentSilo: { title: "Agent Silo System", periodKey: "dynamosPeriod", logo: "/logo/agent-silo-system.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  cgv: { title: "CGV-ASSISTANT", periodKey: "cgvPeriod", logo: "/logo/cgv.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  llami: { title: "LLAMI", periodKey: "llamiPeriod", logo: "/logo/llami.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 1, logoFit: "cover" },
+  worktree: { title: "Claude Worktree System", periodKey: "worktreePeriod", logo: "/logo/agent-silo-system.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
 };
 
 // ── Colors & Styles ──
 
 const c = {
-  black: "#1a1a1a",
-  text: "#333333",
-  textSub: "#555555",
-  textLight: "#888888",
-  accent: "#2a7d6e",
-  accentLight: "#e8f4f1",
-  border: "#e0e0e0",
+  black: "#111111",
+  text: "#2f3137",
+  textSub: "#5f5d58",
+  textLight: "#8a8982",
+  accent: "#c98218",
+  accentDark: "#9d6414",
+  accentLight: "#f6e7c7",
+  border: "#e7dfd2",
   bg: "#f5f5f5",
   white: "#ffffff",
 };
@@ -127,45 +139,83 @@ const c = {
 const s = StyleSheet.create({
   page: {
     fontFamily: "Pretendard",
-    fontSize: 9.5,
+    fontSize: 8.4,
     color: c.text,
-    padding: "40 44",
-    lineHeight: 1.6,
+    padding: "34 36",
+    lineHeight: 1.5,
   },
-  headerRow: {
+  layout: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 16,
+    gap: 28,
   },
-  headerLeft: { flex: 1 },
-  profileImage: { width: 72, height: 72, borderRadius: 36 },
+  sideColumn: {
+    width: 138,
+    flexShrink: 0,
+  },
+  mainColumn: {
+    flex: 1,
+  },
+  profileWrap: {
+    width: 98,
+    height: 98,
+    backgroundColor: c.accentLight,
+    borderRadius: 8,
+    padding: 5,
+    marginBottom: 18,
+  },
+  profileImage: {
+    width: 88,
+    height: 88,
+    borderRadius: 2,
+    objectFit: "cover",
+    opacity: 0.92,
+  },
+  headerBlock: {
+    marginTop: 16,
+    marginBottom: 22,
+  },
   bigTitle: {
-    fontSize: 28,
+    fontSize: 29,
     fontWeight: 700,
     color: c.black,
-    lineHeight: 1.3,
+    lineHeight: 1.1,
     marginBottom: 10,
   },
   tagline: {
-    fontSize: 10,
+    fontSize: 8.5,
     color: c.textSub,
     lineHeight: 1.6,
     marginBottom: 8,
   },
-  infoRow: { flexDirection: "row", gap: 12 },
-  infoText: { fontSize: 9, color: c.textLight },
+  infoText: {
+    fontSize: 7.8,
+    color: c.textSub,
+    marginBottom: 5,
+    lineHeight: 1.35,
+  },
   positionLabel: {
-    fontSize: 10,
+    alignSelf: "flex-start",
+    fontSize: 8.5,
     fontWeight: 600,
-    color: c.accent,
-    marginBottom: 4,
+    color: c.black,
+    backgroundColor: c.accent,
+    borderRadius: 12,
+    padding: "4 18",
+    marginBottom: 10,
   },
   sectionTitle: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 700,
-    color: c.accent,
-    marginTop: 20,
+    color: c.black,
+    marginTop: 18,
+    marginBottom: 9,
+  },
+  sideSectionTitle: {
+    fontSize: 10,
+    fontWeight: 700,
+    color: c.black,
+    marginTop: 18,
     marginBottom: 8,
   },
   subSectionTitle: {
@@ -176,10 +226,12 @@ const s = StyleSheet.create({
     marginBottom: 6,
   },
   introText: {
-    fontSize: 9.5,
+    fontSize: 8.6,
     color: c.text,
-    lineHeight: 1.8,
-    marginBottom: 16,
+    lineHeight: 1.55,
+    paddingLeft: 18,
+    borderLeft: `1.5 solid ${c.textLight}`,
+    marginBottom: 18,
   },
   careerEntry: { marginBottom: 14 },
   careerRow: {
@@ -206,28 +258,27 @@ const s = StyleSheet.create({
   careerPeriod: { fontSize: 9, color: c.textLight },
   careerRole: { fontSize: 9.5, color: c.textSub, marginBottom: 6 },
   projectSummary: {
-    fontSize: 9.5,
+    fontSize: 9,
     fontWeight: 500,
     color: c.textSub,
     marginBottom: 4,
   },
-  careerDesc: { fontSize: 9.5, color: c.text, lineHeight: 1.8 },
-  companyEntry: {
-    marginBottom: 16,
-  },
+  careerDesc: { fontSize: 9, color: c.text, lineHeight: 1.65 },
+  companyEntry: { marginBottom: 13 },
   companyHeader: {
     flexDirection: "row",
-    gap: 10,
+    gap: 9,
     alignItems: "flex-start",
-    marginBottom: 8,
+    marginBottom: 7,
   },
   companyLogo: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 20,
+    height: 20,
+    borderRadius: 2,
     marginTop: 2,
     objectFit: "contain",
     border: `1 solid ${c.border}`,
+    opacity: 0.92,
   },
   companyInfo: { flex: 1 },
   companyNameRow: {
@@ -236,24 +287,39 @@ const s = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 1,
   },
-  companyName: { fontSize: 12, fontWeight: 700, color: c.black },
-  companyRole: { fontSize: 9.5, color: c.textSub, marginBottom: 4 },
-  companySummary: { fontSize: 9, color: c.textSub, lineHeight: 1.6 },
+  companyName: { fontSize: 10.4, fontWeight: 700, color: c.black },
+  companyRole: { fontSize: 8.2, color: c.textSub, marginBottom: 3 },
+  companySummary: { fontSize: 8, color: c.textSub, lineHeight: 1.4 },
   projectList: {
-    marginLeft: 15,
-    paddingLeft: 14,
-    borderLeft: `1.5 solid ${c.border}`,
+    marginLeft: 28,
+    paddingLeft: 18,
   },
   nestedProject: {
-    marginBottom: 10,
+    position: "relative",
+    marginBottom: 8,
+  },
+  projectBody: {
+    padding: "2 0 6 0",
+    borderBottom: `1 solid ${c.border}`,
+  },
+  projectLogo: {
+    position: "absolute",
+    left: -27,
+    top: 5,
+    width: 16,
+    height: 16,
+    borderRadius: 2,
+    objectFit: "contain",
+    border: `1 solid ${c.border}`,
+    opacity: 0.9,
   },
   projectTitleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 2,
+    marginBottom: 3,
   },
-  projectTitle: { fontSize: 10.5, fontWeight: 700, color: c.black },
+  projectTitle: { fontSize: 9.3, fontWeight: 700, color: c.black },
   eduEntry: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -265,9 +331,9 @@ const s = StyleSheet.create({
     alignItems: "flex-start",
     gap: 10,
   },
-  eduLogo: { width: 28, height: 28, marginTop: 2 },
-  eduName: { fontSize: 11, fontWeight: 700, color: c.black },
-  eduDept: { fontSize: 9.5, color: c.textSub },
+  eduLogo: { width: 20, height: 20, marginTop: 2 },
+  eduName: { fontSize: 8.8, fontWeight: 700, color: c.black },
+  eduDept: { fontSize: 8, color: c.textSub },
   techGroup: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -294,11 +360,12 @@ const s = StyleSheet.create({
     padding: "3 8",
     borderRadius: 4,
   },
-  contactRow: { flexDirection: "row", gap: 16 },
+  contactRow: { gap: 5 },
   contactLink: {
-    fontSize: 9,
-    color: c.textLight,
+    fontSize: 7.8,
+    color: c.textSub,
     textDecoration: "none",
+    marginBottom: 5,
   },
   fitnessBox: {
     flexDirection: "row",
@@ -341,16 +408,16 @@ export default function ProductivityDocument({
       key: "runup",
       name: l.runupName,
       period: `2025.12 - ${l.present}`,
-      logo: "/images/runup.png",
+      logo: "/logo/runup.png",
       role: data.career.runup.role,
       summary: data.career.runup.summary,
-      projects: ["dynamos"] as const,
+      projects: ["dynamos", "generator", "dynavite", "agentSilo"] as const,
     },
     {
       key: "poul",
       name: l.poulName,
       period: "2024.06 - 2025.08",
-      logo: "/images/poul.png",
+      logo: "/logo/poul.png",
       role: data.career.poul.role,
       summary: data.career.poul.summary,
       projects: ["cgv", "llami"] as const,
@@ -360,123 +427,133 @@ export default function ProductivityDocument({
   return (
     <Document>
       <Page size="A4" style={s.page}>
-        {/* Header */}
-        <View style={s.headerRow}>
-          <View style={s.headerLeft}>
-            <Text style={s.positionLabel}>{data.position}</Text>
-            <Text style={s.bigTitle}>{l.greeting}</Text>
-            <Text style={s.tagline}>{data.tagline}</Text>
-            <View style={s.infoRow}>
+        <View style={s.layout}>
+          <View style={s.sideColumn}>
+            <View style={s.profileWrap}>
+              <Image
+                style={s.profileImage}
+                src={`${imageBase}${config.profileImage}`}
+              />
+            </View>
+
+            <Text style={s.sideSectionTitle}>CONTACT</Text>
+            <View style={s.contactRow}>
               <Text style={s.infoText}>1998.07.18</Text>
               <Text style={s.infoText}>{l.gender}</Text>
-              <Text style={s.infoText}>ryokuman21@gmail.com</Text>
-              <Text style={s.infoText}>github.com/Ryokuman</Text>
+              <Link src="mailto:ryokuman21@gmail.com" style={s.contactLink}>
+                ryokuman21@gmail.com
+              </Link>
+              <Link src="https://github.com/Ryokuman" style={s.contactLink}>
+                github.com/Ryokuman
+              </Link>
             </View>
-          </View>
-          <Image
-            style={s.profileImage}
-            src={`${imageBase}${config.profileImage}`}
-          />
-        </View>
 
-        {/* Fitness highlight (planfit) */}
-        {fitness && (
-          <View style={s.fitnessBox}>
-            <Text style={s.fitnessTotal}>{fitness.total}</Text>
-            <View style={s.fitnessStats}>
-              {fitness.stats.map((stat) => (
-                <Text key={stat} style={s.fitnessStat}>{stat}</Text>
-              ))}
-            </View>
-          </View>
-        )}
+            {showLanguage && (
+              <>
+                <Text style={s.sideSectionTitle}>{l.language}</Text>
+                <View>
+                  <Text style={s.infoText}>Korean</Text>
+                  <Text style={s.infoText}>English</Text>
+                  <Text style={s.infoText}>Turkish</Text>
+                </View>
+              </>
+            )}
 
-        {/* Intro */}
-        <Text style={s.sectionTitle}>{l.intro}</Text>
-        <Text style={s.introText}>{data.intro}</Text>
-
-        {/* Experience */}
-        <Text style={s.sectionTitle}>{l.projects}</Text>
-
-        {companySections.map((company) => {
-          const projects = company.projects.filter((id) => activeProjects.has(id));
-          if (projects.length === 0) return null;
-
-          return (
-            <View key={company.key} style={s.companyEntry}>
-              <View style={s.companyHeader}>
-                <Image
-                  style={s.companyLogo}
-                  src={`${imageBase}${company.logo}`}
-                />
-                <View style={s.companyInfo}>
-                  <View style={s.companyNameRow}>
-                    <Text style={s.companyName}>{company.name}</Text>
-                    <Text style={s.careerPeriod}>{company.period}</Text>
-                  </View>
-                  <Text style={s.companyRole}>{company.role}</Text>
-                  <Text style={s.companySummary}>{company.summary}</Text>
+            {fitness && (
+              <View style={s.fitnessBox}>
+                <Text style={s.fitnessTotal}>{fitness.total}</Text>
+                <View>
+                  {fitness.stats.map((stat) => (
+                    <Text key={stat} style={s.fitnessStat}>{stat}</Text>
+                  ))}
                 </View>
               </View>
+            )}
 
-              <View style={s.projectList}>
-                {projects.map((id) => {
-                  const meta = projectMeta[id];
-                  const proj = data.projects[id];
-                  return (
-                    <View key={id} style={s.nestedProject} wrap={false}>
-                      <View style={s.projectTitleRow}>
-                        <Text style={s.projectTitle}>{meta.title}</Text>
-                        <Text style={s.careerPeriod}>
-                          {periodOnly(l[meta.periodKey])}
-                        </Text>
-                      </View>
-                      <Text style={s.projectSummary}>{proj.summary}</Text>
-                      <Text style={s.careerDesc}>{proj.detail}</Text>
-                    </View>
-                  );
-                })}
+            <Text style={s.sideSectionTitle}>{l.education}</Text>
+            <View style={s.eduRow}>
+              <Image
+                style={s.eduLogo}
+                src={`${imageBase}/logo/sku.svg`}
+              />
+              <View>
+                <Text style={s.eduName}>{data.education.name}</Text>
+                <Text style={s.eduDept}>{data.education.dept}</Text>
+                <Text style={s.infoText}>2017 - 2023</Text>
               </View>
             </View>
-          );
-        })}
-
-        {/* Language */}
-        {showLanguage && (
-          <View style={s.techGroup}>
-            <Text style={s.techGroupLabel}>{l.language}</Text>
-            <View style={s.techRow}>
-              <Text style={s.techBadge}>Korean</Text>
-              <Text style={s.techBadge}>English</Text>
-              <Text style={s.techBadge}>Turkish</Text>
-            </View>
           </View>
-        )}
 
-        {/* Contact */}
-        <View style={[s.contactRow, { marginTop: 16 }]}>
-          <Link src="https://github.com/Ryokuman" style={s.contactLink}>
-            github.com/Ryokuman
-          </Link>
-          <Link src="mailto:ryokuman21@gmail.com" style={s.contactLink}>
-            ryokuman21@gmail.com
-          </Link>
-        </View>
-
-        {/* Education */}
-        <Text style={s.sectionTitle}>{l.education}</Text>
-        <View style={s.eduEntry}>
-          <View style={s.eduRow}>
-            <Image
-              style={s.eduLogo}
-              src={`${imageBase}/images/sku.svg`}
-            />
-            <View>
-              <Text style={s.eduName}>{data.education.name}</Text>
-              <Text style={s.eduDept}>{data.education.dept}</Text>
+          <View style={s.mainColumn}>
+            <View style={s.headerBlock}>
+              <Text style={s.bigTitle}>{l.greeting}</Text>
+              <Text style={s.positionLabel}>{data.position}</Text>
+              {data.tagline ? (
+                <Text style={s.tagline}>{data.tagline}</Text>
+              ) : null}
             </View>
+
+            <Text style={s.introText}>{data.intro}</Text>
+
+            <Text style={s.sectionTitle}>{l.projects}</Text>
+
+            {companySections.map((company) => {
+              const projects = company.projects.filter((id) => activeProjects.has(id));
+              if (projects.length === 0) return null;
+
+              return (
+                <View key={company.key} style={s.companyEntry}>
+                  <View style={s.companyHeader}>
+                    <Image
+                      style={s.companyLogo}
+                      src={`${imageBase}${company.logo}`}
+                    />
+                    <View style={s.companyInfo}>
+                      <View style={s.companyNameRow}>
+                        <Text style={s.companyName}>{company.name}</Text>
+                        <Text style={s.careerPeriod}>{company.period}</Text>
+                      </View>
+                      <Text style={s.companyRole}>{company.role}</Text>
+                      <Text style={s.companySummary}>{company.summary}</Text>
+                    </View>
+                  </View>
+
+                  <View style={s.projectList}>
+                    {projects.map((id) => {
+                      const meta = projectMeta[id];
+                      const proj = data.projects[id];
+                      if (!proj) return null;
+                      return (
+                        <View key={id} style={s.nestedProject} wrap={false}>
+                          <Image
+                            style={[
+                              s.projectLogo,
+                              {
+                                backgroundColor: meta.logoBg,
+                                padding: meta.logoPadding,
+                                objectFit: meta.logoFit ?? "contain",
+                              },
+                            ]}
+                            src={`${imageBase}${meta.logo}`}
+                          />
+                          <View style={[s.projectBody, { backgroundColor: meta.surface }]}>
+                            <View style={s.projectTitleRow}>
+                              <Text style={s.projectTitle}>{meta.title}</Text>
+                              <Text style={s.careerPeriod}>
+                                {periodOnly(l[meta.periodKey])}
+                              </Text>
+                            </View>
+                            <Text style={s.projectSummary}>{proj.summary}</Text>
+                            <Text style={s.careerDesc}>{proj.detail}</Text>
+                          </View>
+                        </View>
+                      );
+                    })}
+                  </View>
+                </View>
+              );
+            })}
           </View>
-          <Text style={s.careerPeriod}>2017 - 2023</Text>
         </View>
       </Page>
     </Document>

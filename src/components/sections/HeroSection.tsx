@@ -32,7 +32,7 @@ export default function HeroSection() {
         <motion.div variants={fadeInUp} className="mb-6">
           <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-full ring-4 ring-white shadow-lg">
             <Image
-              src={`${basePath}/images/profile.jpg`}
+              src={`${basePath}/logo/profile.jpg`}
               alt={profile.name}
               fill
               sizes="112px"

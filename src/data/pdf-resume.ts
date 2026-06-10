@@ -16,6 +16,9 @@ export interface PdfContent {
   };
   projects: {
     dynamos: { summary: string; detail: string };
+    generator?: { summary: string; detail: string };
+    dynavite?: { summary: string; detail: string };
+    agentSilo?: { summary: string; detail: string };
     cgv: { summary: string; detail: string };
     llami: { summary: string; detail: string };
     worktree: { summary: string; detail: string };
@@ -47,8 +50,8 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   fullstack: {
     ko: {
       position: "풀스택 개발자",
-      tagline: "화면, API, QA, 개발 프로세스의 반복 병목을 시스템으로 전환해 제품 개발 속도를 높이는 개발자입니다.",
-      intro: "반복되는 개발 병목을 구조화하고, 필요한 경우 직접 시스템을 만들어 해결합니다. DynaMOS에서는 100개+ ERP/MES 화면 개발, V1 레거시 전환, generated page QA, 브랜치 병렬 운영까지 이어지는 병목을 프론트엔드 프레임워크·페이지 생성기·사일로 QA 런타임·worktree 대시보드로 전환했습니다. POUL에서는 CGV 분석 대시보드와 LLAMI AI 플랫폼의 프론트엔드, 백엔드, 앱 기능을 넘나들며 0→1 제품 구현을 담당했습니다.",
+      tagline: "",
+      intro: "화면, API, QA, 개발 프로세스의 반복 병목을 시스템으로 전환해 제품 개발 속도를 높이는 개발자입니다.",
       career: {
         runup: {
           role: "프로덕트 엔지니어 리드 / 풀스택 개발자",
@@ -62,7 +65,19 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       projects: {
         dynamos: {
           summary: "ERP/MES 화면 개발, 레거시 전환, QA 병렬 운영을 하나의 개발 시스템으로 묶은 프로젝트",
-          detail: "• 100개+ 업무 화면을 빠르게 만들어야 했지만 화면마다 상태관리·필터·그리드·버튼 구조가 달라 개발 속도와 품질이 흔들리던 문제를 정리\n• Store + Context 기반 페이지 프레임워크와 config 조립 구조로 전환해 Tab/Filter/Grid/Button 패턴을 표준화\n• V1 HTML/JS/widgetprop/elements를 읽어 V2 index.tsx/config.ts를 생성하는 dynamos-snapshot converter/renderer 파이프라인 구축\n• generated page를 전체 Next 앱 없이 검증하는 dynavite 사일로 QA 런타임을 만들고 mock auth/API/session 주입으로 page 단위 검증 루프 단축\n• Worktree System으로 브랜치별 dev server, terminal, plan, health check를 관리해 QA 병렬 처리 체계 구축",
+          detail: "• 100개+ 업무 화면을 빠르게 만들어야 했지만 화면마다 상태관리·필터·그리드·버튼 구현 방식이 달라 개발 속도와 품질이 흔들리던 문제를 core component 생성과 Store + Context 기반 페이지 구조로 해결\n• 컬럼·필터·버튼 정의를 config로 분리해 화면은 코어 컴포넌트 조립만 남기는 선언적 구조로 전환\n• Storybook + Mock Backend로 API 완성 전에도 화면을 먼저 개발하고 요청/응답 스펙을 정리하는 프론트 선행 개발 흐름 구축",
+        },
+        generator: {
+          summary: "V1 화면 정보를 V2 index.tsx/config.ts 초안으로 변환하는 page generator",
+          detail: "• V1 화면 정보를 사람이 직접 읽고 V2 코드로 옮기던 반복 작업을 줄이기 위해 DynaMOS Generator 파이프라인 구축\n• V1 HTML/JS/widgetprop/elements 데이터를 분석해 V2 index.tsx와 config.ts 초안을 생성하는 흐름으로 전환",
+        },
+        dynavite: {
+          summary: "generated page를 전체 앱 없이 검증하는 사일로 QA runtime",
+          detail: "• generated page 검증을 위해 전체 Next 앱, 인증, 세션, backend API를 모두 띄워야 했던 QA 병목을 dynaVite runtime으로 단축\n• mock auth/API/session을 주입해 page 단위로 filter/grid/button surface를 빠르게 확인할 수 있는 검증 흐름 구축",
+        },
+        agentSilo: {
+          summary: "브랜치별 QA 피드백을 병렬 처리하기 위한 에이전트 사일로 운영 시스템",
+          detail: "• 여러 브랜치의 QA 피드백을 동시에 처리할 때 server 재시작, terminal 이동, 작업 맥락 복구가 반복되던 문제를 에이전트 사일로 운영 흐름으로 정리\n• branch별 dev server, web terminal, plan, health check를 관리해 각 사일로가 독립적으로 구현·검증·보고할 수 있게 구성",
         },
         cgv: {
           summary: "리뷰 수집부터 AI 분석, 운영 대시보드까지 프론트/백엔드를 함께 구현한 프로젝트",
@@ -310,7 +325,7 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
     ko: {
       position: "프론트엔드 개발자",
       tagline: "반복되는 화면 개발 병목을 프레임워크·생성기·검증 시스템으로 전환해 개발 속도를 높이는 개발자입니다.",
-      intro: "레거시 화면을 단순히 다시 구현하지 않고, 팀이 같은 방식으로 빠르게 만들 수 있는 개발 시스템으로 전환합니다. DynaMOS에서는 100개+ ERP/MES 화면의 상태관리·필터·그리드·버튼 구조를 Store + Context 기반 프레임워크와 config 조립 방식으로 표준화했고, V1 snapshot 기반 page generator와 dynavite 사일로 QA 런타임으로 생성/검증 루프까지 구축했습니다.",
+      intro: "레거시 화면을 단순히 다시 구현하지 않고, 팀이 같은 방식으로 빠르게 만들 수 있는 개발 시스템으로 전환합니다. DynaMOS에서는 100개+ ERP/MES 화면의 상태관리·필터·그리드·버튼 구조를 Store + Context 기반 프레임워크와 config 조립 방식으로 표준화했고, V1 snapshot 기반 page generator와 dynaVite 사일로 QA 런타임으로 생성/검증 루프까지 구축했습니다.",
       career: {
         runup: {
           role: "프로덕트 엔지니어 리드 / 프론트엔드 개발자",
@@ -324,7 +339,19 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
       projects: {
         dynamos: {
           summary: "100개+ ERP/MES 화면 개발 병목을 프론트엔드 플랫폼으로 전환한 프로젝트",
-          detail: "• 화면마다 useState, hook, props 전달, 필터/그리드/버튼 구조가 달라 신규 개발자가 화면 하나를 수정하려면 전체 흐름을 읽어야 하던 문제를 정리\n• Tab/Filter/Grid/Button을 core component로 표준화하고 Store + Context 기반 페이지 프레임워크로 props drilling과 페이지별 상태 혼선을 줄임\n• 컬럼·필터·버튼 정의를 config로 분리해 화면은 코어 컴포넌트 조립만 남기는 선언적 구조로 전환\n• Storybook + Mock Backend로 API 완성 전에도 화면을 먼저 개발하고 요청/응답 스펙을 정리하는 프론트 선행 개발 흐름 구축\n• 안정화된 패턴을 dynamos-snapshot page generator와 dynavite QA runtime으로 확장해 생성/검증까지 이어지는 개발 시스템 구축",
+          detail: "• 화면마다 useState, hook, props 전달, 필터/그리드/버튼 구현 방식이 달라 신규 개발자가 화면 하나를 수정하려면 전체 흐름을 읽어야 하던 문제를 core component 생성과 Store + Context 기반 페이지 구조로 해결\n• 컬럼·필터·버튼 정의를 config로 분리해 화면은 코어 컴포넌트 조립만 남기는 선언적 구조로 전환\n• Storybook + Mock Backend로 API 완성 전에도 화면을 먼저 개발하고 요청/응답 스펙을 정리하는 프론트 선행 개발 흐름 구축",
+        },
+        generator: {
+          summary: "V1 화면 정보를 V2 index.tsx/config.ts 초안으로 변환하는 page generator",
+          detail: "• V1 화면 정보를 사람이 직접 읽고 V2 코드로 옮기던 반복 작업을 줄이기 위해 DynaMOS Generator 파이프라인 구축\n• V1 HTML/JS/widgetprop/elements 데이터를 분석해 V2 index.tsx와 config.ts 초안을 생성하는 흐름으로 전환",
+        },
+        dynavite: {
+          summary: "generated page를 전체 앱 없이 검증하는 사일로 QA runtime",
+          detail: "• generated page 검증을 위해 전체 Next 앱, 인증, 세션, backend API를 모두 띄워야 했던 QA 병목을 dynaVite runtime으로 단축\n• mock auth/API/session을 주입해 page 단위로 filter/grid/button surface를 빠르게 확인할 수 있는 검증 흐름 구축",
+        },
+        agentSilo: {
+          summary: "브랜치별 QA 피드백을 병렬 처리하기 위한 에이전트 사일로 운영 시스템",
+          detail: "• 여러 브랜치의 QA 피드백을 동시에 처리할 때 server 재시작, terminal 이동, 작업 맥락 복구가 반복되던 문제를 에이전트 사일로 운영 흐름으로 정리\n• branch별 dev server, web terminal, plan, health check를 관리해 각 사일로가 독립적으로 구현·검증·보고할 수 있게 구성",
         },
         cgv: {
           summary: "CGV 리뷰/바이럴 분석 결과를 운영자가 보는 대시보드 화면으로 제품화한 프로젝트",
@@ -525,23 +552,23 @@ export interface CompanyConfig {
   profileImage: string;
   showFitness: boolean;
   fitness?: Record<Locale, FitnessData>;
-  projectOrder: ("dynamos" | "cgv" | "llami" | "worktree")[];
+  projectOrder: ("dynamos" | "generator" | "dynavite" | "agentSilo" | "cgv" | "llami" | "worktree")[];
 }
 
 const defaultConfig: CompanyConfig = {
-  profileImage: "/images/profile.jpg",
+  profileImage: "/logo/profile.jpg",
   showFitness: false,
-  projectOrder: ["dynamos", "cgv", "llami", "worktree"],
+  projectOrder: ["dynamos", "generator", "dynavite", "agentSilo", "cgv", "llami", "worktree"],
 };
 
 export const companyConfigs: Record<Company, CompanyConfig> = {
   default: defaultConfig,
   zeta: {
     ...defaultConfig,
-    projectOrder: ["dynamos", "llami", "cgv", "worktree"],
+    projectOrder: ["dynamos", "generator", "dynavite", "agentSilo", "llami", "cgv", "worktree"],
   },
   planfit: {
-    profileImage: "/images/gym.jpg",
+    profileImage: "/logo/profile.jpg",
     showFitness: true,
     fitness: {
       ko: {
@@ -557,7 +584,7 @@ export const companyConfigs: Record<Company, CompanyConfig> = {
         stats: ["Deadlift 160kg", "Squat 140kg", "Bench Press 100kg"],
       },
     },
-    projectOrder: ["dynamos", "cgv", "llami", "worktree"],
+    projectOrder: ["dynamos", "generator", "dynavite", "agentSilo", "cgv", "llami", "worktree"],
   },
 };
 
