@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text -- @react-pdf/renderer Image does not support the browser img alt prop. */
+import { Fragment } from "react";
 import {
   Document,
   Page,
@@ -112,13 +113,13 @@ const projectMeta: Record<
     logoFit?: "contain" | "cover";
   }
 > = {
-  dynamos: { title: "DynaMOS", periodKey: "dynamosPeriod", logo: "/logo/dyna-mos.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
-  generator: { title: "DynaMOS Generator", periodKey: "dynamosPeriod", logo: "/logo/dynamos-generator.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
-  dynavite: { title: "dynaVite", periodKey: "dynamosPeriod", logo: "/logo/dyna-vite.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
-  agentSilo: { title: "Agent Silo System", periodKey: "dynamosPeriod", logo: "/logo/agent-silo-system.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  dynamos: { title: "DynaMOS", periodKey: "dynamosPeriod", logo: "/logo/dyna-mos.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
+  generator: { title: "DynaMOS Generator", periodKey: "dynamosPeriod", logo: "/logo/dynamos-generator.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
+  dynavite: { title: "dynaVite", periodKey: "dynamosPeriod", logo: "/logo/dyna-vite.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
+  agentSilo: { title: "Agent Silo System", periodKey: "dynamosPeriod", logo: "/logo/agent-silo-system.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
   cgv: { title: "CGV-ASSISTANT", periodKey: "cgvPeriod", logo: "/logo/cgv.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
   llami: { title: "LLAMI", periodKey: "llamiPeriod", logo: "/logo/llami.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 1, logoFit: "cover" },
-  worktree: { title: "Claude Worktree System", periodKey: "worktreePeriod", logo: "/logo/agent-silo-system.png", logoBg: "#ffffff", surface: "#ffffff", logoPadding: 3 },
+  worktree: { title: "Claude Worktree System", periodKey: "worktreePeriod", logo: "/logo/agent-silo-system.png", logoBg: "#000000", surface: "#ffffff", logoPadding: 0 },
 };
 
 // ── Colors & Styles ──
@@ -489,7 +490,8 @@ export default function ProductivityDocument({
               if (projects.length === 0) return null;
 
               return (
-                <View key={company.key} style={s.companyEntry}>
+                <Fragment key={company.key}>
+                <View style={s.companyEntry}>
                   <View style={s.companyHeader}>
                     <Image
                       style={s.companyLogo}
@@ -504,6 +506,7 @@ export default function ProductivityDocument({
                       <Text style={s.companySummary}>{company.summary}</Text>
                     </View>
                   </View>
+                </View>
 
                   <View style={s.projectList}>
                     {projects.map((id) => {
@@ -511,7 +514,7 @@ export default function ProductivityDocument({
                       const proj = data.projects[id];
                       if (!proj) return null;
                       return (
-                        <View key={id} style={s.nestedProject} wrap={false}>
+                        <View key={id} style={s.nestedProject}>
                           <Image
                             style={[
                               s.projectLogo,
@@ -537,7 +540,7 @@ export default function ProductivityDocument({
                       );
                     })}
                   </View>
-                </View>
+                </Fragment>
               );
             })}
 
@@ -546,7 +549,7 @@ export default function ProductivityDocument({
               <View style={s.eduRow}>
                 <Image
                   style={s.eduLogo}
-                  src={`${imageBase}/logo/sku.svg`}
+                  src={`${imageBase}/logo/sku.png`}
                 />
                 <View>
                   <Text style={s.eduName}>{data.education.name}</Text>
