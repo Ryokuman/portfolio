@@ -47,34 +47,34 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   fullstack: {
     ko: {
       position: "풀스택 개발자",
-      tagline: "화면과 API의 병목을 직접 확인하고 개선해 온 개발자입니다.",
-      intro: "프로젝트에 합류하면 먼저 코드와 운영 흐름을 읽고, 실제로 막히는 지점을 확인한 뒤 필요한 구조를 정리합니다. ERP/MES 화면 프레임워크, CGV 리뷰 분석 서비스, LLAMI AI 플랫폼에서 프론트엔드 화면과 백엔드 API 양쪽의 병목을 추적하고 개선했습니다.",
+      tagline: "화면, API, QA, 개발 프로세스의 반복 병목을 시스템으로 전환해 제품 개발 속도를 높이는 개발자입니다.",
+      intro: "반복되는 개발 병목을 구조화하고, 필요한 경우 직접 시스템을 만들어 해결합니다. DynaMOS에서는 100개+ ERP/MES 화면 개발, V1 레거시 전환, generated page QA, 브랜치 병렬 운영까지 이어지는 병목을 프론트엔드 프레임워크·페이지 생성기·사일로 QA 런타임·worktree 대시보드로 전환했습니다. POUL에서는 CGV 분석 대시보드와 LLAMI AI 플랫폼의 프론트엔드, 백엔드, 앱 기능을 넘나들며 0→1 제품 구현을 담당했습니다.",
       career: {
         runup: {
-          role: "풀스택 개발자",
-          summary: "ERP/MES 화면 구조를 config와 코어 컴포넌트 중심으로 정리하고, Storybook/Mock 기반 개발 흐름과 PR 프로세스를 도입했습니다.",
+          role: "풀스택 개발자 / 프론트엔드 리드",
+          summary: "ERP/MES 화면 개발 병목을 프레임워크, 생성기, 사일로 QA 런타임, worktree 운영 시스템으로 전환했습니다.",
         },
         poul: {
           role: "풀스택 개발자",
-          summary: "CGV 리뷰 분석 서비스의 메모리·API·화면 병목을 추적했고, LLAMI에서는 LLM API 통합과 챗봇/결제 흐름 구현에 참여했습니다.",
+          summary: "CGV-ASSISTANT와 LLAMI에서 화면, API, 앱을 넘나들며 분석 대시보드, LLM 통합, 챗봇/결제 흐름을 구현했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반 구조로 정리한 프로젝트",
-          detail: "• 합류 초기 페이지별 useState 7개+, 훅 16~20개가 얽힌 레거시 구조를 분석\n• Tab/Filter/Grid/Button/Modal을 코어 컴포넌트로 분리하고, 페이지는 config 조립만 남도록 설계\n• Valtio store 17개와 Provider 구조를 설계하여 탭·그리드·필터·모달 상태 책임을 분리\n• Storybook + Mock Backend로 백엔드 대기 없이 화면과 API 스펙을 먼저 검증하는 흐름 구축\n• Git Flow, PR, 코드리뷰 프로세스를 도입하고 안정화된 패턴을 AI 페이지 생성 워크플로우로 확장\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소, 리렌더링 트리거 약 85% 감소",
+          summary: "ERP/MES 화면 개발, 레거시 전환, QA 병렬 운영을 하나의 개발 시스템으로 묶은 프로젝트",
+          detail: "• 100개+ 업무 화면을 빠르게 만들어야 했지만 화면마다 상태관리·필터·그리드·버튼 구조가 달라 개발 속도와 품질이 흔들리던 문제를 정리\n• Store + Context 기반 페이지 프레임워크와 config 조립 구조로 전환해 Tab/Filter/Grid/Button 패턴을 표준화\n• V1 HTML/JS/widgetprop/elements를 읽어 V2 index.tsx/config.ts를 생성하는 dynamos-snapshot converter/renderer 파이프라인 구축\n• generated page를 전체 Next 앱 없이 검증하는 dynavite 사일로 QA 런타임을 만들고 mock auth/API/session 주입으로 page 단위 검증 루프 단축\n• Worktree System으로 브랜치별 dev server, terminal, plan, health check를 관리해 QA 병렬 처리 체계 구축",
         },
         cgv: {
-          summary: "리뷰 분석 서비스의 메모리, API 조회, 분석 화면 병목을 추적해 개선한 프로젝트",
-          detail: "• 매일 아침 백엔드 메모리가 8GB까지 증가하는 현상을 발견하고 메모리 로거를 직접 추가\n• 호출마다 tiktoken 인코더가 새로 생성되는 원인을 확인해 싱글톤 패턴으로 고정, 약 300MB 수준으로 안정화\n• 날짜별 그래프 요구사항에서 전체 리뷰를 매번 분류·정렬하던 O(n²) 흐름을 캐싱 테이블 기반 O(n) 조회로 변경\n• AI 키워드 분석, 한줄평 자동 생성, 위험 리뷰 필터링과 바이럴 감정 분석 UI를 직접 설계·구현\n• 주요 화면 렌더링을 약 3000ms에서 300ms 수준으로 개선",
+          summary: "리뷰 수집부터 AI 분석, 운영 대시보드까지 프론트/백엔드를 함께 구현한 프로젝트",
+          detail: "• CGV 실관람평과 바이럴 데이터를 수집·분석해 운영자가 매일 확인하는 분석 대시보드로 제품화\n• 백엔드 메모리가 8GB까지 증가하던 문제를 메모리 로깅으로 추적하고 tiktoken 인코더 재생성을 싱글톤 구조로 전환해 안정화\n• 날짜별 그래프가 전체 리뷰를 매번 분류·정렬하던 흐름을 캐싱 테이블 기반 조회와 API 병렬화로 개선\n• AI 키워드 분석, 한줄평 자동 생성, 위험 리뷰 필터링, 바이럴 감정/트렌드 화면을 구현해 데이터 수집부터 운영 화면까지 연결",
         },
         llami: {
-          summary: "LLM API 통합과 챗봇 탐색·채팅·결제 흐름을 구현한 AI 플랫폼",
-          detail: "• 17개 LLM API의 요청 형식, 스트리밍 방식, 응답 구조가 모두 달라 모델별 핸들러가 늘어나는 문제를 정리\n• 공통 처리 흐름을 pipe 단계로 나누고 모델별 차이는 필요한 pipe만 조합하도록 설계해 신규 모델 추가 비용을 축소\n• fetch ReadableStream 응답과 function-call 결과를 정규화하여 프론트가 모델과 무관하게 동일 컴포넌트로 렌더링하도록 구성\n• 봇스토어에서는 태그 필터, BotCard/Grid, 비주얼 채팅, 봇 생성/승인 흐름 등 주요 화면을 설계·구현\n• Toss Payments 결제 연동 및 크레딧 기반 모델 사용 흐름 구현, 우수사례 선정",
+          summary: "모델스토어, 봇스토어, 라미챗, Expo 앱까지 여러 product surface를 0→1로 구현한 AI 플랫폼",
+          detail: "• 17개 LLM API의 요청·스트리밍·응답·function-call 차이를 pipe 단계로 분리해 신규 모델 추가 비용을 낮춤\n• 모델 응답을 단일 인터페이스로 정규화해 프론트가 모델 차이를 몰라도 같은 컴포넌트로 렌더링하도록 구성\n• 봇스토어에서 카테고리/태그 탐색, 비주얼 채팅, 봇 생성/승인, 게스트 체험→로그인 전환 흐름 구현\n• Expo 앱에서 WebView Bridge/ReverseBridge 구조를 설계해 웹 개발자가 네이티브 기능을 호출하고 상태를 구독할 수 있는 앱 개발 흐름 구축",
         },
         worktree: {
-          summary: "기존 도구로 해결되지 않는 병렬 개발 문제를 직접 해결한 시스템",
-          detail: "• QA 중 멀티 브랜치 병렬 작업 병목 → 적절한 도구가 없어 직접 설계·개발\n• xterm.js + Claude Code 연동으로 AI 기반 개발 플랜 자동 작성\n• chokidar + sync lock으로 대시보드 ↔ worktree 양방향 플랜 동기화",
+          summary: "QA 병렬 처리와 작업 컨텍스트 유실 문제를 해결하기 위해 만든 개발 운영 시스템",
+          detail: "• 여러 브랜치를 동시에 처리할 때 서버 재시작·의존성 설치·작업 맥락 복구가 반복되던 문제를 worktree 대시보드로 시스템화\n• 브랜치별 dev server, web terminal, plan, health check를 한곳에서 관리해 QA 피드백을 병렬로 처리\n• PTY 세션을 서버 상태의 source of truth로 두고, plan 양방향 동기화로 dashboard와 worktree 내부 작업 맥락 불일치 해결",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
@@ -178,34 +178,34 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   backend: {
     ko: {
       position: "백엔드 개발자",
-      tagline: "서비스 병목을 로그와 구조 개선으로 줄여 온 개발자입니다.",
-      intro: "장애나 느린 화면을 결과로만 보지 않고, 로그와 호출 흐름을 따라가며 원인을 확인합니다. CGV 서비스에서는 메모리 폭주와 API 조회 병목을 추적했고, LLAMI에서는 서로 다른 LLM API 스펙을 pipe 구조로 정리했습니다. DynaMOS v2에서는 프론트 개발 흐름 안에서 API 스펙을 먼저 정리하는 방식을 만들었습니다.",
+      tagline: "API, 데이터 처리, LLM 통합의 반복 병목을 구조화하고 자동화 시스템으로 전환하는 개발자입니다.",
+      intro: "서비스 병목을 결과로만 보지 않고, 로그·호출 흐름·backend contract를 따라가며 원인을 구조화합니다. CGV-ASSISTANT에서는 메모리 폭주와 리뷰 조회 병목을 안정화했고, LLAMI에서는 17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 정리했습니다. DynaMOS에서는 Spring/MyBatis 기반 endpoint와 mapper statement를 분석해 생성 코드의 API method/query 정책을 맞추는 흐름을 만들었습니다.",
       career: {
         runup: {
           role: "풀스택 개발자",
-          summary: "ERP/MES 화면 개발 과정에서 Storybook + Mock 환경을 구축하고, 프론트가 요청/응답 스펙을 먼저 정리해 백엔드와 맞추는 흐름을 만들었습니다.",
+          summary: "ERP/MES 레거시 backend contract를 분석하고, generated page가 backend method/query 정책과 맞도록 변환·검증 흐름을 구축했습니다.",
         },
         poul: {
           role: "풀스택 개발자",
-          summary: "CGV 합작 서비스의 메모리 폭주와 API 병목을 추적했고, LLAMI에서는 17개 LLM API의 차이를 pipe 단계로 정리했습니다.",
+          summary: "CGV 서비스의 메모리/API 병목을 안정화하고, LLAMI에서 17개 LLM API를 pipe 기반 통합 구조로 정리했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "Storybook + Mock으로 API 스펙을 먼저 검증하는 개발 흐름을 만든 프로젝트",
-          detail: "• 백엔드 API 완성 전까지 프론트 개발이 멈추는 병목을 확인하고 Storybook + Mock Backend 환경을 구축\n• 화면 요구사항을 먼저 쪼개 요청/응답 스펙을 프론트에서 정의한 뒤 백엔드에 전달하는 개발 흐름으로 전환\n• Valtio 기반 17개 store를 설계해 grid/tab/filter/modal 상태와 API 응답 형태를 맞추고 변환 로직을 줄임\n• config + 코어 컴포넌트 조립 구조로 페이지 패턴을 표준화하여 AI가 같은 규칙으로 페이지를 생성할 수 있게 만듦\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소",
+          summary: "레거시 backend contract와 generated frontend API 호출 정책을 맞춘 프로젝트",
+          detail: "• V1/V2 전환 과정에서 화면 생성만으로는 부족했고, Spring/MyBatis endpoint method와 mapper statement가 FE 호출 방식과 맞아야 하는 문제가 있었음\n• dynamosconvert의 /mos/request method와 create/modify/remove mapper prefix를 조사해 PUT/POST/deleteList 사용 정책을 분류\n• V1 snapshot data에서 page source를 생성할 때 backend query contract와 어긋나는 stale method output을 찾아 page generator 정책 보정 근거 마련\n• Storybook + Mock Backend로 실제 API 완성 전에도 요청/응답 형태를 먼저 고정하고, backend와 맞춰갈 수 있는 개발 흐름 구축\n• 생성기, contract 분석, QA report를 연결해 대량 ERP/MES 화면 전환의 backend 연동 리스크를 줄임",
         },
         cgv: {
-          summary: "메모리 증가와 리뷰 조회 API 병목을 로그와 캐싱 구조로 개선한 프로젝트",
-          detail: "• 매일 아침 반복되던 8GB 메모리 폭주를 재현하고, 메모리 로거를 추가해 증가 지점을 추적\n• tiktoken 인코더가 요청마다 재생성되는 것을 확인해 싱글톤으로 변경, 메모리 사용량을 약 300MB 수준으로 안정화\n• 날짜별 리뷰 그래프 API가 전체 리뷰를 가져와 분류·정렬하는 O(n²) 구조임을 확인하고 캐싱 테이블을 설계\n• 캐싱 테이블 기반 조회로 O(n)까지 낮추고, 독립 API 호출은 병렬화해 초기 렌더링 지연을 줄임\n• 렌더링 3000ms → 300ms, API 병렬 처리 구간 52~6300ms → 2~3000ms로 개선",
+          summary: "메모리 폭주와 리뷰 조회 API 병목을 구조적으로 안정화한 프로젝트",
+          detail: "• 매일 아침 반복되던 8GB 메모리 증가를 메모리 로거로 추적하고, tiktoken 인코더가 요청마다 재생성되는 원인을 확인\n• 인코더 생성 흐름을 싱글톤 구조로 전환해 백엔드 메모리 사용량을 약 300MB 수준으로 안정화\n• 날짜별 리뷰 그래프 API가 전체 리뷰를 매번 가져와 분류·정렬하는 O(n²) 구조임을 확인하고 캐싱 테이블 기반 조회 구조로 전환\n• 독립 API 호출을 병렬화해 초기 렌더링 지연을 줄이고, 운영자가 매일 보는 분석 대시보드의 응답성을 개선\n• 리뷰 수집, AI 감정/유해성 분석, 위험 리뷰 필터링, 한줄평 생성 결과를 backend와 dashboard 흐름으로 연결",
         },
         llami: {
-          summary: "17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 정리한 프로젝트",
-          detail: "• 모델별 인증, 요청 포맷, 스트리밍 이벤트, 응답 구조가 달라 핸들러가 늘어나는 문제를 분석\n• 요청 생성, 스트림 파싱, 토큰/크레딧 계산, function-call 정규화를 pipe 단계로 분리\n• 신규 모델은 공통 pipe를 재사용하고 차이가 나는 단계만 추가하도록 구성해 확장 비용을 낮춤\n• ReadableStream 기반 응답을 표준 이벤트로 변환해 프론트가 모델과 무관하게 동일 인터페이스를 사용하도록 설계\n• Toss Payments 결제 및 크레딧 차등 소모 흐름을 연동, 우수사례 선정",
+          summary: "17개 LLM API의 요청·스트리밍·응답 차이를 pipe 구조로 통합한 프로젝트",
+          detail: "• 모델마다 인증, 요청 포맷, streaming event, 응답 구조, function-call 스펙이 달라 신규 모델 추가 시 handler가 계속 늘어나는 문제를 정리\n• 요청 생성, stream parsing, token/credit 계산, function-call 정규화를 pipe 단계로 분리해 모델별 차이를 조합 가능한 처리 단위로 전환\n• ReadableStream 응답을 표준 이벤트로 변환해 프론트가 모델 차이를 몰라도 단일 인터페이스로 렌더링하도록 구성\n• 모델별 크레딧 차등 소모와 Toss Payments 결제 흐름을 연결해 모델 사용, 충전, workspace 공유 흐름 구현\n• 모델 추가 비용과 API 스펙 변경 대응 비용을 줄이는 backend 통합 구조 구축",
         },
         worktree: {
-          summary: "PTY 세션 기반 서버 상태 관리와 프로세스 복구 시스템",
-          detail: "• Node.js Custom HTTP Server + WebSocket upgrade로 PTY 세션 관리\n• PTY 세션을 서버 상태의 source of truth로 — JSON 상태 불일치 문제 해결\n• lsof 기반 orphan 프로세스 탐지 및 복구 — 크래시/재시작 시 기존 프로세스 재활용\n• chokidar + sync lock(500ms)으로 양방향 플랜 동기화, 무한 루프 방지",
+          summary: "브랜치별 dev server와 terminal 상태를 안정적으로 관리하는 개발 운영 시스템",
+          detail: "• 여러 worktree의 dev server 상태가 JSON 기록과 실제 프로세스 사이에서 어긋나는 문제를 PTY 세션 중심으로 재설계\n• Node.js Custom HTTP Server와 WebSocket upgrade로 브라우저 터미널을 제공하고, PTY 세션을 서버 상태의 source of truth로 사용\n• lsof 기반 orphan process 탐지/복구로 crash/restart 이후에도 기존 process를 재활용할 수 있게 구성\n• chokidar + sync lock으로 dashboard plan과 worktree 내부 plan의 양방향 동기화를 안정화",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
@@ -309,34 +309,34 @@ const content: Record<PdfVariant, Record<Locale, PdfContent>> = {
   frontend: {
     ko: {
       position: "프론트엔드 개발자",
-      tagline: "레거시 화면 구조와 사용자 흐름을 정리해 온 프론트엔드 개발자입니다.",
-      intro: "기존 화면의 상태 흐름과 반복 패턴을 먼저 읽고, config·코어 컴포넌트·작은 PR 단위로 정리하는 일을 해왔습니다. ERP/MES 화면 프레임워크를 정리했고, CGV 분석 대시보드와 LLAMI 챗봇 화면에서는 실제 사용 흐름과 성능 병목을 따라가며 개선했습니다.",
+      tagline: "반복되는 화면 개발 병목을 프레임워크·생성기·검증 시스템으로 전환해 개발 속도를 높이는 개발자입니다.",
+      intro: "레거시 화면을 단순히 다시 구현하지 않고, 팀이 같은 방식으로 빠르게 만들 수 있는 개발 시스템으로 전환합니다. DynaMOS에서는 100개+ ERP/MES 화면의 상태관리·필터·그리드·버튼 구조를 Store + Context 기반 프레임워크와 config 조립 방식으로 표준화했고, V1 snapshot 기반 page generator와 dynavite 사일로 QA 런타임으로 생성/검증 루프까지 구축했습니다.",
       career: {
         runup: {
           role: "프론트엔드 개발자",
-          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반으로 정리하고, Storybook 문서화와 PR 단위 개발 흐름을 만들었습니다.",
+          summary: "ERP/MES 화면 개발 병목을 프레임워크, page generator, generated page QA runtime으로 전환했습니다.",
         },
         poul: {
           role: "프론트엔드 개발자",
-          summary: "CGV 분석 대시보드의 화면 병목과 시각화 흐름을 개선했고, LLAMI에서는 챗봇 탐색·채팅 UI와 앱 브릿지 흐름을 구현했습니다.",
+          summary: "CGV 분석 대시보드와 LLAMI 봇스토어/앱에서 제품 화면, 채팅 흐름, WebView bridge를 구현했습니다.",
         },
       },
       projects: {
         dynamos: {
-          summary: "ERP/MES 레거시 화면을 config와 코어 컴포넌트 기반으로 정리한 프로젝트",
-          detail: "• 페이지마다 useState 7개+, 훅 16~20개가 얽힌 코드를 분석하고 반복 패턴을 Tab/Filter/Grid/Button/Modal로 분리\n• 컬럼·필터·버튼 정의는 config로 빼고, 화면은 코어 컴포넌트를 조립하는 선언적 구조로 재설계\n• Valtio store와 Provider를 직접 설계해 페이지 레벨 상태를 줄이고, useSnapshot으로 필요한 값만 구독하게 구성\n• Storybook + Mock으로 API 완성 전에도 화면을 개발·검증하고, 프론트가 요청/응답 스펙을 먼저 정리하도록 프로세스 변경\n• Git Flow + 코드리뷰 도입 후 안정화된 페이지 패턴을 AI 페이지 자동생성 워크플로우로 확장\n• PR 속도 약 25배 향상, 페이지 코드량 약 70% 감소, 리렌더링 트리거 약 85% 감소",
+          summary: "100개+ ERP/MES 화면 개발 병목을 프론트엔드 플랫폼으로 전환한 프로젝트",
+          detail: "• 화면마다 useState, hook, props 전달, 필터/그리드/버튼 구조가 달라 신규 개발자가 화면 하나를 수정하려면 전체 흐름을 읽어야 하던 문제를 정리\n• Tab/Filter/Grid/Button을 core component로 표준화하고 Store + Context 기반 페이지 프레임워크로 props drilling과 페이지별 상태 혼선을 줄임\n• 컬럼·필터·버튼 정의를 config로 분리해 화면은 코어 컴포넌트 조립만 남기는 선언적 구조로 전환\n• Storybook + Mock Backend로 API 완성 전에도 화면을 먼저 개발하고 요청/응답 스펙을 정리하는 프론트 선행 개발 흐름 구축\n• 안정화된 패턴을 dynamos-snapshot page generator와 dynavite QA runtime으로 확장해 생성/검증까지 이어지는 개발 시스템 구축",
         },
         cgv: {
-          summary: "분석 대시보드의 렌더링 병목과 리뷰/바이럴 시각화 흐름을 개선한 프로젝트",
-          detail: "• CGV 실관람평/바이럴 데이터를 수집·분석하는 대시보드에서 느린 렌더링과 메모리 증가 현상을 추적\n• 메모리 로거로 tiktoken 인코더 재생성 문제를 찾아 싱글톤으로 고정하고, 백엔드 메모리를 약 300MB 수준으로 안정화\n• 날짜별 그래프가 전체 리뷰를 매번 분류·정렬하던 구조를 캐싱 테이블 기반 조회로 바꿔 렌더링을 약 10배 개선\n• AI 키워드 분석, 한줄평 자동 생성, 위험 리뷰 필터링, 바이럴 감정/트렌드 화면을 직접 설계·구현",
+          summary: "CGV 리뷰/바이럴 분석 결과를 운영자가 보는 대시보드 화면으로 제품화한 프로젝트",
+          detail: "• 실관람평, AI 감정/유해성 분석, 위험 리뷰, 한줄평, 바이럴 지표가 흩어져 있던 데이터를 운영 대시보드 흐름으로 정리\n• 날짜별 그래프, AI 키워드 분석, 위험 리뷰 필터링, 바이럴 감정/트렌드 화면을 설계·구현\n• API 병렬 처리와 캐싱 구조 개선에 맞춰 대량 리뷰 데이터를 빠르게 탐색할 수 있는 화면 구조 구성\n• CGV 비즈니스팀이 매일 확인할 수 있는 분석 화면을 0→1로 구현",
         },
         llami: {
-          summary: "챗봇 탐색, 채팅 UI, 앱 브릿지 흐름을 구현한 AI 서비스",
-          detail: "• 봇스토어에서 카테고리/태그 기반 탐색을 위해 BotCard, BotGrid, 검색/필터/태그 컴포넌트 구조를 설계\n• 일반 텍스트 채팅과 캐릭터 이미지가 함께 보이는 비주얼 채팅을 같은 대화 상태 위에서 전환되도록 구현\n• OpenAI Assistant API 스트리밍 응답과 대화 히스토리를 연결해 게스트 체험, 로그인 전환, 채팅 지속 흐름을 구성\n• 라미 앱에서는 WebView postMessage 기반 Bridge/ReverseBridge를 설계해 웹 개발자가 React 문법으로 네이티브 기능을 호출하도록 지원\n• Toss Payments 결제 및 크레딧 충전 흐름과 연결되어 우수사례 선정",
+          summary: "챗봇 탐색, 실시간 채팅, 앱 bridge까지 AI 서비스 화면을 0→1로 구현한 프로젝트",
+          detail: "• 봇스토어에서 카테고리/태그 기반 탐색을 위해 BotCard, BotGrid, 검색/필터/태그 컴포넌트 구조를 설계\n• 텍스트 채팅과 캐릭터 비주얼 채팅을 같은 대화 상태 위에서 전환되도록 구현해 탐색→체험→대화 흐름 연결\n• 게스트 체험, 로그인 전환, 대화 히스토리, 스트리밍 응답을 연결해 챗봇 마켓플레이스의 핵심 사용 흐름 구현\n• Expo 앱에서는 WebView postMessage 기반 Bridge/ReverseBridge를 설계해 웹 개발자가 네이티브 기능을 호출하고 상태를 구독할 수 있게 함",
         },
         worktree: {
-          summary: "기존 도구로 해결되지 않는 병렬 개발 문제를 직접 해결한 시스템",
-          detail: "• QA 중 멀티 브랜치 병렬 작업 병목 → 적절한 도구가 없어 직접 설계·개발\n• xterm.js 기반 멀티 세션 웹 터미널 + Claude Code 연동 AI 플랜 자동 작성\n• 대시보드에서 worktree 생성/삭제/완료, 개발 서버 원클릭 관리\n• 진행률 바 + 상태 토글의 구조화된 뷰와 직접 편집 가능한 Raw 뷰 제공",
+          summary: "QA 병렬 처리와 브랜치 전환 컨텍스트 유실을 줄이기 위해 만든 개발 대시보드",
+          detail: "• 여러 브랜치를 동시에 처리할 때 서버 재시작, 의존성 설치, 터미널 이동, 작업 맥락 복구가 반복되던 문제를 worktree 운영 시스템으로 전환\n• 브랜치별 dev server, web terminal, plan, health check를 한 화면에서 관리하는 대시보드 구축\n• Claude Code를 worktree별 터미널에서 실행하고 plan을 양방향 동기화해 사람과 AI가 같은 작업 맥락을 유지하도록 구성\n• QA 피드백을 해당 worktree에서 바로 처리하고 다른 브랜치는 중단 없이 병렬 진행하는 흐름 구축",
         },
       },
       education: { name: "성결대학교", dept: "컴퓨터공학과 (중퇴)" },
