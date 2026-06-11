@@ -235,7 +235,7 @@ export const projects: Project[] = [
     title: "Claude Worktree System",
     role: "Creator & Solo Developer",
     description:
-      "Git worktree 기반 멀티 브랜치 개발 환경을 웹 대시보드로 관리하는 오픈소스 DX(Developer Experience) 도구입니다. 브랜치별 독립 worktree 생성, dev 서버 원클릭 제어, 웹 터미널, AI 플랜 생성을 하나의 대시보드에서 처리합니다.",
+      "AI 에이전트가 여러 브랜치에서 동시에 일할 수 있도록 Git worktree, dev server, web terminal, plan sync를 하나의 대시보드로 묶은 Agentic DX/AX runtime입니다.",
     featured: true,
     achievements: [
       "브랜치 감지 → worktree 생성 → dev 서버 → 개발 → 완료까지 원스톱 관리",
@@ -296,6 +296,118 @@ export const projects: Project[] = [
           "Task Lock 시스템으로 동일 워크트리 동시 조작 방지 (Promise 기반 큐)",
         ],
         techStack: ["Next.js", "WebSocket", "node-pty"],
+      },
+    ],
+  },
+  {
+    id: "agent-silo-system",
+    title: "Agent Silo System",
+    role: "Agentic DX/AX System Designer",
+    description:
+      "에이전트가 코드를 빨리 쓰는 것만으로는 개발 조직의 병목이 사라지지 않는다고 보고, task/page 단위 사일로로 구현·QA·리뷰를 분리한 에이전트 운영 시스템입니다.",
+    featured: true,
+    achievements: [
+      "task/page 단위 격리 사일로로 branch, scope, 검증 경계 분리",
+      "developer / QA / reviewer agent 역할 분리로 리뷰 반복과 실패 롤백 비용 축소",
+      "DynaMOS QA 운영에서 4일간 62개 PR 처리, 수동 branch switching 대비 2.5~3배 처리량",
+      "PR 본문에 검증 기록과 SSoT 승격 후보를 남기는 agent handoff 체계 설계",
+    ],
+    techStack: ["Agent Orchestration", "Git Worktree", "GitHub PR", "Agent Browser", "SSoT"],
+    primaryTech: "Agentic AX",
+    gradient: "from-slate-950 via-blue-900 to-cyan-700",
+    period: "2025.12 ~ 현재",
+    details: [
+      {
+        title: "사일로 기반 에이전트 운영",
+        content: [
+          "여러 화면 이슈를 한 작업 공간에서 처리하면 branch 전환, QA 대기, 실패한 실험 rollback이 반복되어 에이전트가 빨라도 사람이 다시 병목이 되는 문제를 정의했습니다.",
+          "메인 오케스트레이터가 task/issue/page 단위 사일로를 만들고, 필요한 repo만 격리 clone한 뒤 보호 브랜치가 아닌 새 작업 브랜치에서 처리하도록 운영 규칙을 설계했습니다.",
+          "사일로별 작업 목표, 금지선, 검증 기준, PR 본문 필수 항목을 고정해 에이전트가 안전하게 실행할 수 있는 경계를 만들었습니다.",
+        ],
+        techStack: ["Agent Orchestration", "Git", "SSoT"],
+      },
+      {
+        title: "구현·QA·리뷰 역할 분리",
+        content: [
+          "개발 에이전트는 구현, QA 에이전트는 Agent Browser 기반 검증, 리뷰 에이전트는 scope/branch/secret/SSoT 승격 후보를 점검하도록 역할을 분리했습니다.",
+          "작업 결과를 PR과 검증 기록으로 회수하고, SSoT로 승격할 항목과 승격하지 않을 항목을 PR 본문에서 분리해 운영 판단 비용을 줄였습니다.",
+          "DynaMOS QA 운영에서 사일로 기반 병렬 처리로 4일간 62개 PR을 처리했고, 수동 branch switching 대비 PR 처리량을 약 2.5~3배로 끌어올렸습니다.",
+        ],
+        techStack: ["Agent Browser", "GitHub PR", "Review Automation"],
+      },
+    ],
+  },
+  {
+    id: "quiza",
+    title: "Quiza",
+    role: "Product Builder & Agent-assisted Developer",
+    description:
+      "퀴즈 학습 경험을 빠르게 제품화하기 위해 문제 풀이, 결과 확인, 반복 학습 흐름을 설계한 사용자-facing 애플리케이션입니다. Agentic workflow를 실제 제품 개발에 적용한 사례로 포지셔닝했습니다.",
+    featured: false,
+    achievements: [
+      "문제 풀이 → 피드백 → 재도전으로 이어지는 학습 루프 설계",
+      "사용자-facing 제품에서도 에이전트 기반 개발 흐름을 적용할 수 있음을 검증",
+      "DX/AX 도구 제작 역량을 실제 앱 제품화 흐름으로 연결",
+    ],
+    techStack: ["Product Design", "Frontend", "State Flow", "Agent-assisted Development"],
+    primaryTech: "Product App",
+    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+    period: "2026",
+    details: [
+      {
+        title: "퀴즈 학습 루프 설계",
+        content: [
+          "단순 문제 목록이 아니라 사용자가 풀고, 틀리고, 다시 시도하는 반복 학습 루프를 중심으로 제품 흐름을 설계했습니다.",
+          "문제 상태, 선택 상태, 결과 피드백, 재시도 흐름을 분리해 작은 단위로 빠르게 실험할 수 있는 구조를 잡았습니다.",
+          "에이전트가 생성한 구현안을 그대로 믿지 않고, 사용자 흐름 기준으로 검증하며 제품 경험을 조정하는 방식으로 개발했습니다.",
+        ],
+        techStack: ["Frontend", "State Flow", "UX"],
+      },
+      {
+        title: "Agent-assisted 제품 구현",
+        content: [
+          "DX/AX 도구에서 쓰던 task 분해 방식을 앱 개발에도 적용해 화면, 상태, 피드백, 검증 단위로 작업을 쪼갰습니다.",
+          "에이전트는 반복 구현과 후보안 생성을 담당하고, 사람은 학습 흐름과 사용성 판단을 담당하는 구조로 개발 속도와 제품 판단을 분리했습니다.",
+          "결과적으로 에이전트 메이킹 역량이 내부 도구에만 머물지 않고 실제 사용자-facing 앱 개발에도 연결될 수 있음을 보여주는 프로젝트로 정리했습니다.",
+        ],
+        techStack: ["Agentic Workflow", "Product Iteration"],
+      },
+    ],
+  },
+  {
+    id: "onjump",
+    title: "OnJump",
+    role: "Interactive Product Builder",
+    description:
+      "즉각적인 입력 반응과 상태 전환이 중요한 인터랙션 제품을 빠르게 실험한 애플리케이션입니다. CRUD가 아닌 조작감 중심 제품에서도 agent-assisted 개발 흐름을 적용한 사례입니다.",
+    featured: false,
+    achievements: [
+      "입력 반응, 상태 전환, 피드백 루프 중심의 인터랙션 구조 설계",
+      "게임성 있는 제품에서 빠른 실험과 검증이 가능한 개발 단위 구성",
+      "에이전트 기반 구현 흐름을 정적인 업무 화면 밖으로 확장",
+    ],
+    techStack: ["Interactive UI", "State Machine", "Frontend", "Agent-assisted Development"],
+    primaryTech: "Interactive App",
+    gradient: "from-fuchsia-600 via-rose-500 to-orange-400",
+    period: "2026",
+    details: [
+      {
+        title: "조작감 중심 상태 설계",
+        content: [
+          "일반적인 CRUD 화면과 달리 입력 즉시 반응, 상태 전환, 성공/실패 피드백이 제품 경험의 중심이 되는 구조로 설계했습니다.",
+          "상태를 화면 단위가 아니라 interaction phase 단위로 나누어, 에이전트가 구현한 변화가 사용자 조작감에 어떤 영향을 주는지 검증하기 쉽게 만들었습니다.",
+          "짧은 피드백 루프를 유지해 기능 추가보다 조작감과 리듬을 먼저 맞추는 방식으로 제품을 다듬었습니다.",
+        ],
+        techStack: ["Interactive UI", "State Machine"],
+      },
+      {
+        title: "Agent-assisted 실험 루프",
+        content: [
+          "에이전트에게 작은 interaction 후보를 생성하게 하고, 사람은 실제 플레이 감각과 화면 반응을 기준으로 채택/폐기하는 루프를 만들었습니다.",
+          "복잡한 운영도구뿐 아니라 감각적인 제품 실험에서도 에이전트를 개발 파트너로 사용할 수 있음을 보여주는 사례로 정리했습니다.",
+          "DX/AX 개선의 목적이 내부 생산성에만 있지 않고, 제품 실험 속도와 학습 속도를 높이는 데에도 연결된다는 메시지를 강화했습니다.",
+        ],
+        techStack: ["Agentic Workflow", "Product Experiment"],
       },
     ],
   },

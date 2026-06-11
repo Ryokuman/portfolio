@@ -399,6 +399,185 @@ const projectsI18n: Record<string, Record<Locale, ProjectI18n>> = {
       ],
     },
   },
+  "agent-silo-system": {
+    ko: {},
+    en: {
+      description:
+        "An agent operation system that separates implementation, QA, and review into task/page-level silos so agents can work safely in parallel instead of mixing branches, scope, and verification boundaries.",
+      role: "Agentic DX/AX System Designer",
+      achievements: [
+        "Isolated branch, scope, and verification boundaries with task/page-level silos",
+        "Separated developer, QA, and reviewer agent roles to reduce review loops and rollback cost",
+        "Handled 62 PRs in 4 days during DynaMOS QA, reaching roughly 2.5-3x throughput versus manual branch switching",
+        "Designed agent handoff records with verification evidence and SSoT promotion candidates in PR bodies",
+      ],
+      details: [
+        {
+          title: "Silo-based agent operation",
+          content: [
+            "Defined the real bottleneck: even if agents write code quickly, branch switching, QA waiting time, and failed experiment rollback make humans the bottleneck again when multiple screen issues share one workspace.",
+            "Designed rules where the main orchestrator creates task/issue/page-level silos, clones only required repos, and works on a new branch instead of protected branches.",
+            "Fixed each silo's goal, boundaries, verification criteria, and PR reporting requirements so agents could execute inside a safe operating envelope.",
+          ],
+        },
+        {
+          title: "Implementation, QA, and review role split",
+          content: [
+            "Developer agents implement, QA agents verify through Agent Browser, and reviewer agents inspect scope, branch, secrets, and SSoT promotion candidates.",
+            "Results return as PRs and verification records, separating what should be promoted into SSoT from what should stay local.",
+            "In DynaMOS QA operation, the silo-based parallel flow handled 62 PRs in 4 days and raised PR throughput by roughly 2.5-3x compared with manual branch switching.",
+          ],
+        },
+      ],
+    },
+    tr: {
+      description:
+        "Agent'ların branch, scope ve doğrulama sınırlarını karıştırmadan paralel çalışabilmesi için implementasyon, QA ve review'u task/page bazlı silo'lara ayıran agent operasyon sistemi.",
+      role: "Agentic DX/AX Sistem Tasarımcısı",
+      achievements: [
+        "Task/page bazlı silo'larla branch, scope ve doğrulama sınırlarını izole etti",
+        "Developer, QA ve reviewer agent rollerini ayırarak review tekrarını ve rollback maliyetini azalttı",
+        "DynaMOS QA sırasında 4 günde 62 PR işledi, manuel branch switching'e göre yaklaşık 2.5-3x throughput sağladı",
+        "PR body içinde doğrulama kanıtı ve SSoT promotion adayları bırakan agent handoff yapısı tasarladı",
+      ],
+      details: [
+        {
+          title: "Silo tabanlı agent operasyonu",
+          content: [
+            "Asıl darboğazı tanımladı: Agent'lar hızlı kod yazsa bile, birden fazla ekran issue'su aynı workspace'i paylaşınca branch switching, QA bekleme ve rollback insanı yeniden darboğaz yapıyor.",
+            "Main orchestrator'ın task/issue/page bazlı silo oluşturduğu, sadece gerekli repo'ları clone ettiği ve protected branch yerine yeni branch'te çalıştığı kuralları tasarladı.",
+            "Her silo için hedef, sınır, doğrulama kriteri ve PR raporlama gereksinimlerini sabitleyerek agent'ların güvenli bir operasyon alanında çalışmasını sağladı.",
+          ],
+        },
+        {
+          title: "Implementasyon, QA ve review rol ayrımı",
+          content: [
+            "Developer agent implementasyon yapar, QA agent Agent Browser ile doğrular, reviewer agent ise scope, branch, secret ve SSoT promotion adaylarını kontrol eder.",
+            "Sonuçlar PR ve doğrulama kayıtları olarak döner; SSoT'ye yükseltilecek ve local kalacak maddeler ayrılır.",
+            "DynaMOS QA operasyonunda silo tabanlı paralel akış 4 günde 62 PR işledi ve manuel branch switching'e kıyasla PR throughput'unu yaklaşık 2.5-3x artırdı.",
+          ],
+        },
+      ],
+    },
+  },
+  quiza: {
+    ko: {},
+    en: {
+      description:
+        "A user-facing quiz learning app that applies agentic workflow to product development, structuring question solving, feedback, and repeat learning into a fast iteration loop.",
+      role: "Product Builder & Agent-assisted Developer",
+      achievements: [
+        "Designed a learning loop from solving to feedback to retry",
+        "Applied agent-based development workflow to a user-facing product",
+        "Connected DX/AX tooling skills to actual app productization",
+      ],
+      details: [
+        {
+          title: "Quiz learning loop design",
+          content: [
+            "Designed the product around a repeat learning loop where users solve, miss, get feedback, and retry rather than simply browsing a question list.",
+            "Separated question state, selection state, result feedback, and retry flow so each behavior could be tested and iterated in small units.",
+            "Used agents to generate implementation candidates, then evaluated them against the actual user learning flow instead of accepting code output blindly.",
+          ],
+        },
+        {
+          title: "Agent-assisted product implementation",
+          content: [
+            "Applied the task decomposition style from DX/AX tools to app development by splitting work into screen, state, feedback, and verification units.",
+            "Agents handled repeated implementation and candidate generation, while the human role focused on learning flow and usability decisions.",
+            "Positioned the project as evidence that agent-making ability can move beyond internal tooling into real user-facing app development.",
+          ],
+        },
+      ],
+    },
+    tr: {
+      description:
+        "Soru çözme, geri bildirim ve tekrar öğrenme akışını hızlı iterasyon döngüsüne dönüştüren, agentic workflow'u ürün geliştirmeye uygulayan quiz öğrenme uygulaması.",
+      role: "Ürün Geliştirici & Agent destekli Developer",
+      achievements: [
+        "Çözme → geri bildirim → tekrar deneme öğrenme döngüsü tasarladı",
+        "Agent tabanlı geliştirme akışını kullanıcıya dönük ürüne uyguladı",
+        "DX/AX araç geliştirme becerisini gerçek app ürünleştirme akışına bağladı",
+      ],
+      details: [
+        {
+          title: "Quiz öğrenme döngüsü tasarımı",
+          content: [
+            "Ürünü basit soru listesi yerine kullanıcının çözdüğü, hata yaptığı, geri bildirim aldığı ve tekrar denediği öğrenme döngüsü etrafında tasarladı.",
+            "Soru durumu, seçim durumu, sonuç geri bildirimi ve tekrar deneme akışını ayırarak davranışları küçük birimlerde test etmeyi kolaylaştırdı.",
+            "Agent'ların ürettiği implementasyon adaylarını doğrudan kabul etmek yerine gerçek öğrenme akışına göre değerlendirdi.",
+          ],
+        },
+        {
+          title: "Agent destekli ürün implementasyonu",
+          content: [
+            "DX/AX araçlarındaki task decomposition yaklaşımını ekran, state, feedback ve doğrulama birimlerine ayırarak app geliştirmeye uyguladı.",
+            "Agent'lar tekrar eden implementasyon ve aday üretimi üstlenirken, insan rolü öğrenme akışı ve kullanılabilirlik kararlarına odaklandı.",
+            "Agent-making becerisinin sadece iç araçlarda değil, gerçek kullanıcıya dönük app geliştirmede de kullanılabileceğini gösteren proje olarak konumlandırdı.",
+          ],
+        },
+      ],
+    },
+  },
+  onjump: {
+    ko: {},
+    en: {
+      description:
+        "An interaction-heavy app experiment focused on immediate input response and state transitions, showing that agent-assisted development can support products beyond static CRUD screens.",
+      role: "Interactive Product Builder",
+      achievements: [
+        "Designed an interaction structure around input response, state transition, and feedback loops",
+        "Created development units suitable for rapid experimentation in game-like product flows",
+        "Extended agent-based implementation beyond static operational screens",
+      ],
+      details: [
+        {
+          title: "Interaction-first state design",
+          content: [
+            "Designed around immediate input response, state transitions, and success/failure feedback rather than a conventional CRUD workflow.",
+            "Split state by interaction phase so agent-generated changes could be checked against actual control feel and screen response.",
+            "Kept short feedback loops and prioritized rhythm and responsiveness over feature count.",
+          ],
+        },
+        {
+          title: "Agent-assisted experiment loop",
+          content: [
+            "Used agents to generate small interaction candidates, then accepted or discarded them based on actual play feel and visual response.",
+            "Used the project to show that agents can support sensory product experiments, not only complex operational tools.",
+            "Strengthened the message that DX/AX improvement also increases product experiment speed and learning speed.",
+          ],
+        },
+      ],
+    },
+    tr: {
+      description:
+        "Anlık input tepkisi ve state transition'a odaklanan, agent destekli geliştirmenin statik CRUD ekranları dışında da ürün geliştirmeyi destekleyebileceğini gösteren etkileşimli app deneyi.",
+      role: "Etkileşimli Ürün Geliştirici",
+      achievements: [
+        "Input tepkisi, state transition ve feedback loop odaklı etkileşim yapısı tasarladı",
+        "Oyun benzeri ürün akışlarında hızlı deneye uygun geliştirme birimleri oluşturdu",
+        "Agent tabanlı implementasyonu statik operasyon ekranlarının dışına taşıdı",
+      ],
+      details: [
+        {
+          title: "Etkileşim öncelikli state tasarımı",
+          content: [
+            "Klasik CRUD akışı yerine anlık input tepkisi, state transition ve başarı/başarısızlık feedback'i etrafında tasarladı.",
+            "State'i interaction phase bazında bölerek agent tarafından üretilen değişikliklerin kontrol hissi ve ekran tepkisine etkisini kontrol etmeyi kolaylaştırdı.",
+            "Kısa feedback loop'ları koruyarak özellik sayısından önce ritim ve tepki hızını önceliklendirdi.",
+          ],
+        },
+        {
+          title: "Agent destekli deney döngüsü",
+          content: [
+            "Agent'lara küçük interaction adayları ürettirdi, ardından gerçek oynanış hissi ve görsel tepkiye göre kabul veya iptal etti.",
+            "Proje, agent'ların yalnızca karmaşık operasyon araçlarında değil, duyusal ürün deneylerinde de kullanılabileceğini gösterir.",
+            "DX/AX iyileştirmenin ürün deneme hızı ve öğrenme hızını da artırdığı mesajını güçlendirdi.",
+          ],
+        },
+      ],
+    },
+  },
 };
 
 export default projectsI18n;
