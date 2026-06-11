@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import ProductivityDocument from "@/components/pdf/ProductivityDocument";
+import VerticalResumeDocument from "@/components/pdf/VerticalResumeDocument";
 import { getPdfContent, companyConfigs } from "@/data/pdf-resume";
 import type { PdfVariant } from "@/data/pdf-resume";
 import { getPdfUuid } from "@/data/routes";
@@ -26,6 +27,13 @@ const variants: { value: PdfVariant; label: string; fileLabel: string }[] = [
   { value: "backend", label: "BE", fileLabel: "Backend" },
 ];
 
+type ResumeMode = "horizontal" | "vertical";
+
+const modes: { value: ResumeMode; label: string; fileLabel: string }[] = [
+  { value: "horizontal", label: "일반", fileLabel: "Horizontal" },
+  { value: "vertical", label: "Vertical", fileLabel: "Vertical" },
+];
+
 const nameByLocale: Record<Locale, string> = {
   ko: "김용민",
   en: "YongminKim",
@@ -36,6 +44,7 @@ export default function ResumeViewer() {
   const [showPreview, setShowPreview] = useState(true);
   const [locale, setLocale] = useState<Locale>("ko");
   const [variant, setVariant] = useState<PdfVariant>("frontend");
+  const [mode, setMode] = useState<ResumeMode>("horizontal");
   const router = useRouter();
 
   const data = getPdfContent(variant, locale, "default");
@@ -47,9 +56,21 @@ export default function ResumeViewer() {
   }, []);
 
   const fileVariant = variants.find((v) => v.value === variant)?.fileLabel ?? "Resume";
-  const fileName = `${nameByLocale[locale]}_${fileVariant}_${locale.toUpperCase()}.pdf`;
+  const fileMode = modes.find((m) => m.value === mode)?.fileLabel ?? "Horizontal";
+  const fileName = `${nameByLocale[locale]}_${fileVariant}_${fileMode}_${locale.toUpperCase()}.pdf`;
 
   const docProps = { data, config, locale, showLanguage: false, imageBase };
+  const resumeDocument = mode === "vertical"
+    ? (
+      <VerticalResumeDocument
+        data={data}
+        config={config}
+        locale={locale}
+        variant={variant}
+        imageBase={imageBase}
+      />
+    )
+    : <ProductivityDocument {...docProps} />;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -88,6 +109,23 @@ export default function ResumeViewer() {
             ))}
           </div>
 
+          {/* Resume layout mode switcher */}
+          <div className="flex items-center gap-1 rounded-full border border-emerald-100 bg-emerald-50 px-1 py-0.5">
+            {modes.map((m) => (
+              <button
+                key={m.value}
+                onClick={() => setMode(m.value)}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors ${
+                  mode === m.value
+                    ? "bg-emerald-600 text-white"
+                    : "text-emerald-600 hover:text-emerald-800"
+                }`}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+
           {/* Locale switcher */}
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
             {locales.map((l) => (
@@ -115,7 +153,7 @@ export default function ResumeViewer() {
           </button>
 
           <PDFDownloadLink
-            document={<ProductivityDocument {...docProps} />}
+            document={resumeDocument}
             fileName={fileName}
             className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
@@ -132,12 +170,12 @@ export default function ResumeViewer() {
             style={{ height: "calc(100vh - 80px)" }}
           >
             <PDFViewer
-              key={`${variant}-${locale}`}
+              key={`${variant}-${locale}-${mode}`}
               width="100%"
               height="100%"
               className="rounded-lg shadow-lg"
             >
-              <ProductivityDocument {...docProps} />
+              {resumeDocument}
             </PDFViewer>
           </div>
         </div>
