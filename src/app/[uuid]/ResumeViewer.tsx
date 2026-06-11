@@ -66,7 +66,6 @@ export default function ResumeViewer() {
         data={data}
         config={config}
         locale={locale}
-        variant={variant}
         imageBase={imageBase}
       />
     )
