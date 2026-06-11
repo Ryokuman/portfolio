@@ -264,17 +264,12 @@ const s = StyleSheet.create({
     lineHeight: 1.34,
   },
   projectEntry: {
-    marginBottom: 7,
+    marginBottom: 6,
   },
   projectSummary: {
     fontSize: 7.2,
     color: c.muted,
     marginBottom: 2,
-  },
-  continuationLabel: {
-    fontSize: 8,
-    color: c.muted,
-    marginBottom: 12,
   },
 });
 
@@ -297,14 +292,6 @@ function projectList(config: CompanyConfig): ProjectKey[] {
   return config.projectOrder;
 }
 
-function chunkProjects(projects: ProjectKey[], size: number) {
-  const chunks: ProjectKey[][] = [];
-  for (let index = 0; index < projects.length; index += size) {
-    chunks.push(projects.slice(index, index + size));
-  }
-  return chunks;
-}
-
 export default function VerticalResumeDocument({
   data,
   config,
@@ -321,7 +308,7 @@ export default function VerticalResumeDocument({
   ];
   const projects = projectList(config);
   const firstPageProjects = projects.slice(0, 3);
-  const continuationProjectPages = chunkProjects(projects.slice(3), 2);
+  const continuationProjects = projects.slice(3);
   const renderSidebar = () => (
     <View style={s.sidebar}>
       <Image style={s.photo} src={`${imageBase}${config.profileImage}`} />
@@ -429,19 +416,16 @@ export default function VerticalResumeDocument({
         </View>
       </Page>
 
-      {continuationProjectPages.map((pageProjects) => (
-        <Page key={pageProjects.join("-")} size="A4" style={s.page}>
+      {continuationProjects.length > 0 && (
+        <Page size="A4" style={s.page}>
           {renderEmptySidebar()}
           <View style={s.continuationMain}>
-            <Text style={s.name}>Yongmin Kim</Text>
-            <Text style={s.continuationLabel}>{l.projects}</Text>
             <View style={s.section}>
-              <Text style={s.sectionTitle}>{l.projects}</Text>
-              {pageProjects.map(renderProject)}
+              {continuationProjects.map(renderProject)}
             </View>
           </View>
         </Page>
-      ))}
+      )}
     </Document>
   );
 }
