@@ -263,6 +263,22 @@ const s = StyleSheet.create({
     marginBottom: 1.6,
     lineHeight: 1.34,
   },
+  projectBulletRow: {
+    flexDirection: "row",
+    marginBottom: 1.6,
+  },
+  projectBulletMarker: {
+    width: 6,
+    fontSize: 7.1,
+    color: c.text,
+    lineHeight: 1.34,
+  },
+  projectBulletBody: {
+    flex: 1,
+    fontSize: 7.1,
+    color: c.text,
+    lineHeight: 1.34,
+  },
   projectEntry: {
     marginBottom: 6,
   },
@@ -355,6 +371,13 @@ export default function VerticalResumeDocument({
 
   const renderEmptySidebar = () => <View style={s.sidebar} />;
 
+  const renderProjectBullet = (line: string) => (
+    <View key={line} style={s.projectBulletRow}>
+      <Text style={s.projectBulletMarker}>•</Text>
+      <Text style={s.projectBulletBody}>{line}</Text>
+    </View>
+  );
+
   const renderProject = (id: ProjectKey) => {
     const project = data.projects[id];
     if (!project) return null;
@@ -367,7 +390,7 @@ export default function VerticalResumeDocument({
         </View>
         <Text style={s.projectSummary}>{project.summary}</Text>
         {firstSentences(project.detail, Number.POSITIVE_INFINITY).map((line) => (
-          <Text key={line} style={s.bullet}>• {line}</Text>
+          renderProjectBullet(line)
         ))}
       </View>
     );
