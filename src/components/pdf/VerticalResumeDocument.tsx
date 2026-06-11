@@ -307,8 +307,8 @@ export default function VerticalResumeDocument({
     { label: "Infra", items: data.techStack.infra },
   ];
   const projects = projectList(config);
-  const firstPageProjects = projects.slice(0, 3);
-  const continuationProjects = projects.slice(3);
+  const firstPageProjects = projects.slice(0, 4);
+  const continuationProjects = projects.slice(4);
   const renderSidebar = () => (
     <View style={s.sidebar}>
       <Image style={s.photo} src={`${imageBase}${config.profileImage}`} />
