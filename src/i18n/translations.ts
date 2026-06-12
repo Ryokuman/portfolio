@@ -13,9 +13,9 @@ const translations = {
   // Projects section
   "projects.title": { ko: "Projects", en: "Projects", tr: "Projeler" },
   "projects.subtitle": {
-    ko: "클릭하여 자세한 내용을 확인하세요",
-    en: "Click to see the details",
-    tr: "Detaylar için tıklayın",
+    ko: "Agentic DX/AX 도구와 사용자-facing 제품 실험을 함께 소개합니다",
+    en: "Agentic DX/AX tools and user-facing product experiments",
+    tr: "Agentic DX/AX araçları ve kullanıcıya dönük ürün deneyleri",
   },
   "projects.back": {
     ko: "프로젝트 목록으로",

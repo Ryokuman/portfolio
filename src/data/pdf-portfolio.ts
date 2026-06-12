@@ -166,7 +166,7 @@ const portfolioLocales: Record<Locale, PortfolioData> = {
         period: "2026.02 - 현재",
         org: "오픈소스 · 메인테이너 · github.com/Ryokuman/claude-worktree-system",
         tagline:
-          "멀티 브랜치 병렬 작업 자동화 → DynaMOS QA에 실전 투입, 4일간 62개 PR 처리",
+          "AI agent가 브랜치별 독립 환경에서 동시에 일하게 만드는 Agentic DX runtime",
         highlights: [
           "브랜치별 독립 worktree + 플랜 파일로 병렬 작업 — 전환 오버헤드 제거",
           "웹 터미널에서 Claude Code 직접 실행, 멀티세션 동시 모니터링",
@@ -213,6 +213,101 @@ const portfolioLocales: Record<Locale, PortfolioData> = {
             ],
             result:
               "Jira 등 외부 SSoT와 연결 가능한 확장 구조 확보. 오픈소스 공개 및 메인테이너 운영 중",
+          },
+        ],
+      },
+      {
+        id: "agent-silo-system",
+        category: "side",
+        title: "Agent Silo System",
+        period: "2025.12 - 현재",
+        org: "개인 프로젝트 · Agentic DX/AX 운영 시스템",
+        tagline:
+          "task/page 단위 사일로로 구현·QA·리뷰를 분리해 agent 병렬 개발을 운영 가능한 흐름으로 전환",
+        highlights: [
+          "developer / QA / reviewer agent 역할 분리로 agent 작업 경계 명확화",
+          "PR과 검증 기록으로 결과를 회수하고 SSoT 승격 후보를 분리하는 handoff 설계",
+          "DynaMOS QA에서 4일간 62개 PR 처리, 수동 branch switching 대비 2.5~3배 처리량",
+        ],
+        jdMatch: [
+          "Agentic workflow 설계",
+          "DX/AX 개선",
+          "개발 운영 자동화",
+        ],
+        sections: [
+          {
+            title: "AI 개발 병목을 작업 운영 문제로 재정의",
+            problem:
+              "AI가 코드는 빨리 쓰지만 여러 이슈가 한 workspace에 섞이면 branch 전환, QA 대기, 실패한 실험 rollback이 반복됨.\n결국 병목은 코드 생성이 아니라 agent 작업을 안전하게 운영하는 구조에 있었음.",
+            actions: [
+              "메인 오케스트레이터가 task/issue/page 단위 사일로를 생성.\n필요한 repo만 격리 clone하고 새 작업 브랜치에서 실행.",
+              "각 사일로에 목표, 금지선, 검증 기준, PR 본문 필수 항목을 고정.\nagent가 안전하게 실행할 수 있는 작업 경계 설계.",
+              "developer agent는 구현, QA agent는 Agent Browser 검증, review agent는 scope/branch/secret/SSoT 승격 후보를 점검하도록 역할 분리.",
+            ],
+            result:
+              "DynaMOS QA 운영에서 사일로 기반 병렬 처리로 4일간 62개 PR 처리.\n수동 branch switching 대비 PR 처리량을 약 2.5~3배로 높이고 리뷰 반복과 릴리즈 대기 시간 감소.",
+          },
+        ],
+      },
+      {
+        id: "quiza",
+        category: "side",
+        title: "Quiza",
+        period: "2026",
+        org: "개인 앱 · Product Builder",
+        tagline:
+          "퀴즈 학습 루프를 사용자-facing 앱으로 제품화하며 agent-assisted 개발 흐름을 적용한 실험",
+        highlights: [
+          "문제 풀이 → 피드백 → 재도전으로 이어지는 학습 루프 설계",
+          "화면·상태·피드백 단위로 task를 쪼개 agent 구현 후보를 빠르게 검증",
+          "DX/AX 도구 제작 역량을 실제 앱 제품화 흐름으로 연결",
+        ],
+        jdMatch: [
+          "제품 문제 정의",
+          "Agent-assisted product development",
+        ],
+        sections: [
+          {
+            title: "학습 루프 중심 제품 설계",
+            problem:
+              "단순 문제 목록만으로는 사용자가 학습 상태를 유지하며 반복 풀이하기 어려움.\nagent로 빠르게 만들더라도 제품 흐름 판단 없이 화면만 늘리면 학습 경험이 약해지는 문제.",
+            actions: [
+              "문제 풀이, 선택 상태, 결과 피드백, 재시도 흐름을 분리.\n각 상태를 작은 개발 단위로 나누어 agent가 구현 후보를 만들기 쉽게 구성.",
+              "사람은 학습 흐름과 사용성 판단을 담당하고 agent는 반복 구현과 후보안 생성을 담당하는 개발 루프 적용.",
+            ],
+            result:
+              "Agentic workflow가 내부 DX 도구에만 머물지 않고 실제 사용자-facing 앱 개발에도 적용될 수 있음을 보여주는 프로젝트로 정리.",
+          },
+        ],
+      },
+      {
+        id: "onjump",
+        category: "side",
+        title: "OnJump",
+        period: "2026",
+        org: "개인 앱 · Interactive Product Builder",
+        tagline:
+          "즉각적인 입력 반응과 상태 전환이 중요한 인터랙션 제품에서 agent-assisted 실험 루프를 적용",
+        highlights: [
+          "입력 반응, 상태 전환, 피드백 루프 중심의 인터랙션 구조 설계",
+          "CRUD 밖의 조작감 중심 제품에서도 agent 구현 후보를 빠르게 실험",
+          "DX/AX 개선을 제품 실험 속도와 학습 속도까지 확장",
+        ],
+        jdMatch: [
+          "인터랙션 제품 구현",
+          "Agent-assisted experiment loop",
+        ],
+        sections: [
+          {
+            title: "조작감 중심 상태 설계",
+            problem:
+              "즉각적인 입력 반응과 성공/실패 피드백이 중요한 제품은 일반 CRUD와 다른 개발 기준이 필요함.\n기능 수보다 반응 속도, 리듬, 상태 전환이 제품 경험을 좌우.",
+            actions: [
+              "상태를 화면 단위가 아니라 interaction phase 단위로 분리.\nagent가 만든 변화가 실제 조작감에 어떤 영향을 주는지 검증하기 쉽게 구성.",
+              "agent에게 작은 interaction 후보를 생성하게 하고, 사람은 플레이 감각과 화면 반응을 기준으로 채택/폐기하는 실험 루프를 운영.",
+            ],
+            result:
+              "에이전트가 복잡한 운영도구뿐 아니라 감각적인 제품 실험에서도 개발 파트너가 될 수 있음을 보여주는 사례로 정리.",
           },
         ],
       },

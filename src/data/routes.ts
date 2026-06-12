@@ -34,6 +34,9 @@ const routeMap: Record<string, RouteEntry> = {
   "b9d08e90-d6f3-4499-88fe-e3331867e60d": { type: "project", projectId: "cgv-assistant" },
   "dc215fcc-d29e-4c8d-830c-e08d5f9cbccc": { type: "project", projectId: "dynamos-v2" },
   "50f1bfce-7c0c-4842-a854-997fe56b0b99": { type: "project", projectId: "worktree-system" },
+  "dc1511f0-c537-459b-a548-a2a3599928a0": { type: "project", projectId: "agent-silo-system" },
+  "8a91f805-4efe-4c62-bcca-24e805cd248a": { type: "project", projectId: "quiza" },
+  "11a676ab-5354-4b11-b455-52cafd9807d1": { type: "project", projectId: "onjump" },
 
   // LLAMI details
   "29992f4c-bf83-4fca-9959-b67192917a74": { type: "detail", projectId: "llami", detailIndex: 0 },
@@ -56,6 +59,18 @@ const routeMap: Record<string, RouteEntry> = {
   "27cc90b6-bade-427c-83ed-7b23189e4c7f": { type: "detail", projectId: "worktree-system", detailIndex: 1 },
   "2b2798d3-332f-46df-b906-ee74c0fad38e": { type: "detail", projectId: "worktree-system", detailIndex: 2 },
   "fda42d88-36c5-4936-bf2c-06f80b181157": { type: "detail", projectId: "worktree-system", detailIndex: 3 },
+
+  // Agent Silo System details
+  "5025433a-210b-40bf-9f14-2e676916886e": { type: "detail", projectId: "agent-silo-system", detailIndex: 0 },
+  "2e0d9cc7-b74b-4448-ad95-058ac58bacc1": { type: "detail", projectId: "agent-silo-system", detailIndex: 1 },
+
+  // Quiza details
+  "f32ecb74-8a8f-4dc2-aba2-08da6a827871": { type: "detail", projectId: "quiza", detailIndex: 0 },
+  "039b5b3e-4c0d-42b1-9547-8ba2c8ddc646": { type: "detail", projectId: "quiza", detailIndex: 1 },
+
+  // OnJump details
+  "4db83359-e7e1-4df3-908b-a2a1fc940c13": { type: "detail", projectId: "onjump", detailIndex: 0 },
+  "394a2325-aba4-442f-9a9c-f7f3b479e011": { type: "detail", projectId: "onjump", detailIndex: 1 },
 
   // PDF pages
   "d4ef43df-8a69-4600-8009-915049263059": { type: "pdf-portfolio" },
