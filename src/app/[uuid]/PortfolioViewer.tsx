@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import PortfolioDocument from "@/components/pdf/PortfolioDocument";
 import { getPortfolioData } from "@/data/pdf-portfolio";
+import type { PortfolioVariant } from "@/data/pdf-portfolio";
 import { getPdfUuid } from "@/data/routes";
 import type { Locale } from "@/i18n/context";
 import { t } from "@/i18n/translations";
@@ -13,6 +14,11 @@ const locales: { value: Locale; label: string }[] = [
   { value: "ko", label: "한국어" },
   { value: "en", label: "EN" },
   { value: "tr", label: "TR" },
+];
+
+const variants: { value: PortfolioVariant; label: string; fileLabel: string }[] = [
+  { value: "frontend", label: "FE", fileLabel: "Frontend" },
+  { value: "fullstack", label: "FULL", fileLabel: "Fullstack" },
 ];
 
 const nameByLocale: Record<Locale, string> = {
@@ -24,16 +30,18 @@ const nameByLocale: Record<Locale, string> = {
 export default function PortfolioViewer() {
   const [showPreview, setShowPreview] = useState(true);
   const [locale, setLocale] = useState<Locale>("ko");
+  const [variant, setVariant] = useState<PortfolioVariant>("frontend");
   const router = useRouter();
 
-  const data = getPortfolioData(locale);
-  const fileName = `${nameByLocale[locale]}_포트폴리오_Frontend_${locale.toUpperCase()}.pdf`;
+  const data = getPortfolioData(locale, variant);
+  const fileVariant = variants.find((v) => v.value === variant)?.fileLabel ?? "Portfolio";
+  const fileName = `${nameByLocale[locale]}_포트폴리오_${fileVariant}_${locale.toUpperCase()}.pdf`;
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Toolbar */}
-      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3 shadow-sm">
-        <div className="flex items-center gap-4">
+      <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 bg-white px-6 py-3 shadow-sm">
+        <div className="flex flex-wrap items-center gap-3">
           {/* Tab Navigation */}
           <div className="flex items-center gap-1 rounded-full border border-gray-200 px-1 py-0.5">
             <button
@@ -48,8 +56,26 @@ export default function PortfolioViewer() {
               {t("pdf.resume", locale)}
             </button>
           </div>
+
+          {/* Portfolio variant switcher */}
+          <div className="flex items-center gap-1 rounded-full border border-blue-100 bg-blue-50 px-1 py-0.5">
+            {variants.map((v) => (
+              <button
+                key={v.value}
+                onClick={() => setVariant(v.value)}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors ${
+                  variant === v.value
+                    ? "bg-blue-600 text-white"
+                    : "text-blue-500 hover:text-blue-700"
+                }`}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
+
           <span className="rounded-full bg-blue-100 px-3 py-0.5 text-xs font-medium text-blue-700">
-            {t("pdf.role", locale)}
+            {data.cover.position}
           </span>
 
           {/* Locale switcher */}
@@ -96,7 +122,7 @@ export default function PortfolioViewer() {
             style={{ height: "calc(100vh - 80px)" }}
           >
             <PDFViewer
-              key={locale}
+              key={`${variant}-${locale}`}
               width="100%"
               height="100%"
               className="rounded-lg shadow-lg"

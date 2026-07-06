@@ -5,6 +5,7 @@
 import type { Locale } from "@/i18n/context";
 
 export type ProjectCategory = "work" | "side";
+export type PortfolioVariant = "frontend" | "fullstack";
 
 export interface ProjectSection {
   title: string;
@@ -37,7 +38,7 @@ export interface PortfolioData {
   projects: PortfolioProject[];
 }
 
-const portfolioLocales: Record<Locale, PortfolioData> = {
+const frontendPortfolioLocales: Record<Locale, PortfolioData> = {
   // ════════════════════════════════════════
   // 한국어
   // ════════════════════════════════════════
@@ -773,8 +774,225 @@ const portfolioLocales: Record<Locale, PortfolioData> = {
   },
 };
 
-export function getPortfolioData(locale: Locale): PortfolioData {
-  return portfolioLocales[locale] ?? portfolioLocales.ko;
+const fullstackCoverByLocale: Record<Locale, PortfolioData["cover"]> = {
+  ko: {
+    name: "김용민",
+    position: "Full Stack Developer 지원",
+    tagline: "화면, API, 데이터, 검증 흐름을 연결해\n제품 개발 병목을 시스템으로 바꾸는 개발자",
+    contact: {
+      email: "ryokuman21@gmail.com",
+      github: "github.com/Ryokuman",
+    },
+    intro:
+      "DynaMOS Platform, CGV-ASSISTANT, LLAMI, Worktree System을 중심으로 화면 구현에 머무르지 않고 API 안정화, LLM 통합, QA 병렬 처리, 개발 프로세스 개선까지 연결해 제품 개발 속도를 높인 경험을 정리했습니다.\n\nReact · Next.js · TypeScript · Node.js · NestJS · Docker · Storybook",
+  },
+  en: {
+    name: "Yongmin Kim",
+    position: "Full Stack Developer Application",
+    tagline: "Developer who connects UI, APIs, data, and verification\ninto repeatable product delivery systems",
+    contact: {
+      email: "ryokuman21@gmail.com",
+      github: "github.com/Ryokuman",
+    },
+    intro:
+      "This full-stack portfolio focuses on DynaMOS Platform, CGV-ASSISTANT, LLAMI, and Worktree System, connecting product surfaces with API stabilization, LLM integration, parallel QA, and development process improvements.\n\nReact · Next.js · TypeScript · Node.js · NestJS · Docker · Storybook",
+  },
+  tr: {
+    name: "Yongmin Kim",
+    position: "Full Stack Geliştirici Başvurusu",
+    tagline: "UI, API, veri ve doğrulama akışlarını\ntekrarlanabilir ürün geliştirme sistemlerine bağlayan geliştirici",
+    contact: {
+      email: "ryokuman21@gmail.com",
+      github: "github.com/Ryokuman",
+    },
+    intro:
+      "Bu full-stack portföy DynaMOS Platform, CGV-ASSISTANT, LLAMI ve Worktree System'e odaklanır; ürün yüzeylerini API stabilizasyonu, LLM entegrasyonu, paralel QA ve geliştirme süreci iyileştirmeleriyle birlikte gösterir.\n\nReact · Next.js · TypeScript · Node.js · NestJS · Docker · Storybook",
+  },
+};
+
+const llamiProjectByLocale: Record<Locale, PortfolioProject> = {
+  ko: {
+    id: "llami",
+    category: "work",
+    title: "LLAMI",
+    period: "2023.11 - 2024.06",
+    org: "POUL · LLM Product Platform · Full Stack Developer",
+    tagline:
+      "17개 LLM API 통합 구조와 모델스토어·봇스토어·라미챗·Expo 앱을 하나의 제품 흐름으로 구현",
+    highlights: [
+      "모델별 인증, 요청 포맷, 스트리밍 이벤트 차이를 pipe 단계로 분리",
+      "모델스토어, 봇스토어, 라미챗, Expo 앱까지 여러 product surface 구현",
+      "WebView Bridge/ReverseBridge로 웹과 네이티브 상태 연동 구조 설계",
+    ],
+    jdMatch: [
+      "LLM API 통합",
+      "제품 화면 구현",
+      "결제/조직 흐름",
+      "웹-앱 브리지",
+    ],
+    sections: [
+      {
+        title: "17개 LLM API를 하나의 제품 인터페이스로 정리",
+        problem:
+          "모델마다 인증, 요청 포맷, streaming event, function-call 응답이 달라 신규 모델을 붙일 때마다 handler가 늘어나는 문제가 있었습니다.",
+        actions: [
+          "요청 생성, stream parsing, token/credit 계산, function-call 정규화를 pipe 단계로 분리했습니다.",
+          "모델 응답을 단일 인터페이스로 정규화해 프론트가 모델 차이를 몰라도 같은 컴포넌트로 렌더링하도록 구성했습니다.",
+        ],
+        result:
+          "이 구조 위에서 모델스토어, 봇스토어, 라미챗, Expo 앱까지 여러 product surface를 구현했습니다.",
+      },
+      {
+        title: "챗봇 마켓플레이스와 앱 surface 구현",
+        problem:
+          "봇스토어, 라미챗, Expo 앱이 각각 다른 화면처럼 흩어지면 사용자가 탐색, 체험, 대화, 로그인 전환을 하나의 흐름으로 이해하기 어려웠습니다.",
+        actions: [
+          "카테고리/태그 탐색, 텍스트 채팅, 캐릭터 비주얼 채팅, 게스트 체험, 로그인 전환을 같은 대화 상태 위에 얹었습니다.",
+          "Expo 앱에서는 WebView postMessage 기반 Bridge/ReverseBridge를 설계했습니다.",
+        ],
+        result:
+          "웹 개발자가 네이티브 기능을 호출하고 상태를 구독할 수 있는 제품 흐름을 만들었습니다.",
+      },
+    ],
+  },
+  en: {
+    id: "llami",
+    category: "work",
+    title: "LLAMI",
+    period: "2023.11 - 2024.06",
+    org: "POUL · LLM Product Platform · Full Stack Developer",
+    tagline:
+      "Unified 17 LLM APIs and shipped Model Store, Bot Store, LLAMI Chat, and Expo app surfaces",
+    highlights: [
+      "Separated model auth, request formats, streaming events, and function-call responses into pipe stages",
+      "Built multiple product surfaces across Model Store, Bot Store, LLAMI Chat, and Expo app",
+      "Designed a WebView Bridge/ReverseBridge for web-to-native state integration",
+    ],
+    jdMatch: [
+      "LLM API integration",
+      "Product surfaces",
+      "Payment/org flows",
+      "Web-app bridge",
+    ],
+    sections: [
+      {
+        title: "Unified 17 LLM APIs into one product interface",
+        problem:
+          "Each model had different auth, request formats, streaming events, and function-call responses, so every new model kept increasing handler code.",
+        actions: [
+          "Separated request creation, stream parsing, token/credit calculation, and function-call normalization into pipe stages.",
+          "Normalized model responses into a single interface so the frontend could render them with shared components.",
+        ],
+        result:
+          "Built Model Store, Bot Store, LLAMI Chat, and Expo app surfaces on top of the unified interface.",
+      },
+      {
+        title: "Built chatbot marketplace and app surfaces",
+        problem:
+          "If Bot Store, LLAMI Chat, and the Expo app remained separate surfaces, users could not follow discovery, trial, chat, and login transition as one flow.",
+        actions: [
+          "Designed category/tag exploration, text chat, character visual chat, guest trial, and login transition on shared conversation state.",
+          "Designed a WebView postMessage Bridge/ReverseBridge for the Expo app.",
+        ],
+        result:
+          "Enabled web developers to call native features and subscribe to native state from the product surface.",
+      },
+    ],
+  },
+  tr: {
+    id: "llami",
+    category: "work",
+    title: "LLAMI",
+    period: "2023.11 - 2024.06",
+    org: "POUL · LLM Ürün Platformu · Full Stack Geliştirici",
+    tagline:
+      "17 LLM API'yi birleştirip Model Store, Bot Store, LLAMI Chat ve Expo app yüzeylerini geliştirdi",
+    highlights: [
+      "Model auth, request formatı, streaming event ve function-call yanıtlarını pipe aşamalarına ayırdı",
+      "Model Store, Bot Store, LLAMI Chat ve Expo app dahil birden fazla ürün yüzeyi geliştirdi",
+      "Web-native durum entegrasyonu için WebView Bridge/ReverseBridge tasarladı",
+    ],
+    jdMatch: [
+      "LLM API entegrasyonu",
+      "Ürün yüzeyleri",
+      "Ödeme/organizasyon akışları",
+      "Web-app bridge",
+    ],
+    sections: [
+      {
+        title: "17 LLM API'yi tek ürün arayüzünde birleştirme",
+        problem:
+          "Her modelin auth, request formatı, streaming event ve function-call response yapısı farklıydı; yeni model ekledikçe handler kodu büyüyordu.",
+        actions: [
+          "Request creation, stream parsing, token/credit calculation ve function-call normalization adımlarını pipe aşamalarına böldü.",
+          "Model yanıtlarını tek arayüze normalize ederek frontend'in ortak component'lerle render etmesini sağladı.",
+        ],
+        result:
+          "Bu yapı üzerinde Model Store, Bot Store, LLAMI Chat ve Expo app yüzeylerini geliştirdi.",
+      },
+      {
+        title: "Chatbot marketplace ve app yüzeyleri",
+        problem:
+          "Bot Store, LLAMI Chat ve Expo app ayrı kalırsa kullanıcı discovery, trial, chat ve login transition akışını tek deneyim olarak anlayamazdı.",
+        actions: [
+          "Category/tag exploration, text chat, character visual chat, guest trial ve login transition'ı ortak conversation state üzerine tasarladı.",
+          "Expo app için WebView postMessage Bridge/ReverseBridge tasarladı.",
+        ],
+        result:
+          "Web geliştiricilerin native feature çağırıp native state'e subscribe olabildiği ürün akışı oluşturdu.",
+      },
+    ],
+  },
+};
+
+function createFullstackProjects(locale: Locale): PortfolioProject[] {
+  const sourceProjects = frontendPortfolioLocales[locale]?.projects ?? frontendPortfolioLocales.ko.projects;
+  const dynamos = sourceProjects.find((project) => project.id === "dynamos");
+  const cgv = sourceProjects.find((project) => project.id === "cgv");
+  const worktree = sourceProjects.find((project) => project.id === "worktree");
+
+  return [
+    dynamos && {
+      ...dynamos,
+      title: "DynaMOS Platform",
+      org: dynamos.org.replace("Frontend Lead", "Full Stack / AX Platform Builder"),
+      tagline:
+        locale === "ko"
+          ? "100페이지+ ERP 화면, 생성기, QA runtime, backend contract를 연결한 업무 화면 플랫폼"
+          : dynamos.tagline,
+    },
+    cgv,
+    llamiProjectByLocale[locale],
+    worktree,
+  ].filter((project): project is PortfolioProject => Boolean(project));
 }
 
-export const portfolioData = portfolioLocales.ko;
+const fullstackPortfolioLocales: Record<Locale, PortfolioData> = {
+  ko: {
+    cover: fullstackCoverByLocale.ko,
+    projects: createFullstackProjects("ko"),
+  },
+  en: {
+    cover: fullstackCoverByLocale.en,
+    projects: createFullstackProjects("en"),
+  },
+  tr: {
+    cover: fullstackCoverByLocale.tr,
+    projects: createFullstackProjects("tr"),
+  },
+};
+
+const portfolioByVariant: Record<PortfolioVariant, Record<Locale, PortfolioData>> = {
+  frontend: frontendPortfolioLocales,
+  fullstack: fullstackPortfolioLocales,
+};
+
+export function getPortfolioData(
+  locale: Locale,
+  variant: PortfolioVariant = "frontend",
+): PortfolioData {
+  const portfolios = portfolioByVariant[variant] ?? frontendPortfolioLocales;
+  return portfolios[locale] ?? portfolios.ko;
+}
+
+export const portfolioData = frontendPortfolioLocales.ko;
